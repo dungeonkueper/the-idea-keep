@@ -9,6 +9,13 @@ summary: The platform does not exist yet, so its own creation becomes the first 
 date: 2026-09-20
 ---
 
+<aside class="tales-from-below" aria-labelledby="tales-from-below-heading">
+  <h2 id="tales-from-below-heading">Tales from Below</h2>
+  <p>Before the first chamber is carved, the keeper faces an awkward question: where should the plans be kept? It is easy to spend so long drawing maps of a future dungeon that no one ever breaks ground. Yet the first stones need not wait for a finished fortress. A rough shelter can hold a sketch, a question, or the memory of a failed tunnel—and become more useful as the work continues. Sometimes the surest way to build a place for ideas is to let the act of building become its first idea.</p>
+</aside>
+
+## Behind the Stonework
+
 The Idea Keep begins with a small paradox: it is a platform for sharing ideas, experiments, and learnings, but the platform itself does not exist yet. Building it could become an excuse to delay publishing; publishing the process can instead give the project its first useful content.
 
 This entry captures the starting point rather than pretending the platform is already built. The first experiment is to create a lightweight home for unfinished work and let the platform grow alongside the things it documents.
