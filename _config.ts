@@ -1,6 +1,10 @@
 import lume from "lume/mod.ts";
 import basePath from "lume/plugins/base_path.ts";
-import { contentUrl, validateContentMetadata } from "./content_model.ts";
+import {
+  assertUniqueContentUrls,
+  contentUrl,
+  validateContentMetadata,
+} from "./content_model.ts";
 
 const site = lume({
   location: new URL("https://dungeonkueper.github.io/the-idea-keep/"),
@@ -16,17 +20,20 @@ site.data(
 );
 
 site.preprocess([".md"], (pages, allPages) => {
-  for (let index = pages.length - 1; index >= 0; index--) {
-    const page = pages[index];
-    if (!page.src.path.startsWith("/content/")) {
-      continue;
-    }
+  const contentPages = pages
+    .filter((page) => page.src.path.startsWith("/content/"))
+    .map((page) => ({
+      page,
+      source: `${page.src.path}${page.src.ext}`,
+      metadata: validateContentMetadata(
+        page.data as Record<string, unknown>,
+        `${page.src.path}${page.src.ext}`,
+      ),
+    }));
 
-    const metadata = validateContentMetadata(
-      page.data as Record<string, unknown>,
-      `${page.src.path}${page.src.ext}`,
-    );
+  assertUniqueContentUrls(contentPages);
 
+  for (const { page, metadata } of contentPages) {
     if (metadata.publicationStatus !== "published") {
       const pageIndex = allPages.indexOf(page);
 

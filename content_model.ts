@@ -37,6 +37,7 @@ export interface ContentMetadata {
 }
 
 const slugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const isoDatePattern = /^(\d{4})-(\d{2})-(\d{2})$/;
 
 function requiredString(
   data: Record<string, unknown>,
@@ -83,12 +84,7 @@ export function validateContentMetadata(
     );
   }
 
-  const rawDate = data.date;
-  const date = rawDate instanceof Date ? rawDate : new Date(String(rawDate));
-
-  if (Number.isNaN(date.getTime())) {
-    throw new Error(`${source}: 'date' must be a valid ISO date.`);
-  }
+  const date = parseIsoDate(data.date, source);
 
   const themedMaturity = data.themedMaturity === undefined
     ? undefined
@@ -111,6 +107,42 @@ export function validateContentMetadata(
   };
 }
 
+function parseIsoDate(value: unknown, source: string): Date {
+  if (value instanceof Date) {
+    if (
+      Number.isNaN(value.getTime()) ||
+      value.getUTCHours() !== 0 ||
+      value.getUTCMinutes() !== 0 ||
+      value.getUTCSeconds() !== 0 ||
+      value.getUTCMilliseconds() !== 0
+    ) {
+      throw new Error(
+        `${source}: 'date' must be a valid ISO date (YYYY-MM-DD).`,
+      );
+    }
+
+    return new Date(value.getTime());
+  }
+
+  if (typeof value !== "string") {
+    throw new Error(`${source}: 'date' must be a valid ISO date (YYYY-MM-DD).`);
+  }
+
+  const match = isoDatePattern.exec(value);
+
+  if (!match) {
+    throw new Error(`${source}: 'date' must be a valid ISO date (YYYY-MM-DD).`);
+  }
+
+  const date = new Date(`${value}T00:00:00.000Z`);
+
+  if (date.toISOString().slice(0, 10) !== value) {
+    throw new Error(`${source}: 'date' must be a valid ISO date (YYYY-MM-DD).`);
+  }
+
+  return date;
+}
+
 export function contentUrl(kind: ContentKind, slug: string): string {
   const sections: Record<ContentKind, string> = {
     idea: "ideas",
@@ -121,4 +153,23 @@ export function contentUrl(kind: ContentKind, slug: string): string {
   };
 
   return `/${sections[kind]}/${slug}/`;
+}
+
+export function assertUniqueContentUrls(
+  entries: Iterable<{ metadata: ContentMetadata; source: string }>,
+): void {
+  const sourcesByUrl = new Map<string, string>();
+
+  for (const { metadata, source } of entries) {
+    const url = contentUrl(metadata.kind, metadata.slug);
+    const existingSource = sourcesByUrl.get(url);
+
+    if (existingSource) {
+      throw new Error(
+        `${source}: public URL '${url}' duplicates ${existingSource}.`,
+      );
+    }
+
+    sourcesByUrl.set(url, source);
+  }
 }
