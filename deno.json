@@ -2,11 +2,15 @@
   "imports": {
     "lume/": "https://cdn.jsdelivr.net/gh/lumeland/lume@3.3.1/"
   },
+  "lock": {
+    "frozen": true
+  },
+  "minimumDependencyAge": "P3D",
   "tasks": {
-    "lume": "deno run -P=lume lume/cli.ts",
-    "build": "deno task lume",
-    "serve": "deno task lume -s",
-    "check": "deno fmt --check _config.ts content_model.ts deno.json && deno lint _config.ts content_model.ts && deno check _config.ts content_model.ts && deno task build"
+    "build": "deno run --cached-only --frozen-lockfile --no-prompt -P=build lume/cli.ts",
+    "serve": "deno run --cached-only --frozen-lockfile --no-prompt -P=serve lume/cli.ts -s",
+    "audit": "deno audit --level=high --frozen-lockfile",
+    "check": "deno fmt --check _config.ts content_model.ts deno.json SECURITY.md .github && deno lint _config.ts content_model.ts && deno check --cached-only --frozen-lockfile _config.ts content_model.ts && deno task build"
   },
   "compilerOptions": {
     "types": [
@@ -14,16 +18,66 @@
     ]
   },
   "permissions": {
-    "lume": {
-      "env": true,
-      "ffi": true,
-      "import": true,
-      "net": true,
-      "read": true,
-      "run": true,
-      "sys": true,
-      "write": [
+    "build": {
+      "env": {
+        "allow": [
+          "CLOUDFLARE_WEB_ANALYTICS_TOKEN"
+        ],
+        "ignore": [
+          "DENO_AUTH_TOKENS",
+          "DENO_DEPLOYMENT_ID",
+          "LUME_CONCURRENCY",
+          "LUME_DRAFTS",
+          "LUME_LIVE_RELOAD",
+          "LUME_LOGS",
+          "LUME_NOCACHE"
+        ]
+      },
+      "ffi": false,
+      "import": false,
+      "net": false,
+      "read": [
         "."
+      ],
+      "run": false,
+      "sys": false,
+      "write": [
+        "./_site"
+      ]
+    },
+    "serve": {
+      "env": {
+        "allow": [
+          "CLOUDFLARE_WEB_ANALYTICS_TOKEN",
+          "DENO_DIR"
+        ],
+        "ignore": [
+          "DENO_AUTH_TOKENS",
+          "DENO_DEPLOYMENT_ID",
+          "LUME_CONCURRENCY",
+          "LUME_DRAFTS",
+          "LUME_LIVE_RELOAD",
+          "LUME_LOGS",
+          "LUME_NOCACHE"
+        ]
+      },
+      "ffi": false,
+      "import": [
+        "cdn.jsdelivr.net:443",
+        "jsr.io:443"
+      ],
+      "net": [
+        "0.0.0.0",
+        "127.0.0.1",
+        "localhost"
+      ],
+      "read": [
+        "."
+      ],
+      "run": false,
+      "sys": false,
+      "write": [
+        "./_site"
       ]
     }
   }

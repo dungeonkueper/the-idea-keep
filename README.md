@@ -8,9 +8,11 @@ The first version is built with [Deno](https://deno.com/) and [Lume](https://lum
 
 ## Run locally
 
-Install Deno 2, then start the development server:
+Install Deno 2.9.7, populate the dependency cache strictly from the committed
+lockfile, then start the development server:
 
 ```sh
+deno ci
 deno task serve
 ```
 
@@ -22,6 +24,10 @@ To check and create the production build in `_site/`:
 deno task check
 deno task build
 ```
+
+Both commands use the frozen lockfile and cached dependencies. The production
+build has no network, subprocess, FFI, or broad environment-variable access.
+See [SECURITY.md](SECURITY.md) before changing dependencies or GitHub Actions.
 
 ## Add content
 
