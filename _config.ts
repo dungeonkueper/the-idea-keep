@@ -8,17 +8,16 @@ const site = lume({
 
 site.use(basePath());
 site.add("/styles.css");
-site.ignore("README.md", "VISION.md", "ARCHITECTURE.md");
+site.ignore("README.md", "VISION.md", "ARCHITECTURE.md", "SECURITY.md");
 
 site.data(
   "cloudflareAnalyticsToken",
   Deno.env.get("CLOUDFLARE_WEB_ANALYTICS_TOKEN")?.trim() || undefined,
 );
 
-site.preprocess([".md"], (pages) => {
+site.preprocess([".md"], (pages, allPages) => {
   for (let index = pages.length - 1; index >= 0; index--) {
     const page = pages[index];
-
     if (!page.src.path.startsWith("/content/")) {
       continue;
     }
@@ -29,7 +28,12 @@ site.preprocess([".md"], (pages) => {
     );
 
     if (metadata.publicationStatus !== "published") {
-      pages.splice(index, 1);
+      const pageIndex = allPages.indexOf(page);
+
+      if (pageIndex !== -1) {
+        allPages.splice(pageIndex, 1);
+      }
+
       continue;
     }
 
