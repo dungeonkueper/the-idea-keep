@@ -1,11 +1,11 @@
 ---
 slug: the-chicken-egg-problem
 kind: idea
-maturity: seed
+maturity: testing
 themedMaturity: egg
 publicationStatus: published
 title: The Chicken-Egg Problem
-summary: The platform does not exist yet, so its own creation becomes the first documented experiment.
+summary: The platform's own creation became its first documented experiment and a working home for unfinished ideas.
 date: 2026-09-20
 ---
 
@@ -19,6 +19,10 @@ date: 2026-09-20
 The Idea Keep begins with a small paradox: it is a platform for sharing ideas, experiments, and learnings, but the platform itself does not exist yet. Building it could become an excuse to delay publishing; publishing the process can instead give the project its first useful content.
 
 This entry captures the starting point rather than pretending the platform is already built. The first experiment is to create a lightweight home for unfinished work and let the platform grow alongside the things it documents.
+
+## First observation
+
+The first browseable Keep now exists: it publishes ideas from version-controlled Markdown, makes their maturity visible, and records the decisions that shaped it. The paradox remains useful as a reminder that the next worthwhile entry should not wait for a more complete platform.
 
 ## Current hypothesis
 

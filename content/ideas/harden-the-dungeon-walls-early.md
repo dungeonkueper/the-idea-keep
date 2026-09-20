@@ -1,11 +1,11 @@
 ---
 slug: harden-the-dungeon-walls-early
 kind: idea
-maturity: seed
+maturity: testing
 themedMaturity: egg
 publicationStatus: published
 title: Harden the Dungeon Walls Early
-summary: Establish small, load-bearing security boundaries before the project grows around unsafe foundations.
+summary: Initial supply-chain and build-permission boundaries are now in place and ready to be tested as the project grows.
 date: 2026-09-20
 ---
 
@@ -21,6 +21,10 @@ For The Idea Keep, security belongs in the foundation rather than at a gate adde
 ## Current hypothesis
 
 A lightweight security concept introduced at the beginning can reduce future supply-chain risk without making early development heavy. A few explicit boundaries—what may enter, how its integrity is checked, what it may do during a build, and who may publish the result—can remain useful as the project grows.
+
+## First observation
+
+The first boundaries are implemented: dependencies are locked and audited, GitHub Actions are pinned, and the production build receives only the permissions it needs. The [security notes](https://github.com/dungeonkueper/the-idea-keep/blob/main/SECURITY.md) record the operating rules; the remaining test is whether the routine stays understandable enough to follow.
 
 ## Initial direction
 

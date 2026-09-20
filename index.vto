@@ -24,7 +24,7 @@ url: /
   </div>
 
   <div class="content-list">
-    {{ for item of search.pages("publicationStatus=published", "date=desc") }}
+    {{ for item of search.pages("publicationStatus=published kind=idea", "date=desc title=asc-locale") }}
     <article class="content-card">
       <div class="metadata" aria-label="Content metadata">
         <span class="badge badge-kind">{{ item.kindLabel }}</span>
@@ -38,4 +38,3 @@ url: /
     {{ /for }}
   </div>
 </section>
-
