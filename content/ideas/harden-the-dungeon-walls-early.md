@@ -3,15 +3,20 @@ slug: harden-the-dungeon-walls-early
 kind: idea
 maturity: seed
 themedMaturity: egg
-publicationStatus: draft
+publicationStatus: published
 title: Harden the Dungeon Walls Early
-summary: The imps should establish small, load-bearing security boundaries before the dungeon grows around unsafe foundations.
+summary: Establish small, load-bearing security boundaries before the project grows around unsafe foundations.
 date: 2026-09-20
 ---
 
-Every young dungeon begins with exposed earth, a handful of rooms, and more ambition than defenses. It is tempting to postpone security until there is something valuable to protect. By then, however, the tunnels are busy, the walls carry weight, and every weak foundation is harder to replace without disturbing the creatures living beside it.
+<aside class="tales-from-below" aria-labelledby="tales-from-below-heading">
+  <h2 id="tales-from-below-heading">Tales from Below</h2>
+  <p>Every young dungeon begins with exposed earth, a handful of rooms, and more ambition than defenses. It is tempting to postpone security until there is something valuable to protect. But tunnels fill quickly: stores arrive, creatures settle in, and the walls begin carrying weight. A weakness that was easy to shore up in an empty chamber can become a dangerous repair once the dungeon is busy. The first walls need not make an elaborate fortress. They only need to give the growing keep a sound shape—clear boundaries, sturdy gates, and a habit of checking what comes through them.</p>
+</aside>
 
-The imps have to harden the dungeon walls early on. For The Idea Keep, that means treating security as part of the foundation rather than as a gate added after the project becomes important. The first walls do not need to form an elaborate fortress. They need to make trust boundaries visible while the system is still small enough to change them cheaply.
+## Behind the Stonework
+
+For The Idea Keep, security belongs in the foundation rather than at a gate added after the project becomes important. The first boundaries do not need to form an elaborate fortress. They need to make trust boundaries visible while the system is still small enough to change them cheaply.
 
 ## Current hypothesis
 
