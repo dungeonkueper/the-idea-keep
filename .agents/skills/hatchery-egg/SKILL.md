@@ -26,6 +26,9 @@ Turn one coherent idea from the current context into one reviewable Hatchery ent
 - Create exactly one Markdown file in the repository's established ideas directory and make no unrelated changes.
 - Follow the repository's current frontmatter order and content conventions.
 - Give the entry enough context to stand alone, state a meaningful hypothesis or direction, and retain useful uncertainty or open questions. Treat the existing egg structure as a flexible guide, not a mandatory template.
+- An egg may open with a short lore passage when its metaphor makes the idea easier to understand or remember. Aim for roughly 80–180 words, and omit it when it adds no value.
+- Clearly separate the lore from the technical body. The lore should establish a useful mental model rather than metaphorically repeat the technical content, and the technical body must remain precise and understandable on its own.
+- Write lore in The Idea Keep's own dungeon voice. Do not copy wording, characters, or assets from Dungeon Keeper.
 - Do not claim facts that the inspected context does not support.
 - Do not commit, publish, or deploy the entry. Set `publicationStatus: published` only when the user explicitly asks for publication.
 
