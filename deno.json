@@ -7,10 +7,11 @@
   },
   "minimumDependencyAge": "P3D",
   "tasks": {
-    "build": "deno run --cached-only --frozen-lockfile --no-prompt -P=build lume/cli.ts",
-    "serve": "deno run --cached-only --frozen-lockfile --no-prompt -P=serve lume/cli.ts -s",
+    "bootstrap": "deno ci && deno check --frozen-lockfile lume.ts _config.ts content_model.ts",
+    "build": "deno run --cached-only --frozen-lockfile --no-prompt -P=build lume.ts",
+    "serve": "deno run --cached-only --frozen-lockfile --no-prompt -P=serve lume.ts -s",
     "audit": "deno audit --level=high --frozen-lockfile",
-    "check": "deno fmt --check _config.ts content_model.ts deno.json SECURITY.md .github && deno lint _config.ts content_model.ts && deno check --cached-only --frozen-lockfile _config.ts content_model.ts && deno task build"
+    "check": "deno fmt --check _config.ts content_model.ts lume.ts deno.json SECURITY.md .github && deno lint _config.ts content_model.ts lume.ts && deno check --cached-only --frozen-lockfile lume.ts _config.ts content_model.ts && deno task build"
   },
   "compilerOptions": {
     "types": [

@@ -12,7 +12,7 @@ Install Deno 2.9.7, populate the dependency cache strictly from the committed
 lockfile, then start the development server:
 
 ```sh
-deno ci
+deno task bootstrap
 deno task serve
 ```
 

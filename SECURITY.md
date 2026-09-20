@@ -37,7 +37,7 @@ Populate Deno's dependency cache strictly from the committed lockfile, then run
 the checks and build without further dependency downloads:
 
 ```sh
-deno ci
+deno task bootstrap
 deno task check
 deno task audit
 ```
