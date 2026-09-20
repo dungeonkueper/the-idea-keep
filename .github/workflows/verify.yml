@@ -1,0 +1,39 @@
+name: Verify
+
+on:
+  pull_request:
+  schedule:
+    - cron: "17 5 * * 1"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  verify:
+    name: Verify
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
+
+      - name: Set up Deno
+        uses: denoland/setup-deno@667a34cdef165d8d2b2e98dde39547c9daac7282 # v2.0.4
+        with:
+          deno-version: v2.9.7
+
+      - name: Install locked dependencies
+        run: deno ci
+
+      - name: Check project
+        run: deno task check
+
+      - name: Report all known advisories
+        continue-on-error: true
+        run: deno audit --frozen-lockfile
+
+      - name: Reject high and critical advisories
+        run: deno task audit
