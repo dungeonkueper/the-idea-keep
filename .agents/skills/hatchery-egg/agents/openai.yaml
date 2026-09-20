@@ -1,0 +1,7 @@
+interface:
+  display_name: "Hatchery Egg"
+  short_description: "Turn project context into a draft Hatchery egg"
+  default_prompt: "Use $hatchery-egg to capture this context as a new Hatchery egg."
+
+policy:
+  allow_implicit_invocation: true
