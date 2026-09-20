@@ -1,6 +1,6 @@
 # Architecture
 
-> **Status: Initial direction.** These choices are a practical starting point, not permanent commitments. Revisit them when the content or publishing workflow creates a concrete need.
+> **Status: First slice implemented.** The static Deno/Lume foundation described here now powers the first browseable version. It remains a practical starting point rather than a permanent commitment.
 
 ## Goals
 
@@ -9,7 +9,7 @@
 - Treat the generated website as portable static output.
 - Keep content concepts clear enough to support future search, relationships, or a database-backed implementation if needed.
 
-## Initial direction
+## Implemented foundation
 
 ```text
 Markdown content + frontmatter
@@ -23,10 +23,11 @@ Markdown content + frontmatter
               └── Optional Cloudflare Web Analytics
 ```
 
-- **Runtime and site generator:** Deno with Lume, producing a static site from Markdown and frontmatter.
+- **Runtime and site generator:** Deno 2 with Lume 3, producing a static site from Markdown and frontmatter.
 - **Content source:** Markdown files stored in the repository. Content remains reviewable and editable with ordinary tools.
-- **Hosting:** Start with GitHub Pages, since the project already uses GitHub. Keep the build command and generated output independent of the hosting provider so another static host can be used later.
-- **Analytics:** Cloudflare Web Analytics is an optional addition for understanding reach and performance. It does not require moving the site hosting or DNS to Cloudflare.
+- **Content boundary:** A small TypeScript module validates required metadata and derives public URLs before pages are rendered.
+- **Hosting:** GitHub Actions builds the static output and deploys it to GitHub Pages. The build command and generated output remain independent of the hosting provider.
+- **Analytics:** The shared layout includes Cloudflare Web Analytics only when a token is provided at build time. It does not require moving hosting or DNS to Cloudflare.
 - **Application backend:** None is needed for the initial static site. Reconsider a server or database if requirements such as browser-based editing, accounts, or dynamic experiences become central.
 
 ## Content model
@@ -39,7 +40,9 @@ Keep three independent dimensions in content metadata:
 | `maturity` | How developed or supported it is | `seed`, `testing`, `working-theory`, `validated`, `discarded`, `dormant` |
 | `publicationStatus` | Whether it is visible on the site | `draft`, `published`, `archived` |
 
-This separation allows, for example, a discarded experiment to be published as a useful learning. The first content entry uses `kind: idea`, `maturity: seed`, and `publicationStatus: draft`.
+This separation allows, for example, a discarded experiment to be published as a useful learning. The first content entry uses `kind: idea`, `maturity: seed`, and `publicationStatus: published`.
+
+Only content marked `published` is currently rendered and listed. Draft preview, archived-content browsing, relationships, tags, and pagination can be introduced when the collection creates a concrete need for them.
 
 Content may link to related items as the collection grows. For now, Markdown files are the source of truth; a database and ORM are not part of the initial implementation. If that changes, preserve a boundary between content parsing/storage and site rendering so a new storage adapter can be introduced without rewriting the entire site.
 

@@ -1,0 +1,21 @@
+---
+layout: layouts/base.vto
+---
+<article class="article">
+  <a class="back-link" href="/">← Back to the Keep</a>
+
+  <header class="article-header">
+    <div class="metadata" aria-label="Content metadata">
+      <span class="badge badge-kind">{{ kindLabel }}</span>
+      <span class="badge">{{ maturityLabel }}</span>
+      <time datetime="{{ displayDate }}">{{ displayDate }}</time>
+    </div>
+    <h1>{{ title }}</h1>
+    <p class="article-summary">{{ summary }}</p>
+  </header>
+
+  <div class="prose">
+    {{ content }}
+  </div>
+</article>
+

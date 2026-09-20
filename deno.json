@@ -1,0 +1,30 @@
+{
+  "imports": {
+    "lume/": "https://cdn.jsdelivr.net/gh/lumeland/lume@3.3.1/"
+  },
+  "tasks": {
+    "lume": "deno run -P=lume lume/cli.ts",
+    "build": "deno task lume",
+    "serve": "deno task lume -s",
+    "check": "deno fmt --check _config.ts content_model.ts deno.json && deno lint _config.ts content_model.ts && deno check _config.ts content_model.ts && deno task build"
+  },
+  "compilerOptions": {
+    "types": [
+      "lume/types.ts"
+    ]
+  },
+  "permissions": {
+    "lume": {
+      "env": true,
+      "ffi": true,
+      "import": true,
+      "net": true,
+      "read": true,
+      "run": true,
+      "sys": true,
+      "write": [
+        "."
+      ]
+    }
+  }
+}

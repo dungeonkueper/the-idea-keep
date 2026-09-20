@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="{{ description || 'A public lab book for ideas, experiments, learnings, and things built below the surface.' }}">
+    <meta name="theme-color" content="#171714">
+    <title>{{ if title }}{{ title }} · {{ /if }}The Idea Keep</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="wordmark" href="/" aria-label="The Idea Keep, home">
+          <span class="wordmark-mark" aria-hidden="true">◆</span>
+          <span>The Idea Keep</span>
+        </a>
+        <span class="site-kicker">by dungeonkueper</span>
+      </header>
+
+      <main id="main-content">
+        {{ content }}
+      </main>
+
+      <footer class="site-footer">
+        <p>Ideas, experiments and things built below the surface.</p>
+        <a href="https://github.com/dungeonkueper/the-idea-keep">View the source</a>
+      </footer>
+    </div>
+
+    {{ if cloudflareAnalyticsToken }}
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"{{ cloudflareAnalyticsToken }}"}'></script>
+    {{ /if }}
+  </body>
+</html>
+
