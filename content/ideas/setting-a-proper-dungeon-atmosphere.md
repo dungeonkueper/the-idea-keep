@@ -1,11 +1,11 @@
 ---
 slug: setting-a-proper-dungeon-atmosphere
 kind: idea
-maturity: seed
+maturity: testing
 themedMaturity: egg
 publicationStatus: published
 title: Setting a Proper Dungeon Atmosphere
-summary: A short lore opening can give each entry a memorable dungeon identity while a clearly separated technical section preserves clarity.
+summary: A short lore opening is now being tested as a way to give entries a memorable dungeon identity while preserving clarity.
 date: 2026-09-20
 ---
 
@@ -27,6 +27,10 @@ The format should stay optional. Some ideas benefit from an image of tunnels, ga
 ## Current hypothesis
 
 A short, clearly bounded lore opening can make selected entries more inviting and recognizable without weakening their technical usefulness. Treating the narrative as an optional editorial tool—not a template requirement—should preserve variety and keep the device from becoming ceremony.
+
+## First observation
+
+The format is now present in this entry and in the security note, which makes the boundary between lore and technical writing visible in the published Keep. The next question is editorial rather than structural: whether the device keeps clarifying ideas once the subjects become more varied.
 
 ## Open questions
 

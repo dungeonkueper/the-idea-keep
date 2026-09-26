@@ -1,17 +1,28 @@
 ---
 slug: the-self-hatching-hatchery
 kind: idea
-maturity: seed
+maturity: testing
 themedMaturity: egg
 publicationStatus: published
 title: The Self-Hatching Hatchery
-summary: A repository-aware agent skill could turn the context of ongoing work into reviewable new eggs for the Hatchery.
+summary: A repository-aware agent skill now turns relevant work context into reviewable draft eggs for the Hatchery.
 date: 2026-09-20
 ---
 
+<aside class="tales-from-below" aria-labelledby="tales-from-below-heading">
+  <h2 id="tales-from-below-heading">Tales from Below</h2>
+  <p>In the Hatchery, an egg can be lost without ever cracking. A thought is spotted in the torchlight, then carried through busy corridors while its keeper decides where it belongs and how to mark its shell. By the time the right shelf is found, the small thing may have slipped from memory. What if the Hatchery had a quiet attendant who noticed the moment, gathered only the nearby clues, and prepared a place for the egg? The attendant would not decide what should hatch. It would simply make sure the idea arrived intact, ready for its keeper to inspect.</p>
+</aside>
+
+## Behind the Stonework
+
 Every new idea in the Hatchery still begins with a small act of translation: noticing something worth keeping, separating it from the surrounding work, and shaping it into an entry. That friction is useful when it sharpens the thought, but less useful when it lets a promising idea disappear into a conversation or a half-finished change.
 
-This egg proposes a recursive tool for that moment: an agent skill that can read the request that invoked it, the conversation around it, and the relevant repository context, then prepare another egg for the Hatchery.
+This egg proposed a recursive tool for that moment: an agent skill that can read the request that invoked it, the conversation around it, and the relevant repository context, then prepare another egg for the Hatchery.
+
+## First observation
+
+A first version now lives with The Idea Keep. It creates one Markdown entry at a time, checks for slug collisions, defaults to a draft, and leaves publication as an editorial decision. The useful next test is whether it captures ideas faithfully enough to reduce friction without flattening their voice.
 
 ## Current hypothesis
 
