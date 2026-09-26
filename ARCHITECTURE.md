@@ -46,7 +46,48 @@ Only content marked `published` is currently rendered and listed. Draft preview,
 
 Content may link to related items as the collection grows. For now, Markdown files are the source of truth; a database and ORM are not part of the initial implementation. If that changes, preserve a boundary between content parsing/storage and site rendering so a new storage adapter can be introduced without rewriting the entire site.
 
-## Portability and trade-offs
+## Multiple representations and discovery
+
+The first alternate representation is Markdown. During preprocessing, the build
+validates metadata, applies the existing publication gate, and captures the body
+before Markdown rendering. HTML and the sibling `/ideas/<slug>.md` (or the
+equivalent route for another kind) derive from that same record. A processor
+emits Markdown as plain text with title, summary, metadata, canonical HTML URL,
+and the complete body. Generated files carry no publication metadata and therefore
+cannot become duplicate homepage cards. Duplicate published kind/slug URLs fail
+the build rather than silently overwriting a representation.
+
+The existing `/ideas/<slug>/` URL is the stable public identity. HTML declares
+its canonical URL and advertises the Markdown alternate, with a visible link for
+any visitor. There is no content negotiation or user-agent detection. No factual,
+editorial, or advertising content is tailored to an agent. Draft and archived
+records are excluded before any representation or discovery entry is produced.
+
+Lore remains an optional, explicitly headed section or semantic `aside` within
+the canonical body. Markdown retains existing inline HTML verbatim, including
+lore; it is a layout-free representation, not a prose-stripping converter. This
+preserves content without introducing a second author-maintained version or a
+premature lore/corpus schema. Use absolute canonical URLs for content links:
+relative URLs have different bases in `/ideas/slug/` and `/ideas/slug.md`.
+
+The generated `llms.txt` lists published records and their Markdown URLs. It is
+an experimental discovery aid for consumers, distinct from repository `AGENTS.md`
+instructions for contributors. It does not replace normal HTML semantics,
+descriptions, sitemap, or robots policy. The latter two were not present in the
+initial site and are not added in this slice. No crawler adoption is assumed.
+
+All generated absolute links include the configured site location. On GitHub
+Pages this puts the map at `/the-idea-keep/llms.txt`; this repository cannot publish
+the origin-root `/llms.txt` of the shared host. A dedicated domain or a separately
+managed root site would be needed for that. The static host controls the MIME
+type of `.md` files; the build cannot force `text/markdown` response headers.
+
+JSON and feeds are deferred until a concrete consumer justifies them. They should
+reuse validated metadata and the pre-render body at the same publication boundary.
+Structured lore, references, tags, and relationships can be added when needed,
+without parsing the themed HTML or maintaining parallel editorial content.
+
+## Hosting portability
 
 The build should produce ordinary HTML, CSS, JavaScript, and assets in a static output directory. CI should invoke the project build and publish that output; host-specific workflow configuration should not contain the site's core build logic. This keeps a move from GitHub Pages to another static host largely a deployment and domain configuration change.
 
