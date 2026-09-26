@@ -26,11 +26,26 @@
       <footer class="site-footer">
         <p>Ideas, experiments and things built below the surface.</p>
         <a href="https://github.com/dungeonkueper/the-idea-keep">View the source</a>
+        {{ if cloudflareAnalyticsToken }}
+        <button type="button" id="analytics-settings" hidden>Analytics preferences</button>
+        {{ /if }}
       </footer>
     </div>
 
     {{ if cloudflareAnalyticsToken }}
-    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"{{ cloudflareAnalyticsToken }}"}'></script>
+    <section id="analytics-consent" class="analytics-consent" aria-labelledby="analytics-heading" hidden>
+      <h2 id="analytics-heading" tabindex="-1">May we count your visit?</h2>
+      <p>With your permission, Cloudflare Web Analytics measures page visits, referrers, browser information and loading performance. Your browser connects to Cloudflare to load its script and send measurements. Cloudflare says this service uses no analytics cookies or fingerprinting.</p>
+      <p>Analytics is optional. You can use the entire Keep without it, and withdraw permission through “Analytics preferences” below. We store your choice in this browser for 180 days. If storage is unavailable, your choice applies only to this page.</p>
+      <p><a href="https://www.cloudflare.com/privacypolicy/" rel="noreferrer">Cloudflare privacy policy</a></p>
+      <p id="analytics-status" role="status"></p>
+      <div class="analytics-actions">
+        <button type="button" id="analytics-reject">Do not allow analytics</button>
+        <button type="button" id="analytics-accept">Allow analytics</button>
+        <button type="button" id="analytics-close" hidden>Close preferences</button>
+      </div>
+    </section>
+    <script defer src="/analytics-consent.js" data-analytics-token="{{ cloudflareAnalyticsToken }}"></script>
     {{ /if }}
   </body>
 </html>

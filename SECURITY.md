@@ -1,8 +1,12 @@
 # Security
 
-The Idea Keep is a static Deno and Lume site. Third-party code runs during the
-build, not in visitors' browsers. The project therefore treats dependency
-resolution and the build environment as its main supply-chain boundary.
+The Idea Keep is a static Deno and Lume site. Dependency resolution and the
+build environment are its main supply-chain boundary. When Cloudflare Web
+Analytics is configured and a visitor consents, the site loads third-party
+JavaScript in visitors' browsers from `static.cloudflareinsights.com`. This
+optional, remotely maintained beacon is outside the Deno lockfile and build
+sandbox. Its site token is public configuration, not an API credential. Remove
+the token and redeploy to stop including the beacon.
 
 ## Dependency update ritual
 

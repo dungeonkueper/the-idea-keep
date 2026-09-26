@@ -392,6 +392,45 @@ a:focus-visible {
   }
 }
 
+.analytics-consent {
+  position: fixed;
+  z-index: 20;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 65vh;
+  overflow-y: auto;
+  margin: 0;
+  padding: 1.5rem;
+  width: min(50rem, calc(100% - 2rem));
+  border: 1px solid var(--accent);
+  border-radius: 0.65rem;
+  background: var(--surface);
+}
+
+.analytics-consent[hidden], #analytics-settings[hidden] {
+  display: none;
+}
+
+.analytics-consent h2 { margin-top: 0; }
+.analytics-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.analytics-actions button, #analytics-settings {
+  padding: 0.65rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.3rem;
+  background: var(--surface-raised);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.analytics-actions button:hover, #analytics-settings:hover {
+  border-color: var(--accent);
+}
+.analytics-actions button:focus-visible, #analytics-settings:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

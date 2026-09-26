@@ -11,8 +11,8 @@
     "build": "deno run --cached-only --frozen-lockfile --no-prompt -P=build lume.ts",
     "serve": "deno run --cached-only --frozen-lockfile --no-prompt -P=serve lume.ts -s",
     "audit": "deno audit --level=high --frozen-lockfile",
-    "test": "deno test --cached-only --frozen-lockfile",
-    "check": "deno fmt --check _config.ts content_model.ts content_model_test.ts lume.ts deno.json SECURITY.md .github && deno lint _config.ts content_model.ts content_model_test.ts lume.ts && deno check --cached-only --frozen-lockfile lume.ts _config.ts content_model.ts content_model_test.ts && deno task test && deno task build"
+    "test": "deno test --cached-only --frozen-lockfile --allow-read=analytics-consent.js tests/analytics_consent_test.ts",
+    "check": "deno fmt --check _config.ts content_model.ts lume.ts analytics-consent.js tests deno.json SECURITY.md .github && deno lint _config.ts content_model.ts lume.ts analytics-consent.js tests && deno check --cached-only --frozen-lockfile lume.ts _config.ts content_model.ts && deno task test && deno task build"
   },
   "compilerOptions": {
     "types": [
