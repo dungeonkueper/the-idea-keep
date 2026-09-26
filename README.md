@@ -52,6 +52,42 @@ Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `ar
 
 Cloudflare Web Analytics is optional. Set `CLOUDFLARE_WEB_ANALYTICS_TOKEN` locally or add it as a GitHub Actions repository variable to include the beacon in generated pages. Without the variable, the build emits no analytics script.
 
+### Activate Footsteps Below
+
+The integration is already implemented; activation requires configuration and a
+new deployment, not another script or a backend:
+
+1. In Cloudflare **Web Analytics**, add `dungeonkueper.github.io` as the hostname
+   (no scheme or `/the-idea-keep/` path). Use the manual JavaScript snippet setup
+   for a site not proxied through Cloudflare.
+2. From **Manage site**, copy only the `token` value inside `data-cf-beacon`.
+   This is a public site identifier embedded in HTML, not a Cloudflare API key.
+3. In the GitHub repository, open **Settings → Secrets and variables → Actions →
+   Variables** and add the repository variable `CLOUDFLARE_WEB_ANALYTICS_TOKEN`.
+   The Pages workflow reads `vars`, not `secrets`.
+4. Run **Publish on GitHub Pages** on `main` using **Run workflow**, or let the
+   next push to `main` deploy it. Changing the variable alone does not update
+   already deployed HTML.
+5. Open the deployed homepage and an Egg. Check page source for exactly one
+   `beacon.min.js` script with the expected token. In browser developer tools,
+   check that the script loads and the request to
+   `https://cloudflareinsights.com/cdn-cgi/rum` succeeds; navigating away or
+   hiding the tab can trigger reporting. Then check the Cloudflare dashboard
+   after a few minutes, filtering paths under `/the-idea-keep/`.
+
+Ad blockers and disabled JavaScript can prevent reporting. A successful build
+proves snippet inclusion, not ingestion into the dashboard. Leave the variable
+unset for ordinary local development and preview builds. To disable analytics,
+remove the repository variable and redeploy.
+
+The wiring is in `.github/workflows/pages.yml`, `_config.ts`, and
+`_includes/layouts/base.vto`. GitHub Pages remains the host; no Cloudflare DNS
+change is required. See the [analytics decision](ARCHITECTURE.md#analytics-and-dungeon-census)
+for the separate, deferred classification experiment.
+
+Setup references: [Cloudflare manual installation](https://developers.cloudflare.com/web-analytics/get-started/)
+and [beacon troubleshooting](https://developers.cloudflare.com/web-analytics/faq/).
+
 ## Project direction
 
 - [Vision](VISION.md) — purpose, principles, and the experience The Idea Keep aims to create.
