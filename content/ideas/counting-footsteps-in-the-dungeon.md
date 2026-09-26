@@ -107,5 +107,14 @@ and privacy project today. No Worker, classifier, custom counters, or public
 Census will be built until there is time to resolve those questions and a clear
 reason to collect the data.
 
-This records a pause in the Census work. It does not switch off the already
-deployed Cloudflare beacon; disabling that remains a separate operational action.
+One concrete improvement has emerged from the discussion: a consent gate for
+Cloudflare Web Analytics is now implemented and tested. It loads the beacon only
+after permission, offers an equally accessible rejection, remembers the choice
+for 180 days, and allows withdrawal through the footer. This change is committed
+on the working branch; it still needs integration and deployment before it
+replaces the previously deployed beacon. The site's full privacy notice and
+provider arrangements remain open.
+
+Basic analytics can therefore move toward an explicit opt-in model while the
+classification experiment stays in its egg. No Census infrastructure is needed
+for that improvement. **Dungeon Census: paused for now.**
