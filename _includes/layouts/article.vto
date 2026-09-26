@@ -15,6 +15,13 @@ layout: layouts/base.vto
     <a href="{{ markdownUrl }}">Read as Markdown</a>
   </header>
 
+  {{ if optionalSupport }}
+  <aside aria-label="Optional testnet support">
+    <p>Support is optional. This Egg is free to read. The support experiment uses only Tempo Testnet tokens.</p>
+    <script type="application/json" id="optional-support">{{ supportJson }}</script>
+  </aside>
+  {{ /if }}
+
   <div class="prose">
     {{ content }}
   </div>

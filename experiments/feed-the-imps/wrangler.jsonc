@@ -1,0 +1,13 @@
+{
+  "name": "feed-the-imps-testnet",
+  "main": "worker.ts",
+  "compatibility_date": "2026-09-22",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "send_metrics": false,
+  "observability": { "enabled": false },
+  "durable_objects": {
+    "bindings": [{ "name": "SUPPORT", "class_name": "SupportPayments" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["SupportPayments"] }]
+}

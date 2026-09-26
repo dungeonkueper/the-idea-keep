@@ -1,7 +1,7 @@
 ---
 slug: feed-the-imps
 kind: idea
-maturity: seed
+maturity: testing
 themedMaturity: egg
 publicationStatus: published
 title: Feed the Imps — Can Agents Voluntarily Pay for Useful Content?
@@ -26,9 +26,9 @@ This is explicitly **not a paywall**. Humans, crawlers, and agents receive the o
 
 The Keep already serves HTML and Markdown from a shared content model. Structured JSON remains a possible later representation. Payment must remain independent of content generation and representation selection.
 
-Markdown with frontmatter remains the canonical source. A TypeScript metadata validator and Deno/Lume build produce static HTML at `/ideas/<slug>/`, a sibling `/ideas/<slug>.md`, and a generated `llms.txt` discovery map containing published entries. All are served through GitHub Pages under `/the-idea-keep/`. This Egg describes a proposed payment experiment; no support endpoint or payment integration is implemented yet.
+Markdown with frontmatter remains the canonical source. A TypeScript metadata validator and Deno/Lume build produce static HTML at `/ideas/<slug>/`, a sibling `/ideas/<slug>.md`, and a generated `llms.txt` discovery map containing published entries. All are served through GitHub Pages under `/the-idea-keep/`. An isolated Testnet POC now implements the optional support flow; a public deployment is not yet configured.
 
-The smallest candidate integration point is an optional validated `support` field in the shared metadata, exposed by the existing HTML and Markdown representations at their publication boundary. The current validator and Markdown serializer do not yet expose such a field. The build would only carry descriptive metadata; the independent Worker would issue challenges, verify payments, and return receipts. No payment SDK or network request belongs in the content build.
+The integration is an optional validated `support` field in the shared metadata, exposed by the existing HTML and Markdown representations at their publication boundary. Public endpoint and recipient settings enable it for this one Egg. Without those settings, no operational support offer is advertised. The build only carries descriptive metadata; the independent Worker issues challenges, verifies payments, and returns receipts. No payment SDK or network request belongs in the content build.
 
 ```text
 content → representation → HTML / Markdown (JSON deferred)
@@ -43,17 +43,21 @@ An Egg could advertise metadata along these lines:
   "support": {
     "optional": true,
     "protocol": "mpp",
-    "endpoint": "/support/feed-the-imps",
+    "network": "tempo-moderato",
+    "chainId": 42431,
+    "currency": "0x20c0000000000000000000000000000000000000",
+    "endpoint": "https://<worker-host>/support/feed-the-imps",
+    "recipient": "<public test recipient address>",
     "suggestedAmount": "0.01"
   }
 }
 ```
 
-This is **our own proposed convention**, not an assumed web standard or a finalized schema. Currency, asset, network, and amount semantics still need to be made explicit using the verified protocol requirements. The example is design material, not live frontmatter or an operational payment offer.
+This is **our own convention**, not an assumed web standard. The POC fixes the amount to 0.01 test pathUSD (six decimals) on Tempo Moderato, chain 42431. The example above is explanatory prose, not an operational offer. Clients discover live metadata only through the designated HTML JSON block or Markdown metadata line.
 
 ## Smallest useful experiment
 
-Investigate a small, independently deployable and removable Cloudflare Worker using MPP/mppx for a dedicated support route. One Egg, one endpoint, and one test payment are enough.
+The POC uses an independently deployable and removable Cloudflare Worker with MPP/mppx for a dedicated support route. One Egg, one endpoint, and one test payment are enough. A single SQLite Durable Object persists atomic replay claims; payment dependencies have their own lockfile and are excluded from the website build.
 
 ```text
 Agent
@@ -70,9 +74,9 @@ Agent
                                  receipt / success
 ```
 
-The first implementation **must use Tempo Testnet or another supported zero-real-money environment**. No production payment credentials or real funds belong in the initial POC. Exact Cloudflare, MPP/mppx, and Tempo APIs and their compatibility remain to be verified against current official documentation.
+The first implementation **uses only Tempo Testnet**. No production payment credentials or real funds belong in the POC. Cloudflare, MPP/mppx, and Tempo APIs were checked against official documentation and the pinned SDK versions on 2026-09-26. The Worker and client reject other chains.
 
-The current GitHub Pages deployment does not supply a Worker route. Determine whether the experiment should advertise an absolute Worker endpoint or use a dedicated `/support/*` route on a suitable host. Do not assume a relative endpoint on the current site will reach Cloudflare, and account for the site's `/the-idea-keep/` base path.
+The current GitHub Pages deployment does not supply a Worker route. The integration advertises an absolute Worker endpoint, leaving the site's `/the-idea-keep/` base path and content hosting unchanged. Local testing uses a loopback endpoint; remote activation requires an HTTPS Worker URL and a configured test recipient.
 
 ## Constraints
 
@@ -83,14 +87,13 @@ The current GitHub Pages deployment does not supply a Worker route. Determine wh
 - Keep secrets outside the repository and never log payment credentials or sensitive payment data.
 - Keep the implementation intentionally small and avoid premature abstractions.
 
-## First implementation task
+## First observation: the protocol flow works
 
-1. Inspect the existing Keep architecture and its implemented HTML/Markdown representations. Confirm the smallest integration point for optional support metadata without coupling payment handling to the content pipeline.
-2. Verify the current Cloudflare MPP/mppx and Tempo Testnet APIs, supported client flow, and receipt semantics. Do not use this handover as a source of exact API syntax.
-3. Propose the minimal Worker structure and routing for a single Egg, including how its endpoint is advertised from the existing host.
-4. Identify required public configuration and secrets from the verified APIs. Document the test network, asset and amount, recipient configuration, and any required credentials without committing secret values.
-5. Implement the Testnet POC if it can remain isolated from the existing content pipeline.
-6. Add a short README explaining how another developer or agent can read the Egg, discover support, and exercise the complete `402 → payment → verification → receipt` flow using a compatible test client.
+On 2026-09-26, a compatible client read the locally served Egg for free, discovered its optional metadata, explicitly chose support, received a 402 challenge, and completed a 0.01 pathUSD transfer on the public Tempo Moderato testnet. The local Cloudflare Worker returned a receipt that the client checked against the confirmed on-chain transfer. Reusing the credential was rejected, and the Egg remained identical and freely readable.
+
+The client creates a disposable faucet-funded account only after `--pay-testnet` is supplied. It does not read existing wallets or retain the private key. The Worker needs a challenge-signing secret and public recipient address, but no wallet private key. No Cloudflare account or remote Worker was provisioned for this test.
+
+The [POC README](https://github.com/dungeonkueper/the-idea-keep/blob/main/experiments/feed-the-imps/README.md) records setup, exact APIs, the receipt reference, dependency choices, and the full reproducible flow. This verifies interoperability; it does not establish willingness to spend real funds.
 
 ## Observability
 
@@ -115,10 +118,8 @@ An appropriately small victory message can accompany the receipt:
 
 > An imp has been fed. 😈
 
-## Open questions
+## Remaining questions
 
-- Where should optional support metadata live in the shared content model and its agent-facing representations?
-- Which currently supported client can demonstrate a genuinely optional test payment, and what authorizes its spending decision?
-- What is the smallest verified Worker implementation, and which configuration values actually need to be secrets?
-- Can eligible agent visits be measured well enough to distinguish lack of discovery from lack of willingness to pay?
-- What does a successful Testnet flow teach us about protocol interoperability, and what remains untested about willingness to spend real funds?
+- Which Cloudflare account and public test recipient should host a remote trial? The endpoint must be tested before advertising it on the public Keep.
+- Can a broader cooperating agent sample distinguish lack of discovery from lack of willingness to pay? The current client measures only its own run.
+- What would justify a later real-money experiment? Testnet success alone does not answer that question, and this POC has no production-money mode.
