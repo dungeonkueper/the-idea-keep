@@ -111,7 +111,7 @@ coverage and probabilistic labels. Its counts must not be presented as a
 breakdown of Cloudflare visits: the two instruments observe different populations.
 
 No census endpoint, classifier, storage, or public counter is implemented in
-Phase 1. The idea is preserved as a [draft Egg](content/ideas/counting-footsteps-in-the-dungeon.md).
+Phase 1. The idea is preserved as a [published Egg](content/ideas/counting-footsteps-in-the-dungeon.md).
 
 References: [Cloudflare Web Analytics setup](https://developers.cloudflare.com/web-analytics/get-started/),
 [beacon limitations](https://developers.cloudflare.com/web-analytics/faq/), and

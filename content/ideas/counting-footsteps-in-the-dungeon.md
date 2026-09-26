@@ -3,7 +3,7 @@ slug: counting-footsteps-in-the-dungeon
 kind: idea
 maturity: seed
 themedMaturity: egg
-publicationStatus: draft
+publicationStatus: published
 title: Counting Footsteps in the Dungeon
 summary: Explore modest ways to classify the Keep's visitors, then pause the Census until its measurement and privacy questions are settled.
 date: 2026-09-26
