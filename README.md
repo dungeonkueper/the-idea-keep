@@ -50,7 +50,7 @@ Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `ar
 
 ## Analytics
 
-Cloudflare Web Analytics is optional. Set `CLOUDFLARE_WEB_ANALYTICS_TOKEN` locally or add it as a GitHub Actions repository variable to include the beacon in generated pages. Without the variable, the build emits no analytics script.
+Cloudflare Web Analytics is optional. Set `CLOUDFLARE_WEB_ANALYTICS_TOKEN` locally or add it as a GitHub Actions repository variable to enable the consent controls. The Cloudflare beacon loads only after consent. Without the variable, the build emits neither consent controls nor an analytics script reference.
 
 ### Activate Footsteps Below
 
@@ -68,12 +68,25 @@ new deployment, not another script or a backend:
 4. Run **Publish on GitHub Pages** on `main` using **Run workflow**, or let the
    next push to `main` deploy it. Changing the variable alone does not update
    already deployed HTML.
-5. Open the deployed homepage and an Egg. Check page source for exactly one
-   `beacon.min.js` script with the expected token. In browser developer tools,
-   check that the script loads and the request to
+5. Open the deployed homepage in a fresh browser profile. Before choosing, and
+   after declining, verify that no requests go to Cloudflare. Allow analytics:
+   exactly one `beacon.min.js` script should then appear in the live DOM with the
+   expected token. In browser developer tools, check the request to
    `https://cloudflareinsights.com/cdn-cgi/rum` succeeds; navigating away or
    hiding the tab can trigger reporting. Then check the Cloudflare dashboard
    after a few minutes, filtering paths under `/the-idea-keep/`.
+6. Navigate to an Egg to verify that the saved choice is respected. Use
+   **Analytics preferences** in the footer to withdraw permission. The page
+   reloads without the beacon; already sent or in-flight reports cannot be recalled.
+
+The local consent controller stores a versioned choice for 180 days in
+`localStorage`, namespaced to this site. Missing, expired, or malformed choices
+never enable analytics. Storage failure limits a new choice to the current page.
+Withdrawal uses an `#analytics-disabled` reload marker so the reloaded page stays
+off even if saving the rejection fails. JavaScript disabled means analytics off.
+This implements the consent gate; the site's full privacy notice and provider
+arrangements still need separate completion. The Cloudflare policy link in the
+panel is not a substitute for the operator's privacy notice.
 
 Ad blockers and disabled JavaScript can prevent reporting. A successful build
 proves snippet inclusion, not ingestion into the dashboard. Leave the variable

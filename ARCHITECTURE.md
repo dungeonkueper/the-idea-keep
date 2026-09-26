@@ -27,7 +27,7 @@ Markdown content + frontmatter
 - **Content source:** Markdown files stored in the repository. Content remains reviewable and editable with ordinary tools.
 - **Content boundary:** A small TypeScript module validates required metadata and derives public URLs before pages are rendered.
 - **Hosting:** GitHub Actions builds the static output and deploys it to GitHub Pages. The build command and generated output remain independent of the hosting provider.
-- **Analytics:** The shared layout includes Cloudflare Web Analytics only when a token is provided at build time. It does not require moving hosting or DNS to Cloudflare.
+- **Analytics:** A build-time token enables a local consent controller. It loads Cloudflare Web Analytics only after the visitor allows it, with withdrawal available in the footer. It does not require moving hosting or DNS to Cloudflare.
 - **Application backend:** None is needed for the initial static site. Reconsider a server or database if requirements such as browser-based editing, accounts, or dynamic experiences become central.
 
 ## Content model

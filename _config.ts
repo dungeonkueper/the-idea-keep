@@ -8,7 +8,14 @@ const site = lume({
 
 site.use(basePath());
 site.add("/styles.css");
-site.ignore("README.md", "VISION.md", "ARCHITECTURE.md", "SECURITY.md");
+site.add("/analytics-consent.js");
+site.ignore(
+  "README.md",
+  "VISION.md",
+  "ARCHITECTURE.md",
+  "SECURITY.md",
+  "tests",
+);
 
 site.data(
   "cloudflareAnalyticsToken",
