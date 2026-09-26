@@ -12,8 +12,8 @@
     "serve": "deno run --cached-only --frozen-lockfile --no-prompt -P=serve lume.ts -s",
     "audit": "deno audit --level=high --frozen-lockfile",
     "test": "deno test --cached-only --frozen-lockfile --no-prompt --allow-read=analytics-consent.js tests/analytics_consent_test.ts content_model_test.ts",
-    "test:representations": "deno test --cached-only --frozen-lockfile --no-prompt --allow-read=content,_site content_representations_test.ts",
-    "check": "deno fmt --check _config.ts content_model.ts content_model_test.ts content_representations_test.ts lume.ts analytics-consent.js tests deno.json SECURITY.md .github && deno lint _config.ts content_model.ts content_model_test.ts content_representations_test.ts lume.ts analytics-consent.js tests && deno check --cached-only --frozen-lockfile lume.ts _config.ts content_model.ts && deno task test && deno task build && deno task test:representations"
+    "test:representations": "deno test --cached-only --frozen-lockfile --no-prompt --allow-read=content,_site --allow-env=FEED_IMPS_SUPPORT_ENDPOINT content_representations_test.ts",
+    "check": "deno fmt --check _config.ts content_model.ts support_metadata.ts content_model_test.ts content_representations_test.ts lume.ts analytics-consent.js tests deno.json SECURITY.md .github && deno lint _config.ts content_model.ts support_metadata.ts content_model_test.ts content_representations_test.ts lume.ts analytics-consent.js tests && deno check --cached-only --frozen-lockfile lume.ts _config.ts content_model.ts && deno task test && deno task build && deno task test:representations"
   },
   "compilerOptions": {
     "types": [
@@ -24,7 +24,9 @@
     "build": {
       "env": {
         "allow": [
-          "CLOUDFLARE_WEB_ANALYTICS_TOKEN"
+          "CLOUDFLARE_WEB_ANALYTICS_TOKEN",
+          "FEED_IMPS_SUPPORT_ENDPOINT",
+          "FEED_IMPS_SUPPORT_RECIPIENT"
         ],
         "ignore": [
           "DENO_AUTH_TOKENS",
@@ -52,6 +54,8 @@
       "env": {
         "allow": [
           "CLOUDFLARE_WEB_ANALYTICS_TOKEN",
+          "FEED_IMPS_SUPPORT_ENDPOINT",
+          "FEED_IMPS_SUPPORT_RECIPIENT",
           "DENO_DIR"
         ],
         "ignore": [

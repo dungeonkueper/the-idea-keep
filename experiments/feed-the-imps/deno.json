@@ -1,0 +1,28 @@
+{
+  "imports": {
+    "@modelcontextprotocol/sdk": "npm:@modelcontextprotocol/sdk@1.30.0",
+    "mppx": "npm:mppx@0.11.0",
+    "mppx/server": "npm:mppx@0.11.0/server",
+    "mppx/client": "npm:mppx@0.11.0/client",
+    "viem": "npm:viem@2.56.8",
+    "viem/actions": "npm:viem@2.56.8/actions",
+    "viem/accounts": "npm:viem@2.56.8/accounts",
+    "viem/chains": "npm:viem@2.56.8/chains",
+    "viem/tempo": "npm:viem@2.56.8/tempo",
+    "wrangler": "npm:wrangler@4.136.3"
+  },
+  "lock": {
+    "frozen": true
+  },
+  "minimumDependencyAge": "P3D",
+  "nodeModulesDir": "auto",
+  "tasks": {
+    "bootstrap": "deno install --frozen-lockfile",
+    "check": "deno fmt --check && deno lint && deno check --cached-only --frozen-lockfile handler.ts client.ts worker.ts setup.ts && deno test --cached-only --frozen-lockfile --allow-env=NODE_ENV",
+    "client": "deno run --cached-only --frozen-lockfile --no-prompt --allow-net --allow-env=NODE_ENV client.ts",
+    "dev": "deno run -A --frozen-lockfile npm:wrangler@4.136.3 dev",
+    "bundle": "deno run -A --frozen-lockfile npm:wrangler@4.136.3 deploy --dry-run",
+    "deploy": "deno run -A --frozen-lockfile npm:wrangler@4.136.3 deploy",
+    "setup": "deno run --cached-only --frozen-lockfile --allow-write=.dev.vars --allow-env=NODE_ENV setup.ts"
+  }
+}

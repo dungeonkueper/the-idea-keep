@@ -1,3 +1,9 @@
+import {
+  supportJson,
+  type SupportMetadata,
+  validateSupport,
+} from "./support_metadata.ts";
+
 export const contentKinds = [
   "idea",
   "experiment",
@@ -26,6 +32,7 @@ export type Maturity = (typeof maturityLevels)[number];
 export type PublicationStatus = (typeof publicationStatuses)[number];
 
 export interface ContentMetadata {
+  support?: SupportMetadata;
   title: string;
   slug: string;
   summary: string;
@@ -91,6 +98,9 @@ export function validateContentMetadata(
     : requiredString(data, "themedMaturity", source);
 
   return {
+    ...(data.support === undefined
+      ? {}
+      : { support: validateSupport(data.support, slug) }),
     title,
     slug,
     summary,
@@ -195,6 +205,7 @@ export function markdownRepresentation(
       ? `Themed maturity: ${metadata.themedMaturity}\n`
       : "") +
     `Publication status: ${metadata.publicationStatus}`,
+    ...(metadata.support ? [`Support: ${supportJson(metadata.support)}`] : []),
     body,
   ].join("\n\n");
 }
