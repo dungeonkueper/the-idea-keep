@@ -46,6 +46,16 @@ publicationStatus: published
 
 The build validates this metadata and derives the public URL from `kind` and `slug`. Only entries with `publicationStatus: published` are generated and listed.
 
+Each published entry produces HTML at `/<section>/<slug>/` and layout-free
+Markdown at `/<section>/<slug>.md` from the same source. The generated `llms.txt`
+at the site root links to these Markdown representations; article pages link to
+their alternate as well. On the current project host the map is at
+`/the-idea-keep/llms.txt`. Drafts and archived entries appear in neither format nor
+the map. Keep lore explicitly headed or inside a semantic `aside`; it is retained
+in both formats. Use absolute canonical URLs for references, since the two
+representations have different relative URL bases. See
+[Architecture](ARCHITECTURE.md#multiple-representations-and-discovery) for trade-offs.
+
 Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. The maturity values are documented in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Analytics

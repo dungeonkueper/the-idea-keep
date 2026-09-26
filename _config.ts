@@ -3,6 +3,8 @@ import basePath from "lume/plugins/base_path.ts";
 import {
   assertUniqueContentUrls,
   contentUrl,
+  markdownRepresentation,
+  markdownUrl,
   validateContentMetadata,
 } from "./content_model.ts";
 
@@ -52,6 +54,17 @@ site.preprocess([".md"], (pages, allPages) => {
     }
 
     page.data.url = contentUrl(metadata.kind, metadata.slug);
+    page.data.canonicalUrl = new URL(
+      page.data.url.slice(1),
+      site.options.location,
+    ).href;
+    page.data.markdownUrl = markdownUrl(metadata.kind, metadata.slug);
+    // Capture the canonical body before Markdown rendering and layouts.
+    page.data.markdownRepresentation = markdownRepresentation(
+      metadata,
+      String(page.data.content ?? ""),
+      page.data.canonicalUrl,
+    );
     page.data.layout = "layouts/article.vto";
     page.data.description = metadata.summary;
     page.data.displayDate = metadata.date.toISOString().slice(0, 10);
@@ -63,6 +76,35 @@ site.preprocess([".md"], (pages, allPages) => {
       } / ${metadata.maturity[0].toUpperCase()}${metadata.maturity.slice(1)}`
       : metadata.maturity[0].toUpperCase() + metadata.maturity.slice(1);
   }
+});
+
+// Emit plain text after rendering so Markdown is never rendered a second time.
+// Derive the map from this build's pages, including during watch rebuilds.
+site.process([".html"], async (pages) => {
+  const entries = pages.filter((page) => page.data.markdownRepresentation)
+    .sort((a, b) => String(a.data.url).localeCompare(String(b.data.url)));
+  const map = [
+    "# The Idea Keep",
+    "> A public lab book for ideas, experiments, learnings, projects, and artifacts.",
+    "HTML and Markdown expose the same published content, including optional lore. " +
+    "Maturity describes how developed an idea is, not a guarantee of correctness. " +
+    "This is a discovery map, not crawler policy or coding-agent instructions.",
+    `## Start here\n\n- [The Keep](${site.options.location.href}): Browse the published collection.`,
+    "## Published content",
+  ];
+  for (const page of entries) {
+    const markdown = await site.getOrCreatePage(page.data.markdownUrl);
+    markdown.content = page.data.markdownRepresentation;
+    // Let watch-mode cleanup remove the alternate when its source is unpublished,
+    // renamed, or deleted, just as it removes the corresponding HTML output.
+    markdown.src.entry = page.src.entry;
+    const url = new URL(page.data.markdownUrl.slice(1), site.options.location);
+    const title = String(page.data.title).replace(/[\r\n]+/g, " ")
+      .replace(/([\\[\]])/g, "\\$1");
+    const summary = String(page.data.summary).replace(/[\r\n]+/g, " ");
+    map.push(`- [${title}](${url.href}): ${summary}`);
+  }
+  (await site.getOrCreatePage("/llms.txt")).content = map.join("\n\n") + "\n";
 });
 
 export default site;

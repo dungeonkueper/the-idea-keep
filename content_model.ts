@@ -173,3 +173,28 @@ export function assertUniqueContentUrls(
     sourcesByUrl.set(url, source);
   }
 }
+
+/** Keep the published Markdown next to the existing HTML resource. */
+export function markdownUrl(kind: ContentKind, slug: string): string {
+  return `${contentUrl(kind, slug).slice(0, -1)}.md`;
+}
+
+export function markdownRepresentation(
+  metadata: ContentMetadata,
+  body: string,
+  canonicalUrl: string,
+): string {
+  return [
+    `# ${metadata.title}`,
+    metadata.summary,
+    `Canonical: <${canonicalUrl}>\n` +
+    `Date: ${metadata.date.toISOString().slice(0, 10)}\n` +
+    `Kind: ${metadata.kind}\n` +
+    `Maturity: ${metadata.maturity}\n` +
+    (metadata.themedMaturity
+      ? `Themed maturity: ${metadata.themedMaturity}\n`
+      : "") +
+    `Publication status: ${metadata.publicationStatus}`,
+    body,
+  ].join("\n\n");
+}

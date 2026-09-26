@@ -6,6 +6,8 @@
     <meta name="description" content="{{ description || 'A public lab book for ideas, experiments, learnings, and things built below the surface.' }}">
     <meta name="theme-color" content="#171714">
     <title>{{ if title }}{{ title }} · {{ /if }}The Idea Keep</title>
+    {{ if canonicalUrl }}<link rel="canonical" href="{{ canonicalUrl }}">{{ /if }}
+    {{ if markdownUrl }}<link rel="alternate" type="text/markdown" href="{{ markdownUrl }}" title="Markdown">{{ /if }}
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
@@ -29,6 +31,7 @@
         {{ if cloudflareAnalyticsToken }}
         <button type="button" id="analytics-settings" hidden>Analytics preferences</button>
         {{ /if }}
+        <a href="/llms.txt">Map for agents</a>
       </footer>
     </div>
 
@@ -49,4 +52,3 @@
     {{ /if }}
   </body>
 </html>
-
