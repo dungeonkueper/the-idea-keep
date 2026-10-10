@@ -124,4 +124,16 @@ deployment are separate from this website's build and Pages deployment.
 
 ## Current state
 
-The first browseable version includes a homepage, a content detail page, metadata validation, and automatic GitHub Pages deployment. Its first published seed, [The Chicken-Egg Problem](content/ideas/the-chicken-egg-problem.md), records the platform's own starting point.
+The browseable foundation includes the Hatchery homepage, detail pages, metadata
+validation, optional lore, HTML and Markdown representations, `llms.txt`, and
+consent-gated analytics. [The Chicken-Egg Problem](content/ideas/the-chicken-egg-problem.md)
+now has maturity `testing` and preserves the platform's starting point.
+
+This branch also contains the isolated Feed the Imps POC from still-open
+[PR #12](https://github.com/dungeonkueper/the-idea-keep/pull/12). Its presence here
+does not establish a merge or remote deployment. Chat Crumbs remains a draft plan.
+
+The [2026-10-10 ideas sweep](experiments/reviews/2026-10-10-ideas-sweep.md) maps
+available chats and artifacts to Eggs, records missing sources, and lists review
+points. It lives under the already excluded `experiments/` tree so it does not
+become a public site page.

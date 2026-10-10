@@ -30,7 +30,29 @@ The initial platform should favor writing and sharing over building a complex pu
 
 The name draws on the atmosphere of Dungeon Keeper: a place where ideas are hatched, experiments are explored, projects have a lair, and learnings are kept in a library. The theme should stay playful and subtle enough that the site remains approachable and useful on its own.
 
-Possible section names include **The Hatchery** for ideas, **The Laboratory** for experiments, **The Lair** for projects, and **The Library** for learnings. These are working names, not a required navigation scheme.
+**The Hatchery** is the implemented homepage section for ideas. **The Laboratory** for experiments, **The Lair** for projects, and **The Library** for learnings remain possible names, not implemented navigation. Preserve the Dungeon Keeper-inspired, 8-bit direction without borrowing characters, copy, or assets; clarity and accessible reading remain part of the character.
+
+## Audience and one shared source
+
+The Keep serves people, crawlers, LLMs, and autonomous agents. As recorded in
+[Signposts for Heroes and Imps](content/ideas/signposts-for-heroes-and-imps.md),
+their preferred presentation can differ while the factual content stays the same.
+Repository Markdown with frontmatter is the shared editorial source. The current
+build derives themed HTML, layout-free Markdown, and a discovery map from it.
+There is no separate agent truth. More specific human audience segments remain
+unconfirmed; this sweep does not invent personas or positioning.
+
+Optional **Tales from Below** lore and **Behind the Stonework** explanations
+already appear in entries. They are editorial tools, not required sections for
+every idea. A working site now exists; the original need to build a home before
+publishing is historical context, not an outstanding prerequisite.
+
+## Connected project records
+
+An Egg keeps an idea and its development state. For Tentakelmythos, background
+and research belong in Notion, prototype code belongs on GitHub, and actions
+remain in Todoist. The [Tentakelmythos Egg](content/ideas/tentakelmythos.md) links
+those records without duplicating the research or turning exploration into canon.
 
 ## What success looks like
 

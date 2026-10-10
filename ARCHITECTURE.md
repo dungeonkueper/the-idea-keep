@@ -2,6 +2,14 @@
 
 > **Status: First slice implemented.** The static Deno/Lume foundation described here now powers the first browseable version. It remains a practical starting point rather than a permanent commitment.
 
+**Review snapshot (2026-10-10):** This checkout includes the Feed the Imps POC
+from still-open [PR #12](https://github.com/dungeonkueper/the-idea-keep/pull/12)
+and the Chat Crumbs planning commit `b6796e0`. Implemented in this branch does
+not mean merged or remotely deployed. Markdown representations were merged in
+[PR #11](https://github.com/dungeonkueper/the-idea-keep/pull/11). See the
+[sweep inventory](experiments/reviews/2026-10-10-ideas-sweep.md) for source gaps
+and the distinction between ideas, decisions, and implementation evidence.
+
 ## Goals
 
 - Keep the first version low-cost and simple to operate.
@@ -40,7 +48,7 @@ Keep three independent dimensions in content metadata:
 | `maturity` | How developed or supported it is | `seed`, `testing`, `working-theory`, `validated`, `discarded`, `dormant` |
 | `publicationStatus` | Whether it is visible on the site | `draft`, `published`, `archived` |
 
-This separation allows, for example, a discarded experiment to be published as a useful learning. The first content entry uses `kind: idea`, `maturity: seed`, and `publicationStatus: published`.
+This separation allows, for example, a discarded experiment to be published as a useful learning. The first content entry now uses `kind: idea`, `maturity: testing`, and `publicationStatus: published`; its original seed status describes an earlier stage.
 
 Only content marked `published` is currently rendered and listed. Draft preview, archived-content browsing, relationships, tags, and pagination can be introduced when the collection creates a concrete need for them.
 
@@ -174,6 +182,21 @@ Phase 1. The idea is preserved as a [published Egg](content/ideas/counting-foots
 References: [Cloudflare Web Analytics setup](https://developers.cloudflare.com/web-analytics/get-started/),
 [beacon limitations](https://developers.cloudflare.com/web-analytics/faq/), and
 [standalone Worker routing](https://developers.cloudflare.com/workers/configuration/routing/workers-dev/).
+
+## Chat Crumbs: planned isolated experiment
+
+The [Chat Crumbs Egg](content/ideas/chat-crumbs.md) preserves the proposal for a
+separate Worker and D1 event store under `experiments/chat-crumbs/`. Neither that
+directory nor a collector is implemented in this checkout. This proposal does
+not add a database to the publishing pipeline or resume the paused Dungeon Census.
+It observes requests to its own canary URLs, not ordinary Keep page requests.
+
+The October 10 planning request supersedes the October 6 handover's standalone
+repository layout with a proposed isolated experiment inside this repository.
+A `workers.dev` hostname is the proposed starting point. An EU.org delegation
+or custom domain remains an optional later route, with availability, compatibility,
+costs, and setup unverified. No domain registration or routing change is recorded.
+The Egg retains the unresolved network-metadata choice and operational questions.
 
 ## Revisit when
 

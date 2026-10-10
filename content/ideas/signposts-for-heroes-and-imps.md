@@ -21,6 +21,12 @@ Heroes get atmosphere. Imps get structure. Both get the same truth.
 
 ## First architectural slice
 
+**Implementation observation (2026-10-10):** HTML/Markdown representations and
+the generated discovery map are implemented and merged in
+[PR #11](https://github.com/dungeonkueper/the-idea-keep/pull/11). This Egg itself
+remains an editorial draft; implementation does not publish the planning record
+or validate the audience hypothesis. JSON remains deferred.
+
 Markdown with validated frontmatter remains the canonical record. The existing kind and slug identify its stable public route; maturity and publication status remain separate concerns. HTML includes navigation, theme, summary, and the rendered body. A sibling `.md` file includes the same title, summary, metadata, and complete original body, without the surrounding site layout.
 
 For example, the published starting egg has both `/ideas/the-chicken-egg-problem/` and `/ideas/the-chicken-egg-problem.md`. This egg will receive equivalent routes if it is published. Keeping the existing `/ideas/` namespace avoids introducing a competing `/eggs/` identity.

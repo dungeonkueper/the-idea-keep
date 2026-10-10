@@ -67,6 +67,7 @@ deno task audit
 ```
 
 The build permission set may read this repository, write only to `_site/`, and
-read only the Cloudflare analytics variable. It cannot access the network, spawn
+read only the public analytics token and the optional support endpoint and
+recipient variables declared in `deno.json`. It cannot access the network, spawn
 subprocesses, or load native code. The development server adds access to local
 listening addresses only.

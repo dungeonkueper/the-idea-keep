@@ -12,9 +12,12 @@ date: 2026-09-26
 > Not every footstep in the dungeon belongs to a hero.
 
 The first footprint has appeared in the ledger: the Keeper's own visit.
-Cloudflare Web Analytics is now integrated, deployed, and reporting, while the
-Keep remains a static Deno/Lume site on GitHub Pages. That proves the technical
-path works. It does not settle the privacy questions around operating it.
+The September 26 entry recorded Cloudflare Web Analytics as integrated, deployed,
+and reporting, while the Keep remained a static Deno/Lume site on GitHub Pages.
+That historical observation is preserved; the October 10 repository sweep did
+not recheck the live dashboard. The consent integration is present in code, but
+its presence alone does not establish current reporting or settle the outstanding
+privacy questions around operating it.
 
 The more interesting experiment is whether a few modest signals can distinguish
 our own Imps, recognizable bots, probable human visitors, and the unknown.

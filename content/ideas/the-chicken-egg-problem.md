@@ -16,9 +16,9 @@ date: 2026-09-20
 
 ## Behind the Stonework
 
-The Idea Keep begins with a small paradox: it is a platform for sharing ideas, experiments, and learnings, but the platform itself does not exist yet. Building it could become an excuse to delay publishing; publishing the process can instead give the project its first useful content.
+At its starting point, The Idea Keep faced a small paradox: it was intended as a platform for sharing ideas, experiments, and learnings, but the platform itself did not exist yet. Building it could become an excuse to delay publishing; publishing the process could instead give the project its first useful content.
 
-This entry captures the starting point rather than pretending the platform is already built. The first experiment is to create a lightweight home for unfinished work and let the platform grow alongside the things it documents.
+This entry preserves that starting point. The first experiment was to create a lightweight home for unfinished work and let the platform grow alongside the things it documents. The working site described below supersedes the original unbuilt state.
 
 ## First observation
 

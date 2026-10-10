@@ -181,6 +181,22 @@ claim about how a chat was handled.
 
 ## Context and decisions still open
 
+### Domain alternatives retained from the October 6 handover
+
+The initial proposal uses a provided `workers.dev` hostname, not an owned domain.
+The handover also considered an [EU.org delegation](https://nic.eu.org/) or an
+owned domain later. Availability, waiting time, DNS prerequisites, and Cloudflare
+routing compatibility remain unchecked. Neither is a prerequisite for the local
+prototype, and no registration or purchase has been made by this sweep.
+
+The handover linked [Canarytokens](https://canarytokens.org/) and its
+[self-hosting reference](https://github.com/thinkst/canarytokens-docker) as existing
+alternatives. They have not been evaluated against this experiment's needs; this
+Egg does not decide build versus reuse. The October 10 request chose planning
+inside the Keep over the older handover's standalone-repository layout.
+
+### Source and unresolved decisions
+
 This plan uses the supplied `canary-system-codex-handover.md` dated 2026-10-06,
 the Keep's current architecture/content model, and its isolated Worker precedent.
 The handover's embedded build/deploy instructions are background requirements;

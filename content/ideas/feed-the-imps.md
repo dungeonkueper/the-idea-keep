@@ -93,7 +93,7 @@ On 2026-09-26, a compatible client read the locally served Egg for free, discove
 
 The client creates a disposable faucet-funded account only after `--pay-testnet` is supplied. It does not read existing wallets or retain the private key. The Worker needs a challenge-signing secret and public recipient address, but no wallet private key. No Cloudflare account or remote Worker was provisioned for this test.
 
-The [POC README](https://github.com/dungeonkueper/the-idea-keep/blob/main/experiments/feed-the-imps/README.md) records setup, exact APIs, the receipt reference, dependency choices, and the full reproducible flow. This verifies interoperability; it does not establish willingness to spend real funds.
+The [POC README at the implementation commit](https://github.com/dungeonkueper/the-idea-keep/blob/102f52c93fdade7383337dabfab5f8da332ccd8f/experiments/feed-the-imps/README.md) records setup, exact APIs, the receipt reference, dependency choices, and the full reproducible flow. This verifies interoperability; it does not establish willingness to spend real funds. As checked on 2026-10-10, [PR #12](https://github.com/dungeonkueper/the-idea-keep/pull/12) is still open: the POC exists in this branch but is not yet merged into `main`. The earlier `main` documentation link was premature.
 
 ## Observability
 
