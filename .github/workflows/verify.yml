@@ -31,9 +31,41 @@ jobs:
       - name: Check project
         run: deno task check
 
+      - name: Check opt-in support representations without a live payment service
+        env:
+          FEED_IMPS_SUPPORT_ENDPOINT: https://support.example.com/support/feed-the-imps
+          FEED_IMPS_SUPPORT_RECIPIENT: "0x1111111111111111111111111111111111111111"
+        run: deno task build && deno task test:representations
+
       - name: Report all known advisories
         continue-on-error: true
         run: deno audit --frozen-lockfile
 
       - name: Reject high and critical advisories
         run: deno task audit
+
+  support-poc:
+    name: Testnet support POC
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: experiments/feed-the-imps
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Deno
+        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+        with:
+          deno-version: v2.9.7
+      - name: Install isolated locked dependencies
+        run: deno task bootstrap
+      - name: Check isolated POC without network or payment credentials
+        run: deno task check
+      - name: Bundle Worker without deployment
+        run: deno task bundle
+      - name: Reject high and critical advisories
+        run: deno audit --level=high --frozen-lockfile

@@ -1,5 +1,6 @@
 import lume from "lume/mod.ts";
 import basePath from "lume/plugins/base_path.ts";
+import { supportJson, testSupport } from "./support_metadata.ts";
 import {
   assertUniqueContentUrls,
   contentUrl,
@@ -21,6 +22,7 @@ site.ignore(
   "ARCHITECTURE.md",
   "SECURITY.md",
   "tests",
+  "experiments",
 );
 
 site.data(
@@ -29,13 +31,28 @@ site.data(
 );
 
 site.preprocess([".md"], (pages, allPages) => {
+  // Public deployment configuration only. No payment service is contacted.
+  const endpoint = Deno.env.get("FEED_IMPS_SUPPORT_ENDPOINT")?.trim();
+  const recipient = Deno.env.get("FEED_IMPS_SUPPORT_RECIPIENT")?.trim();
+  if (Boolean(endpoint) !== Boolean(recipient)) {
+    throw new Error(
+      "Set both FEED_IMPS_SUPPORT_ENDPOINT and FEED_IMPS_SUPPORT_RECIPIENT, or neither.",
+    );
+  }
   const contentPages = pages
     .filter((page) => page.src.path.startsWith("/content/"))
     .map((page) => ({
       page,
       source: `${page.src.path}${page.src.ext}`,
       metadata: validateContentMetadata(
-        page.data as Record<string, unknown>,
+        {
+          ...page.data,
+          ...(endpoint && page.data.slug === "feed-the-imps"
+            ? {
+              support: { ...testSupport, endpoint, recipient },
+            }
+            : {}),
+        } as Record<string, unknown>,
         `${page.src.path}${page.src.ext}`,
       ),
     }));
@@ -59,6 +76,10 @@ site.preprocess([".md"], (pages, allPages) => {
       site.options.location,
     ).href;
     page.data.markdownUrl = markdownUrl(metadata.kind, metadata.slug);
+    page.data.optionalSupport = metadata.support;
+    page.data.supportJson = metadata.support
+      ? supportJson(metadata.support)
+      : undefined;
     // Capture the canonical body before Markdown rendering and layouts.
     page.data.markdownRepresentation = markdownRepresentation(
       metadata,

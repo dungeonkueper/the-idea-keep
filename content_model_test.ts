@@ -1,8 +1,54 @@
 import {
   assertUniqueContentUrls,
   contentUrl,
+  markdownRepresentation,
   validateContentMetadata,
 } from "./content_model.ts";
+import { testSupport } from "./support_metadata.ts";
+
+Deno.test("support is optional, explicitly testnet, and serialized without changing content", () => {
+  const plain = validateContentMetadata(validMetadata(), "entry.md");
+  if (plain.support !== undefined) throw new Error("Support must default off");
+  const support = {
+    ...testSupport,
+    endpoint: "https://imps.example.com/support/a-valid-entry",
+    recipient: "0x1111111111111111111111111111111111111111",
+  };
+  const metadata = validateContentMetadata(
+    validMetadata({ support }),
+    "entry.md",
+  );
+  const markdown = markdownRepresentation(
+    metadata,
+    "Free content.",
+    "https://keep.example.com/ideas/a-valid-entry/",
+  );
+  if (
+    !markdown.includes('Support: {"support":') ||
+    !markdown.endsWith("Free content.")
+  ) throw new Error("Missing support or changed body");
+  for (
+    const change of [
+      { optional: false },
+      { chainId: 4217 },
+      { suggestedAmount: "1" },
+      { endpoint: "/support/a-valid-entry" },
+      { endpoint: "https://user:secret@example.com/support/a-valid-entry" },
+      { endpoint: "http://remote.example.com/support/a-valid-entry" },
+      { endpoint: "https://example.com/support/other" },
+      { recipient: "0x0000000000000000000000000000000000000000" },
+    ]
+  ) {
+    expectError(
+      () =>
+        validateContentMetadata(
+          validMetadata({ support: { ...support, ...change } }),
+          "entry.md",
+        ),
+      "",
+    );
+  }
+});
 
 function validMetadata(overrides: Record<string, unknown> = {}) {
   return {

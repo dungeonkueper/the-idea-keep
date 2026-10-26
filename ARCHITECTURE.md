@@ -87,6 +87,23 @@ reuse validated metadata and the pre-render body at the same publication boundar
 Structured lore, references, tags, and relationships can be added when needed,
 without parsing the themed HTML or maintaining parallel editorial content.
 
+## Optional Testnet support
+
+`support_metadata.ts` defines a small Keep-specific support descriptor, restricted
+to Tempo Moderato for the first POC. The content validator and existing HTML and
+Markdown serializers expose it only when configured. `FEED_IMPS_SUPPORT_ENDPOINT`
+and `FEED_IMPS_SUPPORT_RECIPIENT` are public build settings for the single
+`feed-the-imps` Egg; absent settings emit no offer. No payment SDK is imported by
+the website, and the build never calls the Worker or a payment network.
+
+The independent Worker under `experiments/feed-the-imps/` accepts only an empty
+POST to `/support/feed-the-imps`. It verifies a fixed MPP Testnet charge and returns
+a receipt. One SQLite Durable Object supplies persistent atomic replay claims.
+The directory, dependencies, secrets, and deployment remain outside the public
+site output. GitHub Pages keeps serving all content regardless of Worker health.
+See the [POC README](experiments/feed-the-imps/README.md) for verified APIs,
+configuration, limitations, and removal.
+
 ## Hosting portability
 
 The build should produce ordinary HTML, CSS, JavaScript, and assets in a static output directory. CI should invoke the project build and publish that output; host-specific workflow configuration should not contain the site's core build logic. This keeps a move from GitHub Pages to another static host largely a deployment and domain configuration change.
