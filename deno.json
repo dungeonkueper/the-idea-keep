@@ -1,6 +1,6 @@
 {
   "imports": {
-    "lume/": "https://cdn.jsdelivr.net/gh/lumeland/lume@3.3.1/"
+    "lume/": "https://cdn.jsdelivr.net/gh/lumeland/lume@3.3.3/"
   },
   "lock": {
     "frozen": true
