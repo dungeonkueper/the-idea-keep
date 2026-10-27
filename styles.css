@@ -229,7 +229,7 @@ a:focus-visible {
 
 .hero {
   max-width: 59rem;
-  padding-block: clamp(5rem, 11vw, 9rem);
+  padding-block: clamp(5rem, 11vw, 8rem) clamp(4rem, 9vw, 7rem);
 }
 
 .eyebrow {
@@ -262,25 +262,52 @@ a:focus-visible {
   font-size: clamp(1.08rem, 2vw, 1.3rem);
 }
 
+/* A hewn plaque rather than a pill. */
 .principle {
   display: inline-flex;
   gap: 0.65rem;
   align-items: center;
   margin: 2rem 0 0;
-  padding: 0.65rem 0.9rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 3px;
   color: var(--ink);
-  background: rgb(255 255 255 / 2%);
-  font-size: 0.9rem;
+  background: var(--stone);
+  font-family: var(--font-serif);
+  font-size: 0.97rem;
+  font-style: italic;
 }
 
 .principle span {
   color: var(--accent);
+  font-style: normal;
+}
+
+/* The one ornament: rule, three diamonds, rule. */
+.threshold,
+.prose .tales-from-below::after {
+  height: 18px;
+  background:
+    url("images/threshold.svg") center / 68px 18px no-repeat,
+    linear-gradient(90deg, transparent, var(--line-strong)) left center / calc(50% - 47px) 1px no-repeat,
+    linear-gradient(90deg, var(--line-strong), transparent) right center / calc(50% - 47px) 1px no-repeat;
+}
+
+.threshold {
+  margin: 0 0 3.5rem;
 }
 
 .hatchery {
-  padding-block: 1rem 7rem;
+  padding-block: 0 7rem;
+}
+
+.wing-label {
+  margin: 0 0 0.9rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .section-heading {
@@ -288,7 +315,7 @@ a:focus-visible {
   grid-template-columns: minmax(0, 1fr) minmax(15rem, 26rem);
   gap: 2rem;
   align-items: end;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 .section-heading h2 {
@@ -303,27 +330,114 @@ a:focus-visible {
   color: var(--ink-muted);
 }
 
-.content-card {
+/* Chambers hang off a dashed corridor, newest first. */
+.corridor {
   position: relative;
-  padding: clamp(1.5rem, 4vw, 2.6rem);
-  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 0;
+  padding: 0 0 0 48px;
+  list-style: none;
+}
+
+.corridor::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 15px;
+  border-left: 2px dashed var(--corridor);
+  content: "";
+}
+
+.chamber {
+  --chamber-padding: clamp(28px, 4vw, 44px);
+  position: relative;
+}
+
+/* Branch to the card, level with its title. */
+.chamber::before {
+  position: absolute;
+  top: calc(var(--chamber-padding) + 6px);
+  left: -48px;
+  width: 48px;
+  border-top: 2px dashed var(--corridor);
+  content: "";
+}
+
+/* Arch node, filled with the ground so the line passes behind it. */
+.chamber::after {
+  position: absolute;
+  top: calc(var(--chamber-padding) - 6px);
+  left: -41px;
+  box-sizing: border-box;
+  width: 16px;
+  height: 22px;
+  border: 2px solid var(--accent);
+  border-radius: 8px 8px 1px 1px;
+  background: var(--ground);
+  content: "";
+}
+
+.chamber-card {
+  position: relative;
+  padding: var(--chamber-padding);
   border: 1px solid var(--line);
-  border-radius: 1rem;
-  background:
-    linear-gradient(130deg, rgb(210 170 93 / 7%), transparent 38%),
-    var(--stone);
+  border-radius: var(--radius-stone);
+  background: linear-gradient(180deg, var(--stone-lit), var(--stone));
   box-shadow: var(--shadow-chamber);
 }
 
-.content-card::after {
+/* Four iron corner fittings drawn as one decorative layer. */
+.chamber-card::before,
+.prose .tales-from-below::before {
   position: absolute;
-  right: -4rem;
-  bottom: -6rem;
-  width: 15rem;
-  height: 15rem;
-  border: 1px solid rgb(210 170 93 / 10%);
-  border-radius: 50%;
+  inset: 9px;
+  pointer-events: none;
+  background:
+    linear-gradient(var(--iron), var(--iron)) left top / 18px 2px,
+    linear-gradient(var(--iron), var(--iron)) left top / 2px 18px,
+    linear-gradient(var(--iron), var(--iron)) right top / 18px 2px,
+    linear-gradient(var(--iron), var(--iron)) right top / 2px 18px,
+    linear-gradient(var(--iron), var(--iron)) left bottom / 18px 2px,
+    linear-gradient(var(--iron), var(--iron)) left bottom / 2px 18px,
+    linear-gradient(var(--iron), var(--iron)) right bottom / 18px 2px,
+    linear-gradient(var(--iron), var(--iron)) right bottom / 2px 18px;
+  background-repeat: no-repeat;
   content: "";
+}
+
+.meta-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.meta-chamber {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.meta-sep {
+  color: var(--corridor);
+}
+
+.meta-seed {
+  color: var(--ember);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 .metadata {
@@ -350,26 +464,26 @@ a:focus-visible {
   color: var(--accent-bright);
 }
 
-.content-card h3 {
+.chamber-card h3 {
   max-width: 20ch;
-  margin: 1.2rem 0 0.7rem;
+  margin: 17px 0 11px;
   font-family: var(--font-serif);
   font-size: clamp(1.7rem, 4vw, 2.55rem);
   line-height: 1.12;
 }
 
-.content-card h3 a {
+.chamber-card h3 a {
   color: var(--ink);
   text-decoration: none;
 }
 
-.content-card h3 a::after {
+.chamber-card h3 a::after {
   position: absolute;
   inset: 0;
   content: "";
 }
 
-.content-card p {
+.chamber-card p {
   max-width: 50rem;
   margin: 0;
   color: var(--ink-muted);
@@ -379,9 +493,9 @@ a:focus-visible {
   position: relative;
   z-index: 1;
   display: inline-flex;
-  gap: 0.55rem;
+  gap: 9px;
   align-items: center;
-  margin-top: 1.5rem;
+  margin-top: 24px;
   font-size: 0.9rem;
   font-weight: 700;
   text-decoration: none;

@@ -14,27 +14,27 @@ url: /
   <p class="principle"><span aria-hidden="true">✦</span> Unfinished is publishable.</p>
 </section>
 
+<div class="threshold" aria-hidden="true"></div>
+
 <section class="hatchery" aria-labelledby="hatchery-title">
   <div class="section-heading">
     <div>
-      <p class="eyebrow">The Hatchery</p>
+      <p class="wing-label">Wing A — The Hatchery</p>
       <h2 id="hatchery-title">From the Hatchery</h2>
     </div>
     <p>Early thoughts, hypotheses, and the beginnings of things.</p>
   </div>
 
-  <div class="content-list">
+  <ol class="corridor">
     {{ for item of search.pages("publicationStatus=published kind=idea", "chamber=desc") }}
-    <article class="content-card">
-      <div class="metadata" aria-label="Content metadata">
-        <span class="badge badge-kind">{{ item.kindLabel }}</span>
-        <span class="badge">{{ item.maturityLabel }}</span>
-        <time datetime="{{ item.displayDate }}">{{ item.displayDate }}</time>
-      </div>
-      <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
-      <p>{{ item.summary }}</p>
-      <a class="read-link" href="{{ item.url }}" aria-label="Read {{ item.title }}">Enter the chamber <span aria-hidden="true">→</span></a>
-    </article>
+    <li class="chamber">
+      <article class="chamber-card">
+        {{ include "meta_line.vto" item }}
+        <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+        <p>{{ item.summary }}</p>
+        <a class="read-link" href="{{ item.url }}" aria-label="Read {{ item.title }}">Enter the chamber <span aria-hidden="true">→</span></a>
+      </article>
+    </li>
     {{ /for }}
-  </div>
+  </ol>
 </section>

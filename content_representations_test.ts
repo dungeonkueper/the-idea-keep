@@ -83,7 +83,7 @@ Deno.test("built representations preserve source bodies and publication boundari
     "Stale map entries",
   );
   assert(
-    (home.match(/class="content-card"/g) ?? []).length === published,
+    (home.match(/class="chamber-card"/g) ?? []).length === published,
     "Duplicate cards",
   );
   assert(

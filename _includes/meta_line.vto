@@ -1,0 +1,9 @@
+<div class="meta-line">
+  <span class="meta-chamber"><span aria-hidden="true">CHAMBER {{ chamberLabel }}</span><span class="visually-hidden">Chamber {{ chamber }}</span></span>
+  <span class="meta-sep" aria-hidden="true">/</span>
+  <span>{{ kind }}</span>
+  <span class="meta-sep" aria-hidden="true">/</span>
+  <span{{ if maturity === "seed" }} class="meta-seed"{{ /if }}>{{ maturity }}</span>
+  <span class="meta-sep" aria-hidden="true">/</span>
+  <time datetime="{{ displayDate }}">{{ displayDate }}</time>
+</div>
