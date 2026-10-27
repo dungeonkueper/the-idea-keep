@@ -1,15 +1,48 @@
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/JetBrainsMono-Regular-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/JetBrainsMono-SemiBold-latin.woff2") format("woff2");
+}
+
 :root {
   color-scheme: dark;
-  --bg: #171714;
-  --surface: #20201c;
-  --surface-raised: #282820;
-  --text: #f0eadb;
-  --text-muted: #aaa493;
+  --ground: #161613;
+  --ground-lit: #191916;
+  --stone: #1e1e1a;
+  --stone-lit: #23231e;
+  --stone-raised: #282820;
+  --tablet: #1c1c18;
+  --ink: #f0eadb;
+  --ink-prose: #d3cdbc;
+  --ink-lore: #e6dfcd;
+  --ink-muted: #aaa493;
   --accent: #d2aa5d;
   --accent-bright: #ecc979;
-  --border: #3b392f;
+  --accent-hover: #ffe1a2;
   --focus: #ffe29b;
-  --shadow: 0 24px 70px rgb(0 0 0 / 28%);
+  --ember: #e9a274;
+  --torch: #ec9652;
+  --iron: #8c7442;
+  --line: #3b392f;
+  --line-strong: #4a4636;
+  --corridor: #5d5847;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --radius-fitting: 2px;
+  --radius-stone: 4px;
+  --shadow-chamber: inset 0 1px 0 rgb(240 234 219 / 4%), 0 24px 60px rgb(0 0 0 / 30%);
+  --shadow-tablet: inset 0 1px 0 rgb(240 234 219 / 4%), 0 20px 50px rgb(0 0 0 / 35%);
   --content-width: 72rem;
   --reading-width: 45rem;
 }
@@ -19,18 +52,18 @@
 }
 
 html {
-  background: var(--bg);
+  background: var(--ground);
   scroll-behavior: smooth;
 }
 
 body {
   min-width: 18rem;
   margin: 0;
-  color: var(--text);
+  color: var(--ink);
   background:
     radial-gradient(circle at 78% 4%, rgb(210 170 93 / 9%), transparent 25rem),
-    linear-gradient(180deg, #191916 0%, var(--bg) 28rem);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    linear-gradient(180deg, var(--ground-lit) 0%, var(--ground) 28rem);
+  font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.65;
 }
@@ -42,7 +75,7 @@ a {
 }
 
 a:hover {
-  color: #ffe1a2;
+  color: var(--accent-hover);
 }
 
 a:focus-visible {
@@ -57,7 +90,7 @@ a:focus-visible {
   top: 1rem;
   left: 1rem;
   padding: 0.65rem 0.9rem;
-  color: var(--bg);
+  color: var(--ground);
   background: var(--focus);
   transform: translateY(-200%);
 }
@@ -81,15 +114,15 @@ a:focus-visible {
 
 .site-header {
   min-height: 5.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
 }
 
 .wordmark {
   display: inline-flex;
   gap: 0.7rem;
   align-items: center;
-  color: var(--text);
-  font-family: Georgia, "Times New Roman", serif;
+  color: var(--ink);
+  font-family: var(--font-serif);
   font-size: 1.16rem;
   font-weight: 700;
   letter-spacing: 0.015em;
@@ -123,7 +156,7 @@ a:focus-visible {
 .hero h1,
 .article h1 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.03;
@@ -142,7 +175,7 @@ a:focus-visible {
 .hero-copy {
   max-width: 43rem;
   margin: 2rem 0 0;
-  color: var(--text-muted);
+  color: var(--ink-muted);
   font-size: clamp(1.08rem, 2vw, 1.3rem);
 }
 
@@ -152,9 +185,9 @@ a:focus-visible {
   align-items: center;
   margin: 2rem 0 0;
   padding: 0.65rem 0.9rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--line);
   border-radius: 999px;
-  color: var(--text);
+  color: var(--ink);
   background: rgb(255 255 255 / 2%);
   font-size: 0.9rem;
 }
@@ -177,26 +210,26 @@ a:focus-visible {
 
 .section-heading h2 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 3.2rem);
   line-height: 1.1;
 }
 
 .section-heading > p {
   margin: 0;
-  color: var(--text-muted);
+  color: var(--ink-muted);
 }
 
 .content-card {
   position: relative;
   padding: clamp(1.5rem, 4vw, 2.6rem);
   overflow: hidden;
-  border: 1px solid var(--border);
+  border: 1px solid var(--line);
   border-radius: 1rem;
   background:
     linear-gradient(130deg, rgb(210 170 93 / 7%), transparent 38%),
-    var(--surface);
-  box-shadow: var(--shadow);
+    var(--stone);
+  box-shadow: var(--shadow-chamber);
 }
 
 .content-card::after {
@@ -215,16 +248,16 @@ a:focus-visible {
   flex-wrap: wrap;
   gap: 0.55rem;
   align-items: center;
-  color: var(--text-muted);
+  color: var(--ink-muted);
   font-size: 0.78rem;
 }
 
 .badge {
   padding: 0.28rem 0.58rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--line);
   border-radius: 999px;
-  color: var(--text-muted);
-  background: var(--surface-raised);
+  color: var(--ink-muted);
+  background: var(--stone-raised);
   font-weight: 650;
   letter-spacing: 0.035em;
 }
@@ -237,13 +270,13 @@ a:focus-visible {
 .content-card h3 {
   max-width: 20ch;
   margin: 1.2rem 0 0.7rem;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.7rem, 4vw, 2.55rem);
   line-height: 1.12;
 }
 
 .content-card h3 a {
-  color: var(--text);
+  color: var(--ink);
   text-decoration: none;
 }
 
@@ -256,7 +289,7 @@ a:focus-visible {
 .content-card p {
   max-width: 50rem;
   margin: 0;
-  color: var(--text-muted);
+  color: var(--ink-muted);
 }
 
 .read-link {
@@ -280,14 +313,14 @@ a:focus-visible {
 .back-link {
   display: inline-block;
   margin-bottom: 3.2rem;
-  color: var(--text-muted);
+  color: var(--ink-muted);
   font-size: 0.9rem;
   text-decoration: none;
 }
 
 .article-header {
   padding-bottom: 2.5rem;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid var(--line);
 }
 
 .article h1 {
@@ -297,7 +330,7 @@ a:focus-visible {
 
 .article-summary {
   margin: 1.5rem 0 0;
-  color: var(--text-muted);
+  color: var(--ink-muted);
   font-size: 1.2rem;
 }
 
@@ -313,7 +346,7 @@ a:focus-visible {
   border-radius: 0.65rem;
   background:
     linear-gradient(135deg, rgb(210 170 93 / 9%), transparent 65%),
-    var(--surface);
+    var(--stone);
   box-shadow: 0 1rem 2.8rem rgb(0 0 0 / 16%);
 }
 
@@ -326,22 +359,22 @@ a:focus-visible {
 
 .prose .tales-from-below p {
   margin: 0;
-  color: var(--text);
-  font-family: Georgia, "Times New Roman", serif;
+  color: var(--ink);
+  font-family: var(--font-serif);
   font-size: 1.08rem;
   line-height: 1.75;
 }
 
 .prose h2 {
   margin: 2.7rem 0 0.8rem;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: var(--font-serif);
   font-size: clamp(1.5rem, 4vw, 2rem);
   line-height: 1.2;
 }
 
 .prose p,
 .prose li {
-  color: #d3cdbc;
+  color: var(--ink-prose);
 }
 
 .prose ul {
@@ -352,14 +385,14 @@ a:focus-visible {
   padding: 0.12rem 0.3rem;
   border-radius: 0.25rem;
   color: var(--accent-bright);
-  background: var(--surface-raised);
+  background: var(--stone-raised);
   font-size: 0.9em;
 }
 
 .site-footer {
   min-height: 7rem;
-  border-top: 1px solid var(--border);
-  color: var(--text-muted);
+  border-top: 1px solid var(--line);
+  color: var(--ink-muted);
   font-size: 0.82rem;
 }
 
@@ -405,7 +438,7 @@ a:focus-visible {
   width: min(50rem, calc(100% - 2rem));
   border: 1px solid var(--accent);
   border-radius: 0.65rem;
-  background: var(--surface);
+  background: var(--stone);
 }
 
 .analytics-consent[hidden], #analytics-settings[hidden] {
@@ -416,10 +449,10 @@ a:focus-visible {
 .analytics-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 .analytics-actions button, #analytics-settings {
   padding: 0.65rem 0.9rem;
-  border: 1px solid var(--border);
+  border: 1px solid var(--line);
   border-radius: 0.3rem;
-  background: var(--surface-raised);
-  color: var(--text);
+  background: var(--stone-raised);
+  color: var(--ink);
   font: inherit;
   cursor: pointer;
 }
