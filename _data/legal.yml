@@ -1,0 +1,15 @@
+# Anbieterangaben für Impressum und Datenschutzerklärung.
+#
+# Alle "TODO"-Werte vor dem Merge ersetzen. Der Test
+# tests/legal_pages_test.ts lässt den Build fehlschlagen, solange ein
+# Platzhalter in den gebauten Seiten steht – so kann kein halbfertiges
+# Impressum live gehen.
+#
+# Anschrift: muss ladungsfähig sein (kein Postfach). Eine c/o-Adresse
+# ist möglich, wenn dort Post zuverlässig angenommen und weitergegeben wird.
+operator:
+  name: "TODO: Vorname Nachname"
+  street: "TODO: Straße Hausnummer (oder c/o …)"
+  city: "TODO: PLZ Ort"
+  country: Deutschland
+  email: "TODO: E-Mail-Adresse"

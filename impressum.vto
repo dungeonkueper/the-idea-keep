@@ -1,0 +1,47 @@
+---
+layout: layouts/base.vto
+title: Impressum
+description: Anbieterkennzeichnung der Idea Keep.
+url: /impressum/
+---
+<article class="article legal-page" lang="de">
+  <a class="back-link" href="/">← Back to the Keep</a>
+
+  <header class="article-header">
+    <p class="eyebrow">Legal notice</p>
+    <h1>Impressum</h1>
+    <p class="article-summary" lang="en">
+      Who keeps the Keep. The Idea Keep is a private, non-commercial project.
+    </p>
+  </header>
+
+  <div class="prose">
+    <h2>Anbieter</h2>
+    <address>
+      {{ legal.operator.name }}<br>
+      {{ legal.operator.street }}<br>
+      {{ legal.operator.city }}<br>
+      {{ legal.operator.country }}
+    </address>
+
+    <h2>Kontakt</h2>
+    <p>
+      E-Mail:
+      <a href="mailto:{{ legal.operator.email }}">{{ legal.operator.email }}</a>
+    </p>
+
+    <h2>Hinweis zum Projekt</h2>
+    <p>
+      The Idea Keep ist ein privates, nicht-kommerzielles Hobbyprojekt und ein
+      inoffizielles Fanprojekt. Es steht in keiner Verbindung zu Electronic Arts
+      oder Bullfrog Productions und wird von diesen weder unterstützt noch
+      geprüft. Genannte Marken gehören ihren jeweiligen Inhabern.
+    </p>
+    <p>
+      Wer meint, dass hier Rechte verletzt werden, erreicht mich unter der oben
+      genannten E-Mail-Adresse. Ich kümmere mich zeitnah darum.
+    </p>
+
+    <p><a href="/datenschutz/">Zur Datenschutzerklärung</a></p>
+  </div>
+</article>

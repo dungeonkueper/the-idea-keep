@@ -367,6 +367,17 @@ a:focus-visible {
   margin: 0;
 }
 
+.legal-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.legal-page address {
+  color: #d3cdbc;
+  font-style: normal;
+  line-height: 1.7;
+}
+
 @media (max-width: 42rem) {
   .site-header,
   .site-footer,
