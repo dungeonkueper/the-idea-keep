@@ -8,8 +8,8 @@
 # Anschrift: muss ladungsfähig sein (kein Postfach). Eine c/o-Adresse
 # ist möglich, wenn dort Post zuverlässig angenommen und weitergegeben wird.
 operator:
-  name: "TODO: Vorname Nachname"
-  street: "TODO: Straße Hausnummer (oder c/o …)"
-  city: "TODO: PLZ Ort"
+  name: "Jens Kueper"
+  street: "Zum Schebbruch 3A"
+  city: "44801 Bochum"
   country: Deutschland
-  email: "TODO: E-Mail-Adresse"
+  email: "dungeonkueper.external630@aleeas.com"
