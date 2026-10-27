@@ -45,7 +45,7 @@ themedMaturity: egg
 publicationStatus: published
 ```
 
-The build validates this metadata and derives the public URL from `kind` and `slug`. Only entries with `publicationStatus: published` are generated and listed. `chamber` is the entry's permanent number across all kinds: take the highest existing number plus one, drafts included, and never change or reuse it.
+The build validates this metadata and derives the public URL from `kind` and `slug`. Only entries with `publicationStatus: published` are generated and listed. `chamber` is the entry's permanent number across all kinds: take the highest existing number plus one, drafts included, and never change or reuse it. Valid numbers run from 1 to 3999.
 
 Each published entry produces HTML at `/<section>/<slug>/` and layout-free
 Markdown at `/<section>/<slug>.md` from the same source. The generated `llms.txt`

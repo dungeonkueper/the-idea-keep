@@ -3,6 +3,7 @@ import {
   assertUniqueContentUrls,
   contentUrl,
   markdownRepresentation,
+  maxChamber,
   toRomanNumeral,
   validateContentMetadata,
 } from "./content_model.ts";
@@ -101,14 +102,16 @@ Deno.test("rejects duplicate public URLs", () => {
   );
 });
 
-Deno.test("accepts positive whole chamber numbers", () => {
-  const metadata = validateContentMetadata(
-    validMetadata({ chamber: 42 }),
-    "entry.md",
-  );
+Deno.test("accepts whole chamber numbers up to the Roman limit", () => {
+  for (const chamber of [1, 42, maxChamber]) {
+    const metadata = validateContentMetadata(
+      validMetadata({ chamber }),
+      "entry.md",
+    );
 
-  if (metadata.chamber !== 42) {
-    throw new Error("Expected chamber 42.");
+    if (metadata.chamber !== chamber) {
+      throw new Error(`Expected chamber ${chamber}.`);
+    }
   }
 });
 
@@ -117,13 +120,15 @@ Deno.test("rejects missing and invalid chamber numbers", () => {
 
   expectError(
     () => validateContentMetadata(withoutChamber, "entry.md"),
-    "entry.md: 'chamber' must be a positive whole number.",
+    "entry.md: 'chamber' must be a whole number from 1 to 3999.",
   );
 
-  for (const chamber of [0, -3, 1.5, "6", Number.NaN, null]) {
+  for (
+    const chamber of [0, -3, 1.5, "6", Number.NaN, null, maxChamber + 1]
+  ) {
     expectError(
       () => validateContentMetadata(validMetadata({ chamber }), "entry.md"),
-      "'chamber' must be a positive whole number.",
+      "'chamber' must be a whole number from 1 to 3999.",
     );
   }
 });

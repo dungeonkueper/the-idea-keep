@@ -25,6 +25,9 @@ export type ContentKind = (typeof contentKinds)[number];
 export type Maturity = (typeof maturityLevels)[number];
 export type PublicationStatus = (typeof publicationStatuses)[number];
 
+/** Largest chamber number that still has a standard Roman numeral. */
+export const maxChamber = 3999;
+
 export interface ContentMetadata {
   title: string;
   slug: string;
@@ -89,9 +92,12 @@ export function validateContentMetadata(
   const chamber = data.chamber;
 
   if (
-    typeof chamber !== "number" || !Number.isInteger(chamber) || chamber < 1
+    typeof chamber !== "number" || !Number.isInteger(chamber) ||
+    chamber < 1 || chamber > maxChamber
   ) {
-    throw new Error(`${source}: 'chamber' must be a positive whole number.`);
+    throw new Error(
+      `${source}: 'chamber' must be a whole number from 1 to ${maxChamber}.`,
+    );
   }
 
   const date = parseIsoDate(data.date, source);
@@ -221,9 +227,9 @@ const romanNumerals: readonly [number, string][] = [
 ];
 
 export function toRomanNumeral(value: number): string {
-  if (!Number.isInteger(value) || value < 1 || value > 3999) {
+  if (!Number.isInteger(value) || value < 1 || value > maxChamber) {
     throw new RangeError(
-      `Roman numerals cover whole numbers from 1 to 3999, not ${value}.`,
+      `Roman numerals cover whole numbers from 1 to ${maxChamber}, not ${value}.`,
     );
   }
 

@@ -20,7 +20,7 @@ Turn one coherent idea from the current context into one reviewable Hatchery ent
 - Use the local calendar date in `YYYY-MM-DD` form.
 - Re-read the current content model before choosing metadata. Unless the user explicitly requests otherwise, create an idea with `maturity: seed`, `themedMaturity: egg`, and `publicationStatus: draft`.
 - Search existing content for both the intended path and slug. If either already exists, do not overwrite or silently add a suffix; stop and ask the user to approve a different slug.
-- Assign the chamber number: read `chamber` from every existing content file (all kinds, drafts and archived entries included) and use the highest value plus one. Check this immediately before writing; never reuse or fill a gap, because numbers are permanent.
+- Assign the chamber number: read `chamber` from every existing content file (all kinds, drafts and archived entries included) and use the highest value plus one. Check this immediately before writing; never reuse or fill a gap, because numbers are permanent. If the next number would exceed 3999, the limit of the content model, stop and tell the user instead of writing the entry.
 
 ## Write one egg
 
