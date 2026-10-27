@@ -2,21 +2,31 @@
 layout: layouts/base.vto
 bodyClass: page-article
 ---
+{{ set chambers = search.pages("publicationStatus=published", "chamber=asc") }}
+{{ set previous = chambers.findLast((entry) => entry.chamber < chamber) }}
+{{ set next = chambers.find((entry) => entry.chamber > chamber) }}
 <article class="article">
-  <a class="back-link" href="/">← Back to the Keep</a>
+  <a class="back-link" href="/">← back up the corridor</a>
 
   <header class="article-header">
-    <div class="metadata" aria-label="Content metadata">
-      <span class="badge badge-kind">{{ kindLabel }}</span>
-      <span class="badge">{{ maturityLabel }}</span>
-      <time datetime="{{ displayDate }}">{{ displayDate }}</time>
-    </div>
+    {{ include "meta_line.vto" }}
     <h1>{{ title }}</h1>
     <p class="article-summary">{{ summary }}</p>
-    <a href="{{ markdownUrl }}">Read as Markdown</a>
+    <a class="markdown-link" href="{{ markdownUrl }}">Read as Markdown</a>
   </header>
 
   <div class="prose">
     {{ content }}
   </div>
+
+  {{ if previous || next }}
+  <nav class="chamber-nav" aria-label="Nearby chambers">
+    {{ if previous }}
+    <a class="chamber-nav-previous" href="{{ previous.url }}"><span aria-hidden="true">← CHAMBER {{ previous.chamberLabel }} · </span><span class="visually-hidden">Previous: Chamber {{ previous.chamber }}, </span>{{ previous.title }}</a>
+    {{ /if }}
+    {{ if next }}
+    <a class="chamber-nav-next" href="{{ next.url }}"><span aria-hidden="true">CHAMBER {{ next.chamberLabel }} · </span><span class="visually-hidden">Next: Chamber {{ next.chamber }}, </span>{{ next.title }}<span aria-hidden="true"> →</span></a>
+    {{ /if }}
+  </nav>
+  {{ /if }}
 </article>

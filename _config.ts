@@ -76,13 +76,6 @@ site.preprocess([".md"], (pages, allPages) => {
     page.data.chamberLabel = toRomanNumeral(metadata.chamber);
     page.data.description = metadata.summary;
     page.data.displayDate = metadata.date.toISOString().slice(0, 10);
-    page.data.kindLabel = metadata.kind[0].toUpperCase() +
-      metadata.kind.slice(1);
-    page.data.maturityLabel = metadata.themedMaturity
-      ? `${metadata.themedMaturity[0].toUpperCase()}${
-        metadata.themedMaturity.slice(1)
-      } / ${metadata.maturity[0].toUpperCase()}${metadata.maturity.slice(1)}`
-      : metadata.maturity[0].toUpperCase() + metadata.maturity.slice(1);
   }
 });
 

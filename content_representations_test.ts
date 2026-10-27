@@ -64,6 +64,7 @@ Deno.test("built representations preserve source bodies and publication boundari
     assert(markdown.endsWith(body.trimStart()), `Body changed: ${slug}`);
     assert(markdown.includes(`Canonical: <${location}/ideas/${slug}/>`), slug);
     assert(markdown.includes(`\nChamber: ${chamber}\n`), `Chamber: ${slug}`);
+    assert(html.includes(`Chamber ${chamber}</span>`), `Chamber: ${slug}`);
     assert(!map.includes("Chamber"), "Map lists chambers");
     assert(
       html.includes(`rel="canonical" href="${location}/ideas/${slug}/"`),
