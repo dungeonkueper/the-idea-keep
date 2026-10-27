@@ -35,7 +35,11 @@ Deno.test("built representations preserve source bodies and publication boundari
     const slug = frontmatter.match(/^slug: (.+)$/m)?.[1];
     const title = frontmatter.match(/^title: (.+)$/m)?.[1];
     const summary = frontmatter.match(/^summary: (.+)$/m)?.[1];
-    assert(slug && title && summary, `Missing metadata: ${file.name}`);
+    const chamber = frontmatter.match(/^chamber: (\d+)$/m)?.[1];
+    assert(
+      slug && title && summary && chamber,
+      `Missing metadata: ${file.name}`,
+    );
     if (!/^publicationStatus: published$/m.test(frontmatter)) {
       assert(!home.includes(slug) && !map.includes(slug), `Leaked ${slug}`);
       for (const path of [`ideas/${slug}.md`, `ideas/${slug}/index.html`]) {
@@ -59,6 +63,9 @@ Deno.test("built representations preserve source bodies and publication boundari
     );
     assert(markdown.endsWith(body.trimStart()), `Body changed: ${slug}`);
     assert(markdown.includes(`Canonical: <${location}/ideas/${slug}/>`), slug);
+    assert(markdown.includes(`\nChamber: ${chamber}\n`), `Chamber: ${slug}`);
+    assert(html.includes(`Chamber ${chamber}</span>`), `Chamber: ${slug}`);
+    assert(!map.includes("Chamber"), "Map lists chambers");
     assert(
       html.includes(`rel="canonical" href="${location}/ideas/${slug}/"`),
       slug,
@@ -77,7 +84,7 @@ Deno.test("built representations preserve source bodies and publication boundari
     "Stale map entries",
   );
   assert(
-    (home.match(/class="content-card"/g) ?? []).length === published,
+    (home.match(/class="chamber-card"/g) ?? []).length === published,
     "Duplicate cards",
   );
   assert(

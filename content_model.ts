@@ -25,9 +25,14 @@ export type ContentKind = (typeof contentKinds)[number];
 export type Maturity = (typeof maturityLevels)[number];
 export type PublicationStatus = (typeof publicationStatuses)[number];
 
+/** Largest chamber number that still has a standard Roman numeral. */
+export const maxChamber = 3999;
+
 export interface ContentMetadata {
   title: string;
   slug: string;
+  /** Permanent number across all kinds, assigned once and never reused. */
+  chamber: number;
   summary: string;
   date: Date;
   kind: ContentKind;
@@ -84,6 +89,17 @@ export function validateContentMetadata(
     );
   }
 
+  const chamber = data.chamber;
+
+  if (
+    typeof chamber !== "number" || !Number.isInteger(chamber) ||
+    chamber < 1 || chamber > maxChamber
+  ) {
+    throw new Error(
+      `${source}: 'chamber' must be a whole number from 1 to ${maxChamber}.`,
+    );
+  }
+
   const date = parseIsoDate(data.date, source);
 
   const themedMaturity = data.themedMaturity === undefined
@@ -93,6 +109,7 @@ export function validateContentMetadata(
   return {
     title,
     slug,
+    chamber,
     summary,
     date,
     kind: enumValue(data, "kind", contentKinds, source),
@@ -174,6 +191,61 @@ export function assertUniqueContentUrls(
   }
 }
 
+/** Check every record, drafts included, so a number is never reused. */
+export function assertUniqueChambers(
+  entries: Iterable<{ metadata: ContentMetadata; source: string }>,
+): void {
+  const sourcesByChamber = new Map<number, string>();
+
+  for (const { metadata, source } of entries) {
+    const existingSource = sourcesByChamber.get(metadata.chamber);
+
+    if (existingSource) {
+      throw new Error(
+        `${source}: chamber ${metadata.chamber} duplicates ${existingSource}.`,
+      );
+    }
+
+    sourcesByChamber.set(metadata.chamber, source);
+  }
+}
+
+const romanNumerals: readonly [number, string][] = [
+  [1000, "M"],
+  [900, "CM"],
+  [500, "D"],
+  [400, "CD"],
+  [100, "C"],
+  [90, "XC"],
+  [50, "L"],
+  [40, "XL"],
+  [10, "X"],
+  [9, "IX"],
+  [5, "V"],
+  [4, "IV"],
+  [1, "I"],
+];
+
+export function toRomanNumeral(value: number): string {
+  if (!Number.isInteger(value) || value < 1 || value > maxChamber) {
+    throw new RangeError(
+      `Roman numerals cover whole numbers from 1 to ${maxChamber}, not ${value}.`,
+    );
+  }
+
+  let remainder = value;
+  let numeral = "";
+
+  for (const [amount, symbol] of romanNumerals) {
+    while (remainder >= amount) {
+      numeral += symbol;
+      remainder -= amount;
+    }
+  }
+
+  return numeral;
+}
+
 /** Keep the published Markdown next to the existing HTML resource. */
 export function markdownUrl(kind: ContentKind, slug: string): string {
   return `${contentUrl(kind, slug).slice(0, -1)}.md`;
@@ -188,6 +260,7 @@ export function markdownRepresentation(
     `# ${metadata.title}`,
     metadata.summary,
     `Canonical: <${canonicalUrl}>\n` +
+    `Chamber: ${metadata.chamber}\n` +
     `Date: ${metadata.date.toISOString().slice(0, 10)}\n` +
     `Kind: ${metadata.kind}\n` +
     `Maturity: ${metadata.maturity}\n` +

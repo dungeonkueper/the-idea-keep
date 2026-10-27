@@ -39,6 +39,9 @@ Keep three independent dimensions in content metadata:
 | `kind` | What the item is | `idea`, `experiment`, `learning`, `project`, `artifact` |
 | `maturity` | How developed or supported it is | `seed`, `testing`, `working-theory`, `validated`, `discarded`, `dormant` |
 | `publicationStatus` | Whether it is visible on the site | `draft`, `published`, `archived` |
+| `chamber` | Its permanent number in the Keep | A whole number from 1 to 3999, shown as a Roman numeral (`CHAMBER VI`) |
+
+Every record needs a `chamber`. The number is assigned when the record is created, drafts included, and continues across all kinds rather than per section. It is never changed or reused, so an unpublished number stays a visible gap. The build fails when two records share a number, naming both source files. Standard Roman numerals end at 3999, so validation rejects larger numbers; supporting more chambers would need a different display first.
 
 This separation allows, for example, a discarded experiment to be published as a useful learning. The first content entry uses `kind: idea`, `maturity: seed`, and `publicationStatus: published`.
 

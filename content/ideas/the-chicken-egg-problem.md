@@ -1,5 +1,6 @@
 ---
 slug: the-chicken-egg-problem
+chamber: 1
 kind: idea
 maturity: testing
 themedMaturity: egg

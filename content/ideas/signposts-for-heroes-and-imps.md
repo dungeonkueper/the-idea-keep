@@ -1,5 +1,6 @@
 ---
 slug: signposts-for-heroes-and-imps
+chamber: 6
 kind: idea
 maturity: seed
 themedMaturity: egg

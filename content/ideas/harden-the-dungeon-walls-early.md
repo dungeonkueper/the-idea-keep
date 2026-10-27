@@ -1,5 +1,6 @@
 ---
 slug: harden-the-dungeon-walls-early
+chamber: 3
 kind: idea
 maturity: testing
 themedMaturity: egg

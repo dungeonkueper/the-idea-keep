@@ -1,5 +1,6 @@
 ---
 slug: the-self-hatching-hatchery
+chamber: 2
 kind: idea
 maturity: testing
 themedMaturity: egg

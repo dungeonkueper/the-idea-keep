@@ -1,10 +1,12 @@
 import lume from "lume/mod.ts";
 import basePath from "lume/plugins/base_path.ts";
 import {
+  assertUniqueChambers,
   assertUniqueContentUrls,
   contentUrl,
   markdownRepresentation,
   markdownUrl,
+  toRomanNumeral,
   validateContentMetadata,
 } from "./content_model.ts";
 
@@ -14,6 +16,9 @@ const site = lume({
 
 site.use(basePath());
 site.add("/styles.css");
+site.add("/images/");
+// Self-hosted JetBrains Mono (Latin subset) with its OFL licence.
+site.add("/fonts/");
 site.add("/analytics-consent.js");
 site.ignore(
   "README.md",
@@ -41,6 +46,7 @@ site.preprocess([".md"], (pages, allPages) => {
     }));
 
   assertUniqueContentUrls(contentPages);
+  assertUniqueChambers(contentPages);
 
   for (const { page, metadata } of contentPages) {
     if (metadata.publicationStatus !== "published") {
@@ -66,15 +72,10 @@ site.preprocess([".md"], (pages, allPages) => {
       page.data.canonicalUrl,
     );
     page.data.layout = "layouts/article.vto";
+    page.data.chamber = metadata.chamber;
+    page.data.chamberLabel = toRomanNumeral(metadata.chamber);
     page.data.description = metadata.summary;
     page.data.displayDate = metadata.date.toISOString().slice(0, 10);
-    page.data.kindLabel = metadata.kind[0].toUpperCase() +
-      metadata.kind.slice(1);
-    page.data.maturityLabel = metadata.themedMaturity
-      ? `${metadata.themedMaturity[0].toUpperCase()}${
-        metadata.themedMaturity.slice(1)
-      } / ${metadata.maturity[0].toUpperCase()}${metadata.maturity.slice(1)}`
-      : metadata.maturity[0].toUpperCase() + metadata.maturity.slice(1);
   }
 });
 
