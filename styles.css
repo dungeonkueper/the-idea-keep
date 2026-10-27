@@ -643,7 +643,7 @@ a:focus-visible {
 }
 
 .legal-page address {
-  color: #d3cdbc;
+  color: var(--ink-prose);
   font-style: normal;
   line-height: 1.7;
 }
