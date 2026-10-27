@@ -188,7 +188,7 @@ a:focus-visible {
 
 .site-header {
   min-height: 5.5rem;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 3px double var(--line-strong);
 }
 
 .wordmark {
@@ -199,17 +199,26 @@ a:focus-visible {
   font-family: var(--font-serif);
   font-size: 1.16rem;
   font-weight: 700;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.02em;
   text-decoration: none;
 }
 
+/* The arch mark: rounded top, open bottom. */
 .wordmark-mark {
-  color: var(--accent);
-  font-size: 0.75rem;
-  transform: rotate(45deg);
+  width: 14px;
+  height: 18px;
+  border: 2px solid var(--accent);
+  border-bottom: 0;
+  border-radius: 7px 7px 0 0;
 }
 
-.site-kicker,
+.site-kicker {
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+
 .eyebrow {
   color: var(--accent);
   font-size: 0.72rem;
@@ -465,7 +474,7 @@ a:focus-visible {
 
 .site-footer {
   min-height: 7rem;
-  border-top: 1px solid var(--line);
+  border-top: 3px double var(--line-strong);
   color: var(--ink-muted);
   font-size: 0.82rem;
 }
