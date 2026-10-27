@@ -36,6 +36,7 @@ Content lives below `content/` as Markdown with frontmatter:
 ```yaml
 title: A useful title
 slug: a-useful-title
+chamber: 7
 summary: A short description for listings and page metadata.
 date: 2026-09-20
 kind: idea
@@ -44,7 +45,7 @@ themedMaturity: egg
 publicationStatus: published
 ```
 
-The build validates this metadata and derives the public URL from `kind` and `slug`. Only entries with `publicationStatus: published` are generated and listed.
+The build validates this metadata and derives the public URL from `kind` and `slug`. Only entries with `publicationStatus: published` are generated and listed. `chamber` is the entry's permanent number across all kinds: take the highest existing number plus one, drafts included, and never change or reuse it.
 
 Each published entry produces HTML at `/<section>/<slug>/` and layout-free
 Markdown at `/<section>/<slug>.md` from the same source. The generated `llms.txt`

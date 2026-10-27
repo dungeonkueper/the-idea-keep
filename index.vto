@@ -24,7 +24,7 @@ url: /
   </div>
 
   <div class="content-list">
-    {{ for item of search.pages("publicationStatus=published kind=idea", "date=desc title=asc-locale") }}
+    {{ for item of search.pages("publicationStatus=published kind=idea", "chamber=desc") }}
     <article class="content-card">
       <div class="metadata" aria-label="Content metadata">
         <span class="badge badge-kind">{{ item.kindLabel }}</span>

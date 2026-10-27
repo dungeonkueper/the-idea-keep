@@ -1,5 +1,6 @@
 ---
 slug: setting-a-proper-dungeon-atmosphere
+chamber: 4
 kind: idea
 maturity: testing
 themedMaturity: egg

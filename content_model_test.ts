@@ -1,6 +1,9 @@
 import {
+  assertUniqueChambers,
   assertUniqueContentUrls,
   contentUrl,
+  markdownRepresentation,
+  toRomanNumeral,
   validateContentMetadata,
 } from "./content_model.ts";
 
@@ -8,6 +11,7 @@ function validMetadata(overrides: Record<string, unknown> = {}) {
   return {
     title: "A valid entry",
     slug: "a-valid-entry",
+    chamber: 1,
     summary: "A concise summary.",
     date: "2026-09-20",
     kind: "idea",
@@ -95,4 +99,106 @@ Deno.test("rejects duplicate public URLs", () => {
       ]),
     "duplicates first.md",
   );
+});
+
+Deno.test("accepts positive whole chamber numbers", () => {
+  const metadata = validateContentMetadata(
+    validMetadata({ chamber: 42 }),
+    "entry.md",
+  );
+
+  if (metadata.chamber !== 42) {
+    throw new Error("Expected chamber 42.");
+  }
+});
+
+Deno.test("rejects missing and invalid chamber numbers", () => {
+  const { chamber: _chamber, ...withoutChamber } = validMetadata();
+
+  expectError(
+    () => validateContentMetadata(withoutChamber, "entry.md"),
+    "entry.md: 'chamber' must be a positive whole number.",
+  );
+
+  for (const chamber of [0, -3, 1.5, "6", Number.NaN, null]) {
+    expectError(
+      () => validateContentMetadata(validMetadata({ chamber }), "entry.md"),
+      "'chamber' must be a positive whole number.",
+    );
+  }
+});
+
+Deno.test("rejects duplicate chambers across kinds and drafts", () => {
+  const published = validateContentMetadata(
+    validMetadata({ chamber: 6 }),
+    "published.md",
+  );
+  const draft = validateContentMetadata(
+    validMetadata({
+      chamber: 6,
+      kind: "experiment",
+      slug: "a-draft",
+      publicationStatus: "draft",
+    }),
+    "draft.md",
+  );
+  const other = validateContentMetadata(
+    validMetadata({ chamber: 7, slug: "another" }),
+    "other.md",
+  );
+
+  assertUniqueChambers([
+    { metadata: published, source: "published.md" },
+    { metadata: other, source: "other.md" },
+  ]);
+  expectError(
+    () =>
+      assertUniqueChambers([
+        { metadata: published, source: "published.md" },
+        { metadata: draft, source: "draft.md" },
+      ]),
+    "draft.md: chamber 6 duplicates published.md.",
+  );
+});
+
+Deno.test("converts chamber numbers to Roman numerals", () => {
+  const cases: [number, string][] = [
+    [1, "I"],
+    [4, "IV"],
+    [9, "IX"],
+    [14, "XIV"],
+    [40, "XL"],
+    [90, "XC"],
+    [400, "CD"],
+    [1994, "MCMXCIV"],
+    [3999, "MMMCMXCIX"],
+  ];
+
+  for (const [value, expected] of cases) {
+    const actual = toRomanNumeral(value);
+
+    if (actual !== expected) {
+      throw new Error(`Expected ${value} as ${expected}, got ${actual}.`);
+    }
+  }
+
+  for (const value of [0, 4000, 2.5]) {
+    expectError(() => toRomanNumeral(value), "1 to 3999");
+  }
+});
+
+Deno.test("lists the arabic chamber number in Markdown metadata", () => {
+  const metadata = validateContentMetadata(
+    validMetadata({ chamber: 6 }),
+    "entry.md",
+  );
+  const markdown = markdownRepresentation(
+    metadata,
+    "Body",
+    "https://example.test/ideas/a-valid-entry/",
+  );
+
+  if (!markdown.includes("\nChamber: 6\n")) {
+    throw new Error("Expected a 'Chamber: 6' metadata line.");
+  }
 });

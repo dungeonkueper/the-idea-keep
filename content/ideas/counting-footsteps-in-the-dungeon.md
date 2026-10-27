@@ -1,5 +1,6 @@
 ---
 slug: counting-footsteps-in-the-dungeon
+chamber: 5
 kind: idea
 maturity: seed
 themedMaturity: egg
