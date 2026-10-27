@@ -14,6 +14,7 @@ const site = lume({
 
 site.use(basePath());
 site.add("/styles.css");
+site.add("/images/");
 // Self-hosted JetBrains Mono (Latin subset) with its OFL licence.
 site.add("/fonts/");
 site.add("/analytics-consent.js");

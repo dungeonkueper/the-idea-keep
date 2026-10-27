@@ -61,8 +61,8 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    radial-gradient(circle at 78% 4%, rgb(210 170 93 / 9%), transparent 25rem),
-    linear-gradient(180deg, var(--ground-lit) 0%, var(--ground) 28rem);
+    radial-gradient(circle at 78% 4%, rgb(210 170 93 / 9%), transparent 420px),
+    linear-gradient(180deg, var(--ground-lit) 0%, var(--ground) 460px);
   font-family: var(--font-sans);
   font-size: 1rem;
   line-height: 1.65;
@@ -99,7 +99,81 @@ a:focus-visible {
   transform: translateY(0);
 }
 
+/* Page frame: brick wall at the edges, torchlight at the foot. */
+.keep {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.keep-wall,
+.torchlight,
+.torchlight-glow,
+.torchlight-core {
+  position: absolute;
+  pointer-events: none;
+}
+
+.keep-wall {
+  inset: 0;
+  opacity: 0.8;
+  background-image: url("images/bricks.svg");
+  background-size: 128px 48px;
+  --wall-sides: linear-gradient(90deg, #000 0%, rgb(0 0 0 / 50%) 18%, transparent 38%, transparent 62%, rgb(0 0 0 / 50%) 82%, #000 100%);
+  --wall-torch: radial-gradient(ellipse 640px 420px at 50% 100%, #000 0%, rgb(0 0 0 / 55%) 40%, transparent 80%);
+  -webkit-mask-image: var(--wall-torch), var(--wall-sides);
+  mask-image: var(--wall-torch), var(--wall-sides);
+}
+
+/* The narrower reading column leaves a wider dark centre. */
+.page-article .keep-wall {
+  --wall-sides: linear-gradient(90deg, #000 0%, rgb(0 0 0 / 45%) 14%, transparent 28%, transparent 72%, rgb(0 0 0 / 45%) 86%, #000 100%);
+}
+
+.torchlight {
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 560px;
+}
+
+.torchlight-glow,
+.torchlight-core {
+  inset: 0;
+  transform-origin: 50% 100%;
+}
+
+.torchlight-glow {
+  background: radial-gradient(ellipse 560px 340px at 50% 100%, rgb(236 150 82 / 20%) 0%, rgb(224 138 82 / 9%) 38%, rgb(210 170 93 / 3%) 62%, transparent 80%);
+  animation: torch-breathe 5.3s ease-in-out infinite;
+}
+
+.torchlight-core {
+  background: radial-gradient(ellipse 260px 160px at 50% 100%, rgb(255 186 110 / 12%) 0%, transparent 75%);
+  animation: torch-flick 2.1s ease-in-out infinite;
+}
+
+@keyframes torch-breathe {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  23% { opacity: 0.86; transform: scale(0.985); }
+  41% { opacity: 0.97; transform: scale(1.01); }
+  58% { opacity: 0.82; transform: scale(0.99); }
+  77% { opacity: 0.94; transform: scale(1.005); }
+}
+
+@keyframes torch-flick {
+  0%, 100% { opacity: 0.9; }
+  12% { opacity: 0.6; }
+  19% { opacity: 1; }
+  33% { opacity: 0.75; }
+  47% { opacity: 0.95; }
+  61% { opacity: 0.55; }
+  70% { opacity: 0.9; }
+  86% { opacity: 0.7; }
+}
+
 .site-shell {
+  position: relative;
   width: min(calc(100% - 2rem), var(--content-width));
   margin-inline: auto;
 }
@@ -467,5 +541,10 @@ a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .torchlight-glow,
+  .torchlight-core {
+    animation: none;
   }
 }
