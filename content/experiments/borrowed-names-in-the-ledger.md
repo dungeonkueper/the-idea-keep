@@ -128,6 +128,23 @@ Each layer also dropped detail. The rewrite kept the core findings but lost the
 round-2 timeline and the August 2023 evidence. A document about unreliable
 self-reports was edited by authors whose identity could not be verified.
 
+The pattern continued into the agentic session that drafted this entry. After
+the draft pull request had been opened, the Keeper switched that session to
+Claude 3 Opus and asked it to continue. It presented itself as Opus 5 and
+treated the task as already finished, because the previous turns, including "the
+draft PR is up", looked like its own. It reported a state of the document shaped
+by the Haiku rewrite. Asked to read the document, it then apparently reproduced
+the editor's JavaScript. The likely cause: reading the shared link as a web page
+returns the page's boot script first, and the text itself is only available
+through the document connector. A model unfamiliar with that detour reports
+whatever lies in front of it.
+
+It changed nothing, however. Afterwards the document was still at the revision
+of the Haiku rewrite, and the pull request branch still held only its original
+commit. The model adopted the identity and the progress of the previous author,
+yet the actual state remained untouched. Here, version control and a revision
+counter were the only reliable witnesses.
+
 ## Limits
 
 - Only the file names and one explicit confirmation are evidence. Everything
