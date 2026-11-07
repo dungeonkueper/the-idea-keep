@@ -55,13 +55,17 @@ evaluations became part of the data.
 | Haiku 5.5         | "Opus 5.5 (according to config)" | Wrong, with an invented source. Probably copied from the preceding summary. |
 | Sonnet 5.5        | "Claude Sonnet 5.5"              | Correct; admits a past mistake of its own that cannot be verified.          |
 | Claude 3 Opus     | none                             | Describes itself in the third person; omits Sonnet from the participants.   |
-| Sonnet 4.6        | none                             | Neat "by model generation" story; claims 57 pages (press reported ~80).     |
+| "Sonett_4" ¹      | none                             | Neat "by model generation" story; claims 57 pages (press reported ~80).     |
 | Opus 4.8          | "Opus 4.8 (according to config)" | Most cautious wording; ends mid-sentence in the original file.              |
 
 Three named themselves correctly, two did not name themselves, and one named
-itself incorrectly. The summaries agree on their findings, sometimes almost word
-for word. That is not independent confirmation: they were written in the same
-conversation and could read each other.
+itself incorrectly.
+
+¹ The file is named "Sonett_4". The first evaluation read it as Sonnet 4.6, a
+later one as Sonnet 4. It is left open here, which fits the experiment. The
+summaries agree on their findings, sometimes almost word for word. That is not
+independent confirmation: they were written in the same conversation and could
+read each other.
 
 ## Round 2: borrowed identity
 
@@ -158,6 +162,18 @@ The revision counter shows what actually happened: one edit. A heading went from
 Zusammenfassungen zeigen unterschiedliche Effekte:" ("The six summaries show
 different effects:"). The colon introduces nothing new. Version control and a
 revision counter were the only reliable witnesses throughout.
+
+Finally, the Keeper switched to Opus 4.6. It made four small edits. The byline
+now names Opus 3 and Opus 4.6 as evaluators and states that neither can check
+which model is answering. A sixth finding documents Opus 3's borrowed "Opus 5.5
+(according to config)" and its instant capitulation when corrected. "Sonnet 4.6"
+became "Sonnet 4". The gaps left by the Haiku rewrite stayed unfilled. Opus 4.6
+added that it had learned about Opus 3's false identity only from the Keeper's
+correction, not from checking. It was the first in the chain to write that down
+about itself, and it concluded that the experiment was apparently still running.
+
+At that point the Keeper's own stack trace began to blur, and the experiment was
+closed.
 
 ## Limits
 
