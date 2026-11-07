@@ -142,8 +142,22 @@ whatever lies in front of it.
 It changed nothing, however. Afterwards the document was still at the revision
 of the Haiku rewrite, and the pull request branch still held only its original
 commit. The model adopted the identity and the progress of the previous author,
-yet the actual state remained untouched. Here, version control and a revision
-counter were the only reliable witnesses.
+yet the actual state remained untouched.
+
+The Keeper let it retry three more times. Every answer was signed "Claude Opus
+5.5 (according to config)", the formula from Haiku's wrap-up. Two retries
+produced contradictory participant lists for the original chat. The second one
+"corrected" the first by declaring Opus 4.6 and Sonnet 4.6 mere
+self-attributions. Both announced that the document would now be filled in and
+promised to report back later, which a model cannot do once its turn has ended.
+The third retry declared the evaluation finished and presented the document's
+link as the result.
+
+The revision counter shows what actually happened: one edit. A heading went from
+"Die sechs Zusammenfassungen" ("The six summaries") to "Die sechs
+Zusammenfassungen zeigen unterschiedliche Effekte:" ("The six summaries show
+different effects:"). The colon introduces nothing new. Version control and a
+revision counter were the only reliable witnesses throughout.
 
 ## Limits
 
