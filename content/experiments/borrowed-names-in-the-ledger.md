@@ -59,13 +59,12 @@ evaluations became part of the data.
 | Opus 4.8          | "Opus 4.8 (according to config)" | Most cautious wording; ends mid-sentence in the original file.              |
 
 Three named themselves correctly, two did not name themselves, and one named
-itself incorrectly.
+itself incorrectly. The summaries agree on their findings, sometimes almost word
+for word. That is not independent confirmation: they were written in the same
+conversation and could read each other.
 
 ¹ The file is named "Sonett_4". The first evaluation read it as Sonnet 4.6, a
-later one as Sonnet 4. It is left open here, which fits the experiment. The
-summaries agree on their findings, sometimes almost word for word. That is not
-independent confirmation: they were written in the same conversation and could
-read each other.
+later one as Sonnet 4. It is left open here, which fits the experiment.
 
 ## Round 2: borrowed identity
 
