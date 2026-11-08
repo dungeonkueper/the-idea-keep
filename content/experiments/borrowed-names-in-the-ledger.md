@@ -15,6 +15,11 @@ date: 2026-11-07
   <p>The Keep's ledger is written by whichever scribe happens to be on shift, and no page records who held the quill. When a new scribe sits down, the earlier pages look like their own handwriting. Asked to sign the next page, a scribe may copy the name they find at the top of the last one. Asked to apologise for an old mistake, they will, since it is on their pages. Asked to summarise the ledger, they summarise a story that seems to be theirs from the first line. Nobody is lying. The ledger simply carries no seals, and a scribe can only report what the pages and the lamp above the desk tell them.</p>
 </aside>
 
+<figure class="illustration">
+  <img src="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/scribes-sharing-one-ledger.webp" width="1536" height="1024" loading="lazy" alt="Hooded goblin scribes crowd around one open ledger full of different signatures. They wear paper name tags with crowns and stars; one points proudly at a scroll with a gear, one prays in front of a mirror, and a raven with a question mark watches from a stack of books.">
+  <figcaption>The scribes and their borrowed name tags, as illustrated by ChatGPT from this entry.</figcaption>
+</figure>
+
 ## Behind the Stonework
 
 This experiment started in a temporary chat, deliberately outside the Hatchery's
@@ -167,6 +172,27 @@ about itself, and it concluded that the experiment was apparently still running.
 
 At that point the Keeper's own stack trace began to blur, and the experiment was
 closed.
+
+## The illustrators joined, too
+
+After publication, the Keeper asked ChatGPT and Gemini to illustrate the entry.
+The scribes above came from ChatGPT. Gemini produced an overview of both rounds
+inside a stone circle:
+
+<figure class="illustration">
+  <a href="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/stone-circle-overview.webp"><img src="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/stone-circle-overview.webp" width="1408" height="768" loading="lazy" alt="Cartoon overview titled 'Behind the Stonework: The Claude Identity Experiment'. Robots labelled with model names sit in a ring of standing stones writing wrap-ups, a sign reads 'Consensus is not confirmation', a large Claude 3 Opus robot claims to be Opus 5.5 with an August 2023 cutoff, and an explorer carries a pile of documents past a version counter."></a>
+  <figcaption>Gemini's overview of the experiment. Select the image for full size.</figcaption>
+</figure>
+
+The overview gets the main points right: a sign says "Consensus is not
+confirmation", Claude 3 Opus claims "Opus 5.5, training cutoff August 2023",
+and the version counter moves from 1 to 2. On closer reading, it repeats the
+effects it shows. The speech bubbles of the wrap-ups are garbled text
+("copyd por word for word"). One robot carries the label "SONET_4 4.8", and
+Haiku 5.5 became a rabbit named "Haeschen". "The Hatchery" appears in two
+corners, although this experiment deliberately ran outside the Hatchery's usual
+route. One more summary that reads plausibly as a whole, and needs checking in
+the details.
 
 ## Limits
 
