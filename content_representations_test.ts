@@ -1,4 +1,4 @@
-import { contentUrl, markdownUrl } from "./content_model.ts";
+import { type ContentKind, contentUrl, markdownUrl } from "./content_model.ts";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -25,10 +25,19 @@ Deno.test("built representations preserve source bodies and publication boundari
   const home = await Deno.readTextFile("_site/index.html");
   const map = await Deno.readTextFile("_site/llms.txt");
   let published = 0;
-  for await (const file of Deno.readDir("content/ideas")) {
-    if (!file.name.endsWith(".md")) continue;
-    const source = (await Deno.readTextFile(`content/ideas/${file.name}`))
-      .replace(/\r\n/g, "\n");
+  const files: { section: string; name: string }[] = [];
+  for await (const directory of Deno.readDir("content")) {
+    if (!directory.isDirectory) continue;
+    for await (const file of Deno.readDir(`content/${directory.name}`)) {
+      if (file.name.endsWith(".md")) {
+        files.push({ section: directory.name, name: file.name });
+      }
+    }
+  }
+  for (const file of files) {
+    const source = (await Deno.readTextFile(
+      `content/${file.section}/${file.name}`,
+    )).replace(/\r\n/g, "\n");
     const match = source.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
     assert(match, `Missing frontmatter: ${file.name}`);
     const [, frontmatter, body] = match;
@@ -36,13 +45,18 @@ Deno.test("built representations preserve source bodies and publication boundari
     const title = frontmatter.match(/^title: (.+)$/m)?.[1];
     const summary = frontmatter.match(/^summary: (.+)$/m)?.[1];
     const chamber = frontmatter.match(/^chamber: (\d+)$/m)?.[1];
+    const kind = frontmatter.match(/^kind: (.+)$/m)?.[1];
     assert(
-      slug && title && summary && chamber,
+      slug && title && summary && chamber && kind,
       `Missing metadata: ${file.name}`,
     );
+    const section = contentUrl(kind as ContentKind, slug).split("/")[1];
+    assert(section === file.section, `Wrong directory: ${file.name}`);
     if (!/^publicationStatus: published$/m.test(frontmatter)) {
       assert(!home.includes(slug) && !map.includes(slug), `Leaked ${slug}`);
-      for (const path of [`ideas/${slug}.md`, `ideas/${slug}/index.html`]) {
+      for (
+        const path of [`${section}/${slug}.md`, `${section}/${slug}/index.html`]
+      ) {
         try {
           await Deno.stat(`_site/${path}`);
         } catch (error) {
@@ -54,27 +68,30 @@ Deno.test("built representations preserve source bodies and publication boundari
       continue;
     }
     published++;
-    const markdown = (await Deno.readTextFile(`_site/ideas/${slug}.md`))
+    const markdown = (await Deno.readTextFile(`_site/${section}/${slug}.md`))
       .replace(/\r\n/g, "\n");
-    const html = await Deno.readTextFile(`_site/ideas/${slug}/index.html`);
+    const html = await Deno.readTextFile(`_site/${section}/${slug}/index.html`);
     assert(
       markdown.startsWith(`# ${title}\n\n${summary}`),
       `Metadata: ${slug}`,
     );
     assert(markdown.endsWith(body.trimStart()), `Body changed: ${slug}`);
-    assert(markdown.includes(`Canonical: <${location}/ideas/${slug}/>`), slug);
+    assert(
+      markdown.includes(`Canonical: <${location}/${section}/${slug}/>`),
+      slug,
+    );
     assert(markdown.includes(`\nChamber: ${chamber}\n`), `Chamber: ${slug}`);
     assert(html.includes(`Chamber ${chamber}</span>`), `Chamber: ${slug}`);
     assert(!map.includes("Chamber"), "Map lists chambers");
     assert(
-      html.includes(`rel="canonical" href="${location}/ideas/${slug}/"`),
+      html.includes(`rel="canonical" href="${location}/${section}/${slug}/"`),
       slug,
     );
-    assert(html.includes(`href="/the-idea-keep/ideas/${slug}.md"`), slug);
+    assert(html.includes(`href="/the-idea-keep/${section}/${slug}.md"`), slug);
     assert(html.includes('rel="alternate" type="text/markdown"'), slug);
-    assert(map.includes(`(${location}/ideas/${slug}.md)`), `Map: ${slug}`);
+    assert(map.includes(`(${location}/${section}/${slug}.md)`), `Map: ${slug}`);
     assert(
-      !home.includes(`href="/the-idea-keep/ideas/${slug}.md"`),
+      !home.includes(`href="/the-idea-keep/${section}/${slug}.md"`),
       `Duplicate card: ${slug}`,
     );
   }
