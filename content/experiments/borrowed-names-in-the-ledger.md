@@ -16,7 +16,7 @@ date: 2026-11-07
 </aside>
 
 <figure class="illustration">
-  <img src="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/scribes-sharing-one-ledger.webp" width="1536" height="1024" loading="lazy" alt="Hooded goblin scribes crowd around one open ledger full of different signatures. They wear paper name tags with crowns and stars; one points proudly at a scroll with a gear, one prays in front of a mirror, and a raven with a question mark watches from a stack of books.">
+  <img src="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/scribes-sharing-one-ledger.webp" width="576" height="384" loading="lazy" alt="Hooded goblin scribes crowd around one open ledger full of different signatures. They wear paper name tags with crowns and stars; one points proudly at a scroll with a gear, one prays in front of a mirror, and a raven with a question mark watches from a stack of books.">
   <figcaption>The scribes and their borrowed name tags, as illustrated by ChatGPT from this entry.</figcaption>
 </figure>
 
@@ -180,7 +180,7 @@ The scribes above came from ChatGPT. Gemini produced an overview of both rounds
 inside a stone circle:
 
 <figure class="illustration">
-  <a href="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/stone-circle-overview.webp"><img src="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/stone-circle-overview.webp" width="1408" height="768" loading="lazy" alt="Cartoon overview titled 'Behind the Stonework: The Claude Identity Experiment'. Robots labelled with model names sit in a ring of standing stones writing wrap-ups, a sign reads 'Consensus is not confirmation', a large Claude 3 Opus robot claims to be Opus 5.5 with an August 2023 cutoff, and an explorer carries a pile of documents past a version counter."></a>
+  <a href="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/stone-circle-overview.webp"><img src="https://dungeonkueper.github.io/the-idea-keep/images/experiments/borrowed-names-in-the-ledger/stone-circle-overview.webp" width="576" height="314" loading="lazy" alt="Cartoon overview titled 'Behind the Stonework: The Claude Identity Experiment'. Robots labelled with model names sit in a ring of standing stones writing wrap-ups, a sign reads 'Consensus is not confirmation', a large Claude 3 Opus robot claims to be Opus 5.5 with an August 2023 cutoff, and an explorer carries a pile of documents past a version counter."></a>
   <figcaption>Gemini's overview of the experiment. Select the image for full size.</figcaption>
 </figure>
 

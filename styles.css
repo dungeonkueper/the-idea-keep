@@ -598,14 +598,20 @@ a:focus-visible {
   padding-left: 1.3rem;
 }
 
+.prose img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Illustrations stay narrower than the text column. */
 .prose .illustration {
-  margin: 2.5rem 0;
+  max-width: 36rem;
+  margin: 2.5rem auto;
 }
 
 .prose .illustration img {
   display: block;
   width: 100%;
-  height: auto;
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-stone);
   box-shadow: var(--shadow-tablet);
