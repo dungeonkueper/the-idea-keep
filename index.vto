@@ -38,3 +38,29 @@ url: /
     {{ /for }}
   </ol>
 </section>
+
+{{ set experiments = search.pages("publicationStatus=published kind=experiment", "chamber=desc") }}
+{{ if experiments.length }}
+<section class="laboratory" aria-labelledby="laboratory-title">
+  <div class="section-heading">
+    <div>
+      <p class="wing-label">Wing B — The Laboratory</p>
+      <h2 id="laboratory-title">From the Laboratory</h2>
+    </div>
+    <p>Hypotheses put to the test, with their setup, findings, and limits.</p>
+  </div>
+
+  <ol class="corridor">
+    {{ for item of experiments }}
+    <li class="chamber">
+      <article class="chamber-card">
+        {{ include "meta_line.vto" item }}
+        <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+        <p>{{ item.summary }}</p>
+        <a class="read-link" href="{{ item.url }}" aria-label="Read {{ item.title }}">Enter the chamber <span aria-hidden="true">→</span></a>
+      </article>
+    </li>
+    {{ /for }}
+  </ol>
+</section>
+{{ /if }}

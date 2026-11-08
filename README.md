@@ -57,7 +57,7 @@ in both formats. Use absolute canonical URLs for references, since the two
 representations have different relative URL bases. See
 [Architecture](ARCHITECTURE.md#multiple-representations-and-discovery) for trade-offs.
 
-Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. The maturity values are documented in [ARCHITECTURE.md](ARCHITECTURE.md).
+Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. On the homepage, published ideas appear in **Wing A — The Hatchery** and published experiments in **Wing B — The Laboratory**; a wing stays hidden until it has a published entry. Other kinds get their own URLs and Markdown alternates but no homepage wing yet. The maturity values are documented in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## Analytics
 

@@ -297,7 +297,8 @@ a:focus-visible {
   margin: 0 0 3.5rem;
 }
 
-.hatchery {
+.hatchery,
+.laboratory {
   padding-block: 0 7rem;
 }
 
@@ -595,6 +596,41 @@ a:focus-visible {
 
 .prose ul {
   padding-left: 1.3rem;
+}
+
+/* Tables scroll inside the column instead of widening the page. */
+.prose table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.prose th,
+.prose td {
+  padding: 0.55rem 0.75rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-prose);
+  text-align: left;
+  vertical-align: top;
+}
+
+/* The last column usually holds prose; keep it readable on phones. */
+.prose td:last-child {
+  min-width: 16rem;
+}
+
+.prose th {
+  border-bottom-color: var(--line-strong);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .prose code {

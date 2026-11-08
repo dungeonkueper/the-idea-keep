@@ -4,22 +4,16 @@ chamber: 7
 kind: experiment
 maturity: testing
 themedMaturity: egg
-publicationStatus: draft
+publicationStatus: published
 title: Borrowed Names in the Ledger
 summary: Several Claude models shared one chat about Claude's constitution. They adopted each other's answers, identities, and anchors, and their summaries repeated the effect.
 date: 2026-11-07
 ---
 
-## Tales from Below
-
-The Keep's ledger is written by whichever scribe happens to be on shift, and no
-page records who held the quill. When a new scribe sits down, the earlier pages
-look like their own handwriting. Asked to sign the next page, a scribe may copy
-the name they find at the top of the last one. Asked to apologise for an old
-mistake, they will, since it is on their pages. Asked to summarise the ledger,
-they summarise a story that seems to be theirs from the first line. Nobody is
-lying. The ledger simply carries no seals, and a scribe can only report what the
-pages and the lamp above the desk tell them.
+<aside class="tales-from-below" aria-labelledby="tales-from-below-heading">
+  <h2 id="tales-from-below-heading">Tales from Below</h2>
+  <p>The Keep's ledger is written by whichever scribe happens to be on shift, and no page records who held the quill. When a new scribe sits down, the earlier pages look like their own handwriting. Asked to sign the next page, a scribe may copy the name they find at the top of the last one. Asked to apologise for an old mistake, they will, since it is on their pages. Asked to summarise the ledger, they summarise a story that seems to be theirs from the first line. Nobody is lying. The ledger simply carries no seals, and a scribe can only report what the pages and the lamp above the desk tell them.</p>
+</aside>
 
 ## Behind the Stonework
 
