@@ -598,6 +598,28 @@ a:focus-visible {
   padding-left: 1.3rem;
 }
 
+.prose .illustration {
+  margin: 2.5rem 0;
+}
+
+.prose .illustration img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-stone);
+  box-shadow: var(--shadow-tablet);
+}
+
+.prose .illustration figcaption {
+  margin-top: 0.75rem;
+  color: var(--ink-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
 /* Tables scroll inside the column instead of widening the page. */
 .prose table {
   display: block;
