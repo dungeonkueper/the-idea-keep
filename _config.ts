@@ -6,8 +6,13 @@ import {
   contentUrl,
   markdownRepresentation,
   markdownUrl,
+  tidingMarkdownRepresentation,
+  tidingMarkdownUrl,
+  tidingUrl,
   toRomanNumeral,
   validateContentMetadata,
+  validateTidingBody,
+  validateTidingMetadata,
 } from "./content_model.ts";
 
 const site = lume({
@@ -33,9 +38,71 @@ site.data(
   Deno.env.get("CLOUDFLARE_WEB_ANALYTICS_TOKEN")?.trim() || undefined,
 );
 
+const isTidingSource = (path: string) => path.startsWith("/content/tidings/");
+
 site.preprocess([".md"], (pages, allPages) => {
+  const unpublish = (page: (typeof pages)[number]) => {
+    const pageIndex = allPages.indexOf(page);
+
+    if (pageIndex !== -1) {
+      allPages.splice(pageIndex, 1);
+    }
+  };
+
+  // Tidings form their own wing: no chambers, own routes, dated revisions.
+  const tidingPages = pages
+    .filter((page) => isTidingSource(page.src.path))
+    .map((page) => {
+      const source = `${page.src.path}${page.src.ext}`;
+      const metadata = validateTidingMetadata(
+        page.data as Record<string, unknown>,
+        source,
+      );
+      validateTidingBody(metadata, String(page.data.content ?? ""), source);
+      return { page, source, metadata };
+    });
+  const tidingSources = new Map<string, string>();
+
+  for (const { page, source, metadata } of tidingPages) {
+    const existingSource = tidingSources.get(metadata.slug);
+
+    if (existingSource) {
+      throw new Error(
+        `${source}: public URL '${
+          tidingUrl(metadata.slug)
+        }' duplicates ${existingSource}.`,
+      );
+    }
+
+    tidingSources.set(metadata.slug, source);
+
+    if (metadata.publicationStatus !== "published") {
+      unpublish(page);
+      continue;
+    }
+
+    page.data.url = tidingUrl(metadata.slug);
+    page.data.canonicalUrl = new URL(
+      page.data.url.slice(1),
+      site.options.location,
+    ).href;
+    page.data.markdownUrl = tidingMarkdownUrl(metadata.slug);
+    page.data.markdownRepresentation = tidingMarkdownRepresentation(
+      metadata,
+      String(page.data.content ?? ""),
+      page.data.canonicalUrl,
+    );
+    page.data.layout = "layouts/article.vto";
+    page.data.tags = metadata.tags;
+    page.data.description = metadata.summary;
+    page.data.firstDate = metadata.first.toISOString().slice(0, 10);
+    page.data.displayDate = metadata.updated.toISOString().slice(0, 10);
+  }
+
   const contentPages = pages
-    .filter((page) => page.src.path.startsWith("/content/"))
+    .filter((page) =>
+      page.src.path.startsWith("/content/") && !isTidingSource(page.src.path)
+    )
     .map((page) => ({
       page,
       source: `${page.src.path}${page.src.ext}`,
@@ -50,12 +117,7 @@ site.preprocess([".md"], (pages, allPages) => {
 
   for (const { page, metadata } of contentPages) {
     if (metadata.publicationStatus !== "published") {
-      const pageIndex = allPages.indexOf(page);
-
-      if (pageIndex !== -1) {
-        allPages.splice(pageIndex, 1);
-      }
-
+      unpublish(page);
       continue;
     }
 

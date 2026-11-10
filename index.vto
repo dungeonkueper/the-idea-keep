@@ -64,3 +64,29 @@ url: /
   </ol>
 </section>
 {{ /if }}
+
+{{ set tidings = search.pages("wing=tidings publicationStatus=published", "updated=desc") }}
+{{ if tidings.length }}
+<section class="tidings" aria-labelledby="tidings-title">
+  <div class="section-heading">
+    <div>
+      <p class="wing-label">Outer Wing — Tidings</p>
+      <h2 id="tidings-title">Tidings from the Surface</h2>
+    </div>
+    <p>Events from beyond the Keep: what is known, and a view from below.</p>
+  </div>
+
+  <ol class="corridor">
+    {{ for item of tidings }}
+    <li class="chamber">
+      <article class="chamber-card tiding-card">
+        {{ include "meta_line.vto" item }}
+        <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+        <p>{{ item.summary }}</p>
+        <a class="read-link" href="{{ item.url }}" aria-label="Read {{ item.title }}">Read the tiding <span aria-hidden="true">→</span></a>
+      </article>
+    </li>
+    {{ /for }}
+  </ol>
+</section>
+{{ /if }}

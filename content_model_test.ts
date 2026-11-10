@@ -4,8 +4,13 @@ import {
   contentUrl,
   markdownRepresentation,
   maxChamber,
+  tidingMarkdownRepresentation,
+  tidingMarkdownUrl,
+  tidingUrl,
   toRomanNumeral,
   validateContentMetadata,
+  validateTidingBody,
+  validateTidingMetadata,
 } from "./content_model.ts";
 
 function validMetadata(overrides: Record<string, unknown> = {}) {
@@ -205,5 +210,160 @@ Deno.test("lists the arabic chamber number in Markdown metadata", () => {
 
   if (!markdown.includes("\nChamber: 6\n")) {
     throw new Error("Expected a 'Chamber: 6' metadata line.");
+  }
+});
+
+function validTiding(overrides: Record<string, unknown> = {}) {
+  return {
+    wing: "tidings",
+    title: "A breach at the gate",
+    slug: "2026-11-gate-breach",
+    summary: "What is known about the breach, and a view from below.",
+    first: "2026-11-09",
+    updated: "2026-11-23",
+    tags: ["security"],
+    publicationStatus: "draft",
+    ...overrides,
+  };
+}
+
+const validTidingBody = `_A raven landed with soot on its wings._
+
+## 2026-11-09
+### Tidings
+The vendor confirms X; researchers report Y. As of 2026-11-09.
+### A View from Below
+Short, but present.
+
+## 2026-11-23 – Later tidings
+### Tidings
+A patch was released.
+### A View from Below
+My view changed.
+`;
+
+Deno.test("tidings stand outside the chambers on their own routes", () => {
+  const metadata = validateTidingMetadata(validTiding(), "tiding.md");
+
+  if (
+    metadata.first.toISOString() !== "2026-11-09T00:00:00.000Z" ||
+    metadata.tags.join() !== "security" ||
+    tidingUrl(metadata.slug) !== "/tidings/2026-11-gate-breach/" ||
+    tidingMarkdownUrl(metadata.slug) !== "/tidings/2026-11-gate-breach.md"
+  ) {
+    throw new Error("Unexpected tiding metadata or routes.");
+  }
+
+  for (const field of ["chamber", "kind", "maturity"]) {
+    expectError(
+      () => validateTidingMetadata(validTiding({ [field]: 8 }), "tiding.md"),
+      `no '${field}'`,
+    );
+  }
+  expectError(
+    () => validateTidingMetadata(validTiding({ wing: "hatchery" }), "t.md"),
+    "'wing'",
+  );
+});
+
+Deno.test("tiding slugs carry the month of first engagement", () => {
+  expectError(
+    () => validateTidingMetadata(validTiding({ slug: "gate-breach" }), "t.md"),
+    "<YYYY-MM>-<short-topic>",
+  );
+  expectError(
+    () =>
+      validateTidingMetadata(
+        validTiding({ slug: "2026-10-gate-breach" }),
+        "t.md",
+      ),
+    "month of 'first'",
+  );
+  expectError(
+    () =>
+      validateTidingMetadata(validTiding({ updated: "2026-11-01" }), "t.md"),
+    "earlier than 'first'",
+  );
+  expectError(
+    () => validateTidingMetadata(validTiding({ tags: "security" }), "t.md"),
+    "'tags'",
+  );
+});
+
+Deno.test("every tiding revision keeps facts and view, oldest first", () => {
+  const metadata = validateTidingMetadata(validTiding(), "t.md");
+  validateTidingBody(metadata, validTidingBody, "t.md");
+
+  const cases: [string, string][] = [
+    ["Just prose.", "at least one dated revision"],
+    [
+      validTidingBody.replace("## 2026-11-23 – Later tidings", "## Update"),
+      "'## YYYY-MM-DD'",
+    ],
+    [
+      validTidingBody.replace("## 2026-11-09", "## 2026-11-10"),
+      "dated 'first'",
+    ],
+    [
+      validTidingBody.replace("## 2026-11-23", "## 2026-11-22"),
+      "dated 'updated'",
+    ],
+    [
+      validTidingBody.replace("### A View from Below\nShort", "Short"),
+      "followed by",
+    ],
+    [
+      validTidingBody.replace("Short, but present.", ""),
+      "empty 'A View from Below'",
+    ],
+    [
+      validTidingBody.replace("The vendor", "### Tidings\nThe vendor"),
+      "exactly",
+    ],
+    [`# Title\n\n${validTidingBody}`, "no '#' heading"],
+  ];
+
+  for (const [body, message] of cases) {
+    expectError(() => validateTidingBody(metadata, body, "t.md"), message);
+  }
+
+  const outOfOrder = validTidingBody.replace(
+    "## 2026-11-23",
+    "## 2026-11-05\n### Tidings\nLate.\n### A View from Below\nLate.\n\n## 2026-11-23",
+  );
+  expectError(
+    () => validateTidingBody(metadata, outOfOrder, "t.md"),
+    "must be later than",
+  );
+  validateTidingBody(
+    metadata,
+    validTidingBody.replace(
+      "A patch was released.",
+      "```\n## not a revision\n### nor a part\n```",
+    ),
+    "t.md",
+  );
+});
+
+Deno.test("tiding Markdown names wing and revision dates, not a chamber", () => {
+  const metadata = validateTidingMetadata(validTiding(), "t.md");
+  const markdown = tidingMarkdownRepresentation(
+    metadata,
+    validTidingBody,
+    "https://example.test/tidings/2026-11-gate-breach/",
+  );
+
+  for (
+    const expected of [
+      "# A breach at the gate\n\nWhat is known",
+      "\nWing: tidings\nFirst: 2026-11-09\nUpdated: 2026-11-23\n",
+      "\nTags: security\n",
+    ]
+  ) {
+    if (!markdown.includes(expected)) throw new Error(`Missing: ${expected}`);
+  }
+
+  if (markdown.includes("Chamber") || !markdown.endsWith(validTidingBody)) {
+    throw new Error("Unexpected tiding Markdown.");
   }
 });

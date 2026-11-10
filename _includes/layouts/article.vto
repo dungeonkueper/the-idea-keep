@@ -2,7 +2,7 @@
 layout: layouts/base.vto
 bodyClass: page-article
 ---
-{{ set chambers = search.pages("publicationStatus=published", "chamber=asc") }}
+{{ set chambers = chamber ? search.pages("publicationStatus=published", "chamber=asc").filter((entry) => entry.chamber) : [] }}
 {{ set previous = chambers.findLast((entry) => entry.chamber < chamber) }}
 {{ set next = chambers.find((entry) => entry.chamber > chamber) }}
 <article class="article">
