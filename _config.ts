@@ -12,6 +12,10 @@ import {
 
 const site = lume({
   location: new URL("https://dungeonkueper.github.io/the-idea-keep/"),
+}, {
+  // Escape every interpolation by default. Rendered HTML (the `content` of a
+  // layout) must opt out explicitly with `|> safe`.
+  vento: { options: { autoescape: true } },
 });
 
 site.use(basePath());
