@@ -144,32 +144,68 @@ a:focus-visible {
 }
 
 .torchlight-glow {
-  background: radial-gradient(ellipse 560px 340px at 50% 100%, rgb(236 150 82 / 20%) 0%, rgb(224 138 82 / 9%) 38%, rgb(210 170 93 / 3%) 62%, transparent 80%);
+  background: radial-gradient(ellipse 560px 340px at 50% 100%, rgb(236 150 82 /
+    20%) 0%, rgb(224 138 82 / 9%) 38%, rgb(210 170 93 / 3%) 62%, transparent
+    80%);
   animation: torch-breathe 5.3s ease-in-out infinite;
 }
 
 .torchlight-core {
-  background: radial-gradient(ellipse 260px 160px at 50% 100%, rgb(255 186 110 / 12%) 0%, transparent 75%);
+  background: radial-gradient(ellipse 260px 160px at 50% 100%, rgb(255 186 110 /
+    12%) 0%, transparent 75%);
   animation: torch-flick 2.1s ease-in-out infinite;
 }
 
 @keyframes torch-breathe {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  23% { opacity: 0.86; transform: scale(0.985); }
-  41% { opacity: 0.97; transform: scale(1.01); }
-  58% { opacity: 0.82; transform: scale(0.99); }
-  77% { opacity: 0.94; transform: scale(1.005); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  23% {
+    opacity: 0.86;
+    transform: scale(0.985);
+  }
+  41% {
+    opacity: 0.97;
+    transform: scale(1.01);
+  }
+  58% {
+    opacity: 0.82;
+    transform: scale(0.99);
+  }
+  77% {
+    opacity: 0.94;
+    transform: scale(1.005);
+  }
 }
 
 @keyframes torch-flick {
-  0%, 100% { opacity: 0.9; }
-  12% { opacity: 0.6; }
-  19% { opacity: 1; }
-  33% { opacity: 0.75; }
-  47% { opacity: 0.95; }
-  61% { opacity: 0.55; }
-  70% { opacity: 0.9; }
-  86% { opacity: 0.7; }
+  0%,
+  100% {
+    opacity: 0.9;
+  }
+  12% {
+    opacity: 0.6;
+  }
+  19% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 0.75;
+  }
+  47% {
+    opacity: 0.95;
+  }
+  61% {
+    opacity: 0.55;
+  }
+  70% {
+    opacity: 0.9;
+  }
+  86% {
+    opacity: 0.7;
+  }
 }
 
 .site-shell {
@@ -289,8 +325,10 @@ a:focus-visible {
   height: 18px;
   background:
     url("images/threshold.svg") center / 68px 18px no-repeat,
-    linear-gradient(90deg, transparent, var(--line-strong)) left center / calc(50% - 47px) 1px no-repeat,
-    linear-gradient(90deg, var(--line-strong), transparent) right center / calc(50% - 47px) 1px no-repeat;
+    linear-gradient(90deg, transparent, var(--line-strong)) left center /
+    calc(50% - 47px) 1px no-repeat,
+    linear-gradient(90deg, var(--line-strong), transparent) right center /
+    calc(50% - 47px) 1px no-repeat;
 }
 
 .threshold {
@@ -534,7 +572,8 @@ a:focus-visible {
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-stone);
   background:
-    radial-gradient(ellipse 70% 60% at 50% 0%, rgb(224 138 82 / 6%), transparent 70%),
+    radial-gradient(ellipse 70% 60% at 50% 0%, rgb(224 138 82 / 6%), transparent
+    70%),
     var(--tablet);
   box-shadow: var(--shadow-tablet);
 }
@@ -753,13 +792,21 @@ a:focus-visible {
   background: var(--stone);
 }
 
-.analytics-consent[hidden], #analytics-settings[hidden] {
+.analytics-consent[hidden],
+#analytics-settings[hidden] {
   display: none;
 }
 
-.analytics-consent h2 { margin-top: 0; }
-.analytics-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-.analytics-actions button, #analytics-settings {
+.analytics-consent h2 {
+  margin-top: 0;
+}
+.analytics-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.analytics-actions button,
+#analytics-settings {
   padding: 0.65rem 0.9rem;
   border: 1px solid var(--line);
   border-radius: 0.3rem;
@@ -768,10 +815,12 @@ a:focus-visible {
   font: inherit;
   cursor: pointer;
 }
-.analytics-actions button:hover, #analytics-settings:hover {
+.analytics-actions button:hover,
+#analytics-settings:hover {
   border-color: var(--accent);
 }
-.analytics-actions button:focus-visible, #analytics-settings:focus-visible {
+.analytics-actions button:focus-visible,
+#analytics-settings:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
