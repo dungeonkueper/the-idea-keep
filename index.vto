@@ -16,6 +16,8 @@ url: /
 
 <div class="threshold" aria-hidden="true"></div>
 
+{{ set ideas = search.pages("publicationStatus=published kind=idea", "chamber=desc") }}
+{{ if ideas.length }}
 <section class="hatchery" aria-labelledby="hatchery-title">
   <div class="section-heading">
     <div>
@@ -26,7 +28,7 @@ url: /
   </div>
 
   <ol class="corridor">
-    {{ for item of search.pages("publicationStatus=published kind=idea", "chamber=desc") }}
+    {{ for item of ideas }}
     <li class="chamber">
       <article class="chamber-card">
         {{ include "meta_line.vto" item }}
@@ -38,6 +40,7 @@ url: /
     {{ /for }}
   </ol>
 </section>
+{{ /if }}
 
 {{ set experiments = search.pages("publicationStatus=published kind=experiment", "chamber=desc") }}
 {{ if experiments.length }}
