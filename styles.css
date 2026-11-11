@@ -336,7 +336,8 @@ a:focus-visible {
 }
 
 .hatchery,
-.laboratory {
+.laboratory,
+.tidings {
   padding-block: 0 7rem;
 }
 
@@ -457,7 +458,8 @@ a:focus-visible {
   letter-spacing: 0.04em;
 }
 
-.meta-chamber {
+.meta-chamber,
+.meta-wing {
   color: var(--accent);
   font-weight: 600;
 }

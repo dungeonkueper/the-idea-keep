@@ -1,3 +1,16 @@
+{{ if wing === "tidings" }}
+<div class="meta-line">
+  <span class="meta-wing">TIDINGS</span>
+  <span class="meta-sep" aria-hidden="true">/</span>
+  <span>first <time datetime="{{ firstDate }}">{{ firstDate }}</time></span>
+  <span class="meta-sep" aria-hidden="true">/</span>
+  <span>updated <time datetime="{{ displayDate }}">{{ displayDate }}</time></span>
+  {{ if tags && tags.length }}
+  <span class="meta-sep" aria-hidden="true">/</span>
+  <span>{{ tags.join(", ") }}</span>
+  {{ /if }}
+</div>
+{{ else }}
 <div class="meta-line">
   <span class="meta-chamber"><span aria-hidden="true">CHAMBER {{ chamberLabel }}</span><span class="visually-hidden">Chamber {{ chamber }}</span></span>
   <span class="meta-sep" aria-hidden="true">/</span>
@@ -7,3 +20,4 @@
   <span class="meta-sep" aria-hidden="true">/</span>
   <time datetime="{{ displayDate }}">{{ displayDate }}</time>
 </div>
+{{ /if }}

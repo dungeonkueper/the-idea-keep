@@ -47,6 +47,17 @@ This separation allows, for example, a discarded experiment to be published as a
 
 Only content marked `published` is currently rendered and listed. Draft preview, archived-content browsing, relationships, tags, and pagination can be introduced when the collection creates a concrete need for them.
 
+**Tidings from the Surface** is a deliberate exception to the chamber model: a
+separate wing for dated reports on external events. Its records live in
+`content/tidings/`, carry `wing: tidings`, `first`, `updated`, optional `tags`,
+and the shared `publicationStatus`, and consume no chamber number. Their slug
+`<YYYY-MM>-<short-topic>` is their permanent identity under `/tidings/`. The same
+preprocessing step validates them and applies the same publication gate and
+Markdown/`llms.txt` representations. It also checks the revision structure: dated
+`##` blocks, each with a **Tidings** and an **A View from Below** part. The build
+only sees the current file, so append-only revision history is enforced in
+review rather than by the build. See the [README](README.md#tidings-from-the-surface).
+
 Content may link to related items as the collection grows. For now, Markdown files are the source of truth; a database and ORM are not part of the initial implementation. If that changes, preserve a boundary between content parsing/storage and site rendering so a new storage adapter can be introduced without rewriting the entire site.
 
 ## Multiple representations and discovery
