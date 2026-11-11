@@ -42,12 +42,12 @@ avoids invasive fingerprinting.
 
 ## Options for the Census
 
-| Option | What it offers | What it leaves unresolved |
-| --- | --- | --- |
-| Existing Cloudflare Web Analytics | Ordinary page and visitor statistics with little infrastructure. | It currently has no custom events for our own category counters. |
-| GitHub repository traffic | Repository visits and clones. | These are not visits to the published Pages website or a Census event store. |
+| Option                                       | What it offers                                                                               | What it leaves unresolved                                                                                        |
+| -------------------------------------------- | -------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Existing Cloudflare Web Analytics            | Ordinary page and visitor statistics with little infrastructure.                             | It currently has no custom events for our own category counters.                                                 |
+| GitHub repository traffic                    | Repository visits and clones.                                                                | These are not visits to the published Pages website or a Census event store.                                     |
 | Separate Worker and Workers Analytics Engine | A small classifier plus managed event storage and SQL aggregation, without our own database. | Only clients that contact the Worker are observed; collection, classification, and operations still need design. |
-| A proxy in the page-request path | Visibility into requests from crawlers that never execute a browser beacon. | A custom domain and routing changes would add responsibility; GitHub Pages could remain the origin. |
+| A proxy in the page-request path             | Visibility into requests from crawlers that never execute a browser beacon.                  | A custom domain and routing changes would add responsibility; GitHub Pages could remain the origin.              |
 
 The counter is only half the problem. A separate Worker sees only requests sent
 to it. It cannot inspect requests to GitHub Pages, and a JavaScript caller will

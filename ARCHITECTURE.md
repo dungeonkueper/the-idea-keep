@@ -34,12 +34,12 @@ Markdown content + frontmatter
 
 Keep three independent dimensions in content metadata:
 
-| Dimension | Describes | Initial values |
-| --- | --- | --- |
-| `kind` | What the item is | `idea`, `experiment`, `learning`, `project`, `artifact` |
-| `maturity` | How developed or supported it is | `seed`, `testing`, `working-theory`, `validated`, `discarded`, `dormant` |
-| `publicationStatus` | Whether it is visible on the site | `draft`, `published`, `archived` |
-| `chamber` | Its permanent number in the Keep | A whole number from 1 to 3999, shown as a Roman numeral (`CHAMBER VI`) |
+| Dimension           | Describes                         | Initial values                                                           |
+| ------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| `kind`              | What the item is                  | `idea`, `experiment`, `learning`, `project`, `artifact`                  |
+| `maturity`          | How developed or supported it is  | `seed`, `testing`, `working-theory`, `validated`, `discarded`, `dormant` |
+| `publicationStatus` | Whether it is visible on the site | `draft`, `published`, `archived`                                         |
+| `chamber`           | Its permanent number in the Keep  | A whole number from 1 to 3999, shown as a Roman numeral (`CHAMBER VI`)   |
 
 Every record needs a `chamber`. The number is assigned when the record is created, drafts included, and continues across all kinds rather than per section. It is never changed or reused, so an unpublished number stays a visible gap. The build fails when two records share a number, naming both source files. Standard Roman numerals end at 3999, so validation rejects larger numbers; supporting more chambers would need a different display first.
 
@@ -141,12 +141,12 @@ current `github.io` URL.
 
 Potential categories, always accompanied by a reason and uncertainty:
 
-| Category | Interpretation |
-| --- | --- |
-| `IMP` | Our automation with a verified deliberate marker; a public browser token cannot authenticate it. |
-| `BOT` | Recognizable crawler/agent signals; a User-Agent claim can be spoofed. |
-| `HERO` / `HERO?` | Probably human only with justified supporting evidence; browser headers alone are insufficient. |
-| `UNKNOWN` | Missing, ambiguous, or conflicting evidence, including browser-like traffic without stronger evidence. |
+| Category         | Interpretation                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `IMP`            | Our automation with a verified deliberate marker; a public browser token cannot authenticate it.       |
+| `BOT`            | Recognizable crawler/agent signals; a User-Agent claim can be spoofed.                                 |
+| `HERO` / `HERO?` | Probably human only with justified supporting evidence; browser headers alone are insufficient.        |
+| `UNKNOWN`        | Missing, ambiguous, or conflicting evidence, including browser-like traffic without stronger evidence. |
 
 User-Agent and optional Client Hints are inputs, not identity. No invasive
 fingerprinting, persistent visitor IDs, or raw IP/complete-header storage is

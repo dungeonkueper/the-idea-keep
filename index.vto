@@ -16,15 +16,18 @@ url: /
 
 <div class="threshold" aria-hidden="true"></div>
 
-{{# The Hatchery stays visible even when empty; the other wings appear with their first entry. #}}
+{{# Each wing appears with its first published entry. #}}
+{{ set ideas = search.pages("publicationStatus=published kind=idea", "chamber=desc") }}
+{{ if ideas.length }}
 {{ include "wing.vto" {
   id: "hatchery",
   label: "Wing A — The Hatchery",
   heading: "From the Hatchery",
   description: "Early thoughts, hypotheses, and the beginnings of things.",
-  items: search.pages("publicationStatus=published kind=idea", "chamber=desc"),
+  items: ideas,
   readLabel: "Enter the chamber",
 } }}
+{{ /if }}
 
 {{ set experiments = search.pages("publicationStatus=published kind=experiment", "chamber=desc") }}
 {{ if experiments.length }}

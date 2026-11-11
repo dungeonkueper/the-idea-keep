@@ -25,6 +25,11 @@ deno task check
 deno task build
 ```
 
+`deno task check` formats, lints, and type-checks the whole repository, builds
+the site, and runs every `*_test.ts` file; there are no file lists to maintain.
+Vento templates escape interpolated values by default; only rendered HTML such
+as a layout's `content` opts out with `|> safe`.
+
 Both commands use the frozen lockfile and cached dependencies. The production
 build has no network, subprocess, FFI, or broad environment-variable access.
 See [SECURITY.md](SECURITY.md) before changing dependencies or GitHub Actions.
@@ -91,18 +96,26 @@ heading:
 _An optional lore line in raven-post mood._
 
 ## 2026-11-09
+
 ### Tidings
+
 What happened, briefly and soberly; linked sources; contradictions and open
 questions stated descriptively ("vendor confirms X, researchers report Y");
 an "as of" date.
+
 ### A View from Below
+
 Interpretation, opinion and learnings. Can be short, never omitted. Link any
 egg it sparks.
 
 ## 2026-11-23 – Later tidings
+
 ### Tidings
+
 ...
+
 ### A View from Below
+
 ...
 ```
 
