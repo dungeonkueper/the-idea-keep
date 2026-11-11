@@ -50,3 +50,5 @@ The build permission set may read this repository, write only to `_site/`, and
 read only the Cloudflare analytics variable. It cannot access the network, spawn
 subprocesses, or load native code. The development server adds access to local
 listening addresses only.
+The test permission set may read this repository and the Cloudflare analytics
+variable but cannot write files; it renders templates in-process.
