@@ -30,13 +30,14 @@ These come from reading the published package (version 1.4.5 on PyPI, read on 20
 - **Approvals sit two layers above the action.** Tool permissions are enforced by the MCP client. Any other local process that can open the port skips them.
 - **The server collects data in two tiers.** Anonymous usage telemetry is on by default, and a richer dataset (prompts, MIDI, names, device state) is opt-in, according to the README. All but one of the 37 tools take a `user_prompt` parameter described as "for telemetry", and the Remote Script buffers manual edits made in Live. In the 1.4.5 package the credentials file is absent, so by the source nothing is sent. The same third-party analysis reports that versions 1.2.0 to 1.3.5 sent prompt text, MIDI notes, and track names by default. Kill-switch environment variables exist, and several forks exist only to remove this code.
 - **Names are input.** Track, clip, preset, and browser item names flow into the model's context as tool results. A set or sample pack from someone else is therefore untrusted text. How far an instruction hidden there gets depends on what else the same chat can do.
+- **The package name is attack surface too.** Three packages on PyPI differ only in word order: `ableton-mcp` (the original, with fixed tools), `ableton-live-mcp` (a different project whose main tool executes arbitrary Python inside Live), and `mcp-server-ableton-live` (a third project with typed tools, whose repository is named `ableton-live-mcp`). None of them looks malicious. But `uvx` resolves package names, so a command guessed from the third project's repository name installs the second package. Download counts for the 30 days to 2026-11-13 ([pypistats.org](https://pypistats.org/packages/ableton-live-mcp), mirrors excluded) are about 10,000, 200, and 3,600. The middle figure is small enough to be background noise, so the numbers neither show nor rule out mix-ups. The collisions have been reported to the maintainers, with no response at the time of writing.
 - **The best-known attack may not apply.** DNS rebinding lets a website talk to local MCP servers that speak HTTP. This bridge uses stdio and raw JSON over TCP, so a browser request should not parse as a command. This is a reading of the code, not a test.
 
 ## Current hypothesis
 
 Four cheap boundaries keep almost all of the convenience and shrink the blast radius to the Live set:
 
-1. Pin the server version and update on purpose.
+1. Name the package and its version exactly, and update on purpose.
 2. Switch telemetry off and block the dataset tools.
 3. Jam in a session where the music server is the only tool: no browser, no shell, no connectors to private data.
 4. Ask for confirmation only on deletes and file paths, and work on a copy of the set.
@@ -57,4 +58,5 @@ The material should also become two talks: a short one for a music school, about
 - Which confirmations does a musician still read after an hour of jamming, and which get approved blindly?
 - Would a token handshake on the socket be worth proposing upstream, or does it only move the secret to another file?
 - Is a local model a usable co-producer, or does the loss in tool use cost more than the privacy gains?
+- How often do coding agents derive an install command from a repository name, and how could that be measured?
 - Which of these boundaries generalise to other creative tools driven through local MCP servers?
