@@ -37,6 +37,9 @@ site.ignore(
   "tests",
 );
 
+// Absolute links for layout-free representations such as /datenschutz.md.
+site.data("siteUrl", site.options.location.href);
+
 site.data(
   "cloudflareAnalyticsToken",
   Deno.env.get("CLOUDFLARE_WEB_ANALYTICS_TOKEN")?.trim() || undefined,

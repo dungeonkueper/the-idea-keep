@@ -13,13 +13,50 @@ async function* htmlFiles(dir: string): AsyncGenerator<string> {
 }
 
 Deno.test("legal pages are built without placeholders", async () => {
-  for (const page of legalPages) {
-    const html = await Deno.readTextFile(`_site/${page}/index.html`);
+  const outputs = [
+    ...legalPages.map((page) => `${page}/index.html`),
+    "datenschutz.md",
+  ];
+  for (const output of outputs) {
+    const text = await Deno.readTextFile(`_site/${output}`);
     assert(
-      !html.includes("TODO"),
-      `Placeholder left on /${page}/: fill in _data/legal.yml`,
+      !text.includes("TODO"),
+      `Placeholder left in /${output}: fill in _data/legal.yml`,
     );
-    assert(html.includes("<address>"), `Missing operator address: ${page}`);
+  }
+});
+
+Deno.test("the privacy notice names the operator through the Impressum", async () => {
+  const impressum = await Deno.readTextFile("_site/impressum/index.html");
+  assert(impressum.includes("<address>"), "Missing operator address");
+  const html = await Deno.readTextFile("_site/datenschutz/index.html");
+  assert(
+    html.includes('href="/the-idea-keep/impressum/">Impressum</a> genannte'),
+    "Privacy notice does not refer to the Impressum for the operator",
+  );
+  const markdown = await Deno.readTextFile("_site/datenschutz.md");
+  assert(
+    markdown.includes(
+      "](https://dungeonkueper.github.io/the-idea-keep/impressum/)",
+    ),
+    "Markdown privacy notice needs an absolute Impressum link",
+  );
+  assert(
+    html.includes('href="/the-idea-keep/datenschutz.md"'),
+    "Privacy notice does not advertise its Markdown alternate",
+  );
+});
+
+Deno.test("the privacy notice mentions Cloudflare only when analytics is built in", async () => {
+  const enabled = Boolean(
+    Deno.env.get("CLOUDFLARE_WEB_ANALYTICS_TOKEN")?.trim(),
+  );
+  for (const output of ["datenschutz/index.html", "datenschutz.md"]) {
+    const text = await Deno.readTextFile(`_site/${output}`);
+    assert(
+      text.includes("Cloudflare Web Analytics") === enabled,
+      `/${output} must ${enabled ? "" : "not "}describe Cloudflare analytics`,
+    );
   }
 });
 

@@ -1,0 +1,66 @@
+{{#
+  Einzige Quelle der Datenschutzerklärung. datenschutz.vto rendert sie als
+  HTML, datenschutz_markdown.vto gibt sie unverändert als Markdown aus.
+  Erwartet: impressumUrl, standDatum, cloudflareAnalyticsToken (optional).
+
+  Offene Punkte für den Betreiber stehen als TODO(Betreiber) nur in diesen
+  Kommentaren. Sie werden nicht ausgegeben, damit tests/legal_pages_test.ts
+  keinen Platzhalter in der gebauten Seite findet.
+#}}
+## Verantwortlicher
+
+Verantwortlich für die Datenverarbeitung auf dieser Website ist der im [Impressum]({{ impressumUrl }}) genannte Anbieter. Dort findest du Anschrift und E-Mail-Adresse.
+{{# TODO(Betreiber): Prüfen, ob der Verweis auf das Impressum für Art. 13 Abs. 1 lit. a DSGVO genügt oder Name und Anschrift hier wiederholt werden sollen. #}}
+
+## Kurz gesagt
+
+- Die Website setzt keine Cookies.
+- Es gibt keine Benutzerkonten, Formulare oder Kommentare.
+- Schriften, Bilder, Stylesheets und Skripte werden von dieser Website selbst ausgeliefert.
+{{ if cloudflareAnalyticsToken }}
+- Eine Reichweitenmessung mit Cloudflare Web Analytics findet nur statt, wenn du ausdrücklich zustimmst. Erst dann lädt dein Browser ein Skript von Cloudflare.
+{{ else }}
+- Es werden keine Inhalte Dritter eingebunden, und es findet keine Reichweitenmessung oder anderes Tracking statt.
+{{ /if }}
+
+## Hosting über GitHub Pages
+
+Die Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf einer Seite wird deine IP-Adresse laut GitHub zu Sicherheitszwecken protokolliert und gespeichert, unabhängig davon, ob du bei GitHub angemeldet bist. Ohne diese Verbindung kann die Seite nicht ausgeliefert werden.
+{{# TODO(Betreiber): Rolle von GitHub klären (eigener Verantwortlicher oder Auftragsverarbeiter) und davon abhängig die Rechtsgrundlage; hier bewusst nicht genannt. #}}
+
+GitHub verarbeitet Daten auch in den USA. Nach eigenen Angaben stützt GitHub Übermittlungen aus der EU auf die Standardvertragsklauseln der EU-Kommission und ist nach dem EU-U.S. Data Privacy Framework zertifiziert. Eine konkrete Speicherdauer für diese Protokolle nennt GitHub in den unten verlinkten Quellen nicht.
+{{# TODO(Betreiber): Prüfen, ob GitHub, Inc. oder GitHub B.V. (Amsterdam) als Anbieter genannt werden soll. #}}
+
+Weitere Informationen: [GitHub Pages – Data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) und [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+{{ if cloudflareAnalyticsToken }}
+
+## Reichweitenmessung mit Cloudflare Web Analytics
+
+Nur wenn du im Hinweisfenster „Allow analytics“ wählst, lädt dein Browser ein Skript von Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA, und sendet Messdaten an Cloudflare. Erfasst werden Seitenaufrufe, verweisende Seiten, Browserinformationen und Ladezeiten. Dabei wird deine IP-Adresse an Cloudflare übermittelt; Daten können in die USA übertragen werden. Cloudflare gibt an, für diesen Dienst weder Cookies noch Fingerprinting einzusetzen.
+{{# TODO(Betreiber): Angaben zu Cloudflare (Anschrift, erfasste Daten, keine Cookies/kein Fingerprinting, Grundlage der USA-Übermittlung) gegen die aktuelle Cloudflare-Dokumentation prüfen; in dieser Überarbeitung nicht neu belegt. #}}
+
+Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ohne Einwilligung wird das Skript nicht geladen. Du kannst die Einwilligung jederzeit über „Analytics preferences“ am Ende jeder Seite widerrufen; die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt davon unberührt. Einzelheiten: [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
+
+Deine Entscheidung (zugestimmt oder abgelehnt) wird für 180 Tage im lokalen Speicher (`localStorage`) deines Browsers abgelegt, damit das Hinweisfenster nicht bei jedem Aufruf erscheint. Sie wird nicht an mich oder Dritte übertragen.
+{{# TODO(Betreiber): Prüfen, ob für diese Speicherung § 25 Abs. 2 Nr. 2 TDDDG genannt werden soll; hier bewusst ohne Rechtsgrundlage. #}}
+{{ /if }}
+
+## Kontakt per E-Mail
+
+Wenn du mir eine E-Mail schreibst, verarbeite ich deine E-Mail-Adresse und den Inhalt deiner Nachricht nur, um deine Anfrage zu beantworten. Ich lösche sie, sobald sie dafür nicht mehr gebraucht werden und keine gesetzlichen Aufbewahrungspflichten bestehen.
+{{# TODO(Betreiber): Rechtsgrundlage ergänzen (üblich: Art. 6 Abs. 1 lit. f DSGVO, ggf. lit. b) und den E-Mail-Anbieter der Kontaktadresse prüfen; dieser verarbeitet die Nachricht ebenfalls. #}}
+
+## Externe Links
+
+Links zu anderen Websites, etwa zum Quellcode auf GitHub, sind gewöhnliche Links. Erst wenn du einen anklickst, baut dein Browser eine Verbindung zu der anderen Website auf; dann gilt deren Datenschutzerklärung.
+
+## Deine Rechte
+
+Du hast nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Eine erteilte Einwilligung kannst du jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3). Wende dich dazu an die im Impressum genannte E-Mail-Adresse.
+
+## Beschwerderecht
+
+Du kannst dich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), insbesondere in dem Mitgliedstaat deines Aufenthaltsorts, deines Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes.
+{{# TODO(Betreiber): Optional die für den Betreiber zuständige Aufsichtsbehörde konkret nennen. #}}
+
+Stand: {{ standDatum }}
