@@ -4,8 +4,8 @@
   Erwartet: legal (aus _data/legal.yml), impressumUrl, standDatum,
   cloudflareAnalyticsToken (optional).
 
-  Offene Punkte für den Betreiber stehen als TODO(Betreiber) nur in diesen
-  Kommentaren. Sie werden nicht ausgegeben, damit tests/legal_pages_test.ts
+  Offene Punkte gehören als TODO(Betreiber) nur in Vento-Kommentare.
+  Kommentare werden nicht ausgegeben, damit tests/legal_pages_test.ts
   keinen Platzhalter in der gebauten Seite findet.
 #}}
 ## Verantwortlicher
@@ -40,8 +40,7 @@ Die Website wird über GitHub Pages bereitgestellt, einen Dienst von GitHub:
 - GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Niederlande
 - GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA
 
-Beim Aufruf einer Seite wird deine IP-Adresse laut GitHub zu Sicherheitszwecken protokolliert und gespeichert, unabhängig davon, ob du bei GitHub angemeldet bist. Ohne diese Verbindung kann die Seite nicht ausgeliefert werden. GitHub verarbeitet diese Daten als eigener Verantwortlicher nach seiner eigenen Datenschutzerklärung; ein Auftragsverarbeitungsvertrag besteht nicht.
-{{# TODO(Betreiber): Rechtsgrundlage für die Bereitstellung über GitHub Pages ergänzen (üblich: Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse an der Auslieferung der Website); hier bewusst nicht genannt. #}}
+Beim Aufruf einer Seite wird deine IP-Adresse laut GitHub zu Sicherheitszwecken protokolliert und gespeichert, unabhängig davon, ob du bei GitHub angemeldet bist. Ohne diese Verbindung kann die Seite nicht ausgeliefert werden. GitHub verarbeitet diese Daten als eigener Verantwortlicher nach seiner eigenen Datenschutzerklärung; ein Auftragsverarbeitungsvertrag besteht nicht. Rechtsgrundlage für die Bereitstellung über GitHub Pages ist Art. 6 Abs. 1 lit. f DSGVO; mein berechtigtes Interesse liegt in einer sicheren, stabilen und effizienten Bereitstellung der Website.
 
 GitHub verarbeitet Daten auch in den USA. Nach eigenen Angaben stützt GitHub Übermittlungen aus der EU auf die Standardvertragsklauseln der EU-Kommission und ist nach dem EU-U.S. Data Privacy Framework zertifiziert. Eine konkrete Speicherdauer für diese Protokolle nennt GitHub in den unten verlinkten Quellen nicht.
 
@@ -50,6 +49,11 @@ Weitere Informationen: [GitHub Pages – Data collection](https://docs.github.co
 
 ## Dienste von Cloudflare
 
+{{#
+  Weitere Cloudflare-Funktionen (etwa Workers) erst nach dem Start als
+  eigenen ###-Abschnitt ergänzen und den Satz „Derzeit ist das
+  ausschließlich …“ anpassen.
+#}}
 Für einzelne Funktionen nutzt die Website Dienste der Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA. Die Seiten selbst werden weiterhin von GitHub Pages ausgeliefert; eine Verbindung zu Cloudflare entsteht nur bei den hier beschriebenen Funktionen. Bei jeder solchen Verbindung erhält Cloudflare technisch bedingt deine IP-Adresse und die üblichen Angaben deines Browsers.
 
 Cloudflare verarbeitet diese Daten in meinem Auftrag als Auftragsverarbeiter (Art. 28 DSGVO). Grundlage ist das Cloudflare Customer Data Processing Addendum (DPA). Für eigene Sicherheits- und Betriebsdaten handelt Cloudflare teilweise als eigener Verantwortlicher.
@@ -60,28 +64,18 @@ Derzeit ist das ausschließlich die folgende Reichweitenmessung.
 
 ### Reichweitenmessung mit Cloudflare Web Analytics
 
-Nur wenn du im Hinweisfenster „Allow analytics“ wählst, lädt dein Browser ein Skript von Cloudflare und sendet Messdaten an Cloudflare. Erfasst werden Seitenaufrufe, verweisende Seiten, Browserinformationen und Ladezeiten. Ich sehe davon nur zusammengefasste Auswertungen wie Seitenaufrufe und Ladezeiten, keine Angaben zu einzelnen Besuchern; laut Cloudflare sind diese Auswertungen höchstens sechs Monate abrufbar. Cloudflare setzt für diesen Dienst keine Cookies und kein Fingerprinting ein.
+Nur wenn du im Hinweisfenster „Allow analytics“ wählst, lädt dein Browser ein Skript von Cloudflare und sendet Messdaten an Cloudflare. Erfasst werden die aufgerufene Adresse, Browser, Betriebssystem, Land sowie Ladezeiten und Leistungswerte der Seite (Core Web Vitals). Ich sehe davon nur zusammengefasste Statistiken, etwa Aufrufe und Besuche je Seite, Browser, Betriebssystem und Land sowie Ladezeiten, keine Angaben zu einzelnen Besuchern; laut Cloudflare sind diese Statistiken höchstens sechs Monate abrufbar. Cloudflare setzt für diesen Dienst keine Cookies und kein Fingerprinting ein.
 
 Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ohne Einwilligung wird das Skript nicht geladen, und du kannst die gesamte Website auch ohne sie nutzen. Du kannst die Einwilligung jederzeit über „Analytics preferences“ am Ende jeder Seite widerrufen; die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt davon unberührt.
 
 Deine Entscheidung (zugestimmt oder abgelehnt) wird für 180 Tage im lokalen Speicher (`localStorage`) deines Browsers abgelegt, damit das Hinweisfenster nicht bei jedem Aufruf erscheint. Sie wird nicht an mich oder Dritte übertragen. Diese Speicherung ist unbedingt erforderlich, um deine Entscheidung zu beachten, und bedarf daher keiner Einwilligung (§ 25 Abs. 2 Nr. 2 TDDDG).
-
-### Künftige Funktionen über Cloudflare Workers
-
-Einzelne dynamische Funktionen können künftig über Cloudflare Workers bereitgestellt werden, also über kleine Programme, die auf Servern von Cloudflare laufen. Derzeit ist keine solche Funktion in Betrieb. Bevor eine hinzukommt, wird sie hier mit Zweck, verarbeiteten Daten und Speicherdauer beschrieben; soweit sie nicht unbedingt erforderlich ist, wird sie nur mit deiner Einwilligung aktiv. Auch Anfragen an solche Funktionen verarbeitet Cloudflare als Auftragsverarbeiter nach dem oben genannten DPA.
-{{#
-  TODO(Betreiber): Für jede Worker-Funktion VOR dem Start einen eigenen
-  ###-Abschnitt ergänzen (Zweck, Daten, Speicherdauer, Rechtsgrundlage,
-  Hostname des Endpunkts) und diesen Absatz sowie „Derzeit ist das
-  ausschließlich …“ oben anpassen. Dieser Absatz deckt keine konkrete
-  Verarbeitung ab; er kündigt sie nur an.
-#}}
 {{ /if }}
 
 ## Kontakt per E-Mail
 
-Wenn du mir eine E-Mail schreibst, verarbeite ich deine E-Mail-Adresse und den Inhalt deiner Nachricht nur, um deine Anfrage zu beantworten. Ich lösche sie, sobald sie dafür nicht mehr gebraucht werden und keine gesetzlichen Aufbewahrungspflichten bestehen.
-{{# TODO(Betreiber): Rechtsgrundlage ergänzen (üblich: Art. 6 Abs. 1 lit. f DSGVO, ggf. lit. b) und den E-Mail-Anbieter der Kontaktadresse prüfen; dieser verarbeitet die Nachricht ebenfalls. #}}
+Wenn du mir eine E-Mail schreibst, verarbeite ich deine E-Mail-Adresse und den Inhalt deiner Nachricht nur, um deine Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; mein berechtigtes Interesse liegt in der Bearbeitung von an mich gerichteten Anfragen. Ich lösche die Nachricht, sobald sie dafür nicht mehr gebraucht wird und keine gesetzlichen Aufbewahrungspflichten bestehen.
+
+Die angegebene Kontaktadresse ist eine Alias-Adresse. Nachrichten an sie nimmt ein E-Mail-Weiterleitungsdienst entgegen und leitet sie an mein Postfach weiter; dieser Dienst ist damit Empfänger deiner Nachricht.
 
 ## Externe Links
 
@@ -94,6 +88,5 @@ Du hast nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16),
 ## Beschwerderecht
 
 Du kannst dich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), insbesondere in dem Mitgliedstaat deines Aufenthaltsorts, deines Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes.
-{{# TODO(Betreiber): Optional die für den Betreiber zuständige Aufsichtsbehörde konkret nennen. #}}
 
 Stand: {{ standDatum }}
