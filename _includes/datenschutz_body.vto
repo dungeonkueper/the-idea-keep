@@ -35,35 +35,40 @@ Dieselben Angaben stehen im [Impressum]({{ impressumUrl }}).
 
 ## Hosting über GitHub Pages
 
-Die Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf einer Seite wird deine IP-Adresse laut GitHub zu Sicherheitszwecken protokolliert und gespeichert, unabhängig davon, ob du bei GitHub angemeldet bist. Ohne diese Verbindung kann die Seite nicht ausgeliefert werden.
-{{# TODO(Betreiber): Rolle von GitHub klären (eigener Verantwortlicher oder Auftragsverarbeiter) und davon abhängig die Rechtsgrundlage; hier bewusst nicht genannt. #}}
+Die Website wird über GitHub Pages bereitgestellt, einen Dienst von GitHub:
+
+- GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Niederlande
+- GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA
+
+Beim Aufruf einer Seite wird deine IP-Adresse laut GitHub zu Sicherheitszwecken protokolliert und gespeichert, unabhängig davon, ob du bei GitHub angemeldet bist. Ohne diese Verbindung kann die Seite nicht ausgeliefert werden. GitHub verarbeitet diese Daten als eigener Verantwortlicher nach seiner eigenen Datenschutzerklärung; ein Auftragsverarbeitungsvertrag besteht nicht.
+{{# TODO(Betreiber): Rechtsgrundlage für die Bereitstellung über GitHub Pages ergänzen (üblich: Art. 6 Abs. 1 lit. f DSGVO, berechtigtes Interesse an der Auslieferung der Website); hier bewusst nicht genannt. #}}
 
 GitHub verarbeitet Daten auch in den USA. Nach eigenen Angaben stützt GitHub Übermittlungen aus der EU auf die Standardvertragsklauseln der EU-Kommission und ist nach dem EU-U.S. Data Privacy Framework zertifiziert. Eine konkrete Speicherdauer für diese Protokolle nennt GitHub in den unten verlinkten Quellen nicht.
-{{# TODO(Betreiber): Prüfen, ob GitHub, Inc. oder GitHub B.V. (Amsterdam) als Anbieter genannt werden soll. #}}
 
 Weitere Informationen: [GitHub Pages – Data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) und [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 {{ if cloudflareAnalyticsToken }}
 
 ## Dienste von Cloudflare
 
-Für einzelne Funktionen nutzt die Website Dienste der Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA. Die Seiten selbst werden weiterhin von GitHub Pages ausgeliefert; eine Verbindung zu Cloudflare entsteht nur bei den hier beschriebenen Funktionen. Bei jeder solchen Verbindung erhält Cloudflare technisch bedingt deine IP-Adresse und die üblichen Angaben deines Browsers; Daten können dabei in die USA übertragen werden. Einzelheiten: [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
-{{# TODO(Betreiber): Rolle von Cloudflare (Auftragsverarbeiter mit AVV/DPA oder eigener Verantwortlicher), Anschrift und Grundlage der USA-Übermittlung (DPF, Standardvertragsklauseln) prüfen; cloudflare.com war bei der Erstellung nicht abrufbar. #}}
+Für einzelne Funktionen nutzt die Website Dienste der Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA. Die Seiten selbst werden weiterhin von GitHub Pages ausgeliefert; eine Verbindung zu Cloudflare entsteht nur bei den hier beschriebenen Funktionen. Bei jeder solchen Verbindung erhält Cloudflare technisch bedingt deine IP-Adresse und die üblichen Angaben deines Browsers.
+
+Cloudflare verarbeitet diese Daten in meinem Auftrag als Auftragsverarbeiter (Art. 28 DSGVO). Grundlage ist das Cloudflare Customer Data Processing Addendum (DPA). Für eigene Sicherheits- und Betriebsdaten handelt Cloudflare teilweise als eigener Verantwortlicher.
+
+Daten können dabei in die USA übertragen werden. Cloudflare, Inc. ist nach dem EU-U.S. Data Privacy Framework zertifiziert; die Übermittlung stützt sich damit auf den Angemessenheitsbeschluss der EU-Kommission (Art. 45 DSGVO). Zusätzlich sind im DPA die Standardvertragsklauseln der EU-Kommission vereinbart (Art. 46 Abs. 2 lit. c DSGVO). Einzelheiten: [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
 
 Derzeit ist das ausschließlich die folgende Reichweitenmessung.
 
 ### Reichweitenmessung mit Cloudflare Web Analytics
 
-Nur wenn du im Hinweisfenster „Allow analytics“ wählst, lädt dein Browser ein Skript von Cloudflare und sendet Messdaten an Cloudflare. Erfasst werden Seitenaufrufe, verweisende Seiten, Browserinformationen und Ladezeiten. Ich sehe davon nur zusammengefasste Auswertungen, laut Cloudflare für höchstens sechs Monate. Cloudflare gibt an, für diesen Dienst weder Cookies noch Fingerprinting einzusetzen.
-{{# TODO(Betreiber): „keine Cookies / kein Fingerprinting“ und die erfassten Daten gegen die aktuelle Cloudflare-Dokumentation prüfen; im Cloudflare-Dashboard bestätigen, dass nur aggregierte Daten sichtbar sind. #}}
+Nur wenn du im Hinweisfenster „Allow analytics“ wählst, lädt dein Browser ein Skript von Cloudflare und sendet Messdaten an Cloudflare. Erfasst werden Seitenaufrufe, verweisende Seiten, Browserinformationen und Ladezeiten. Ich sehe davon nur zusammengefasste Auswertungen wie Seitenaufrufe und Ladezeiten, keine Angaben zu einzelnen Besuchern; laut Cloudflare sind diese Auswertungen höchstens sechs Monate abrufbar. Cloudflare setzt für diesen Dienst keine Cookies und kein Fingerprinting ein.
 
 Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ohne Einwilligung wird das Skript nicht geladen, und du kannst die gesamte Website auch ohne sie nutzen. Du kannst die Einwilligung jederzeit über „Analytics preferences“ am Ende jeder Seite widerrufen; die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt davon unberührt.
 
-Deine Entscheidung (zugestimmt oder abgelehnt) wird für 180 Tage im lokalen Speicher (`localStorage`) deines Browsers abgelegt, damit das Hinweisfenster nicht bei jedem Aufruf erscheint. Sie wird nicht an mich oder Dritte übertragen.
-{{# TODO(Betreiber): Prüfen, ob für diese Speicherung § 25 Abs. 2 Nr. 2 TDDDG genannt werden soll; hier bewusst ohne Rechtsgrundlage. #}}
+Deine Entscheidung (zugestimmt oder abgelehnt) wird für 180 Tage im lokalen Speicher (`localStorage`) deines Browsers abgelegt, damit das Hinweisfenster nicht bei jedem Aufruf erscheint. Sie wird nicht an mich oder Dritte übertragen. Diese Speicherung ist unbedingt erforderlich, um deine Entscheidung zu beachten, und bedarf daher keiner Einwilligung (§ 25 Abs. 2 Nr. 2 TDDDG).
 
 ### Künftige Funktionen über Cloudflare Workers
 
-Einzelne dynamische Funktionen können künftig über Cloudflare Workers bereitgestellt werden, also über kleine Programme, die auf Servern von Cloudflare laufen. Derzeit ist keine solche Funktion in Betrieb. Bevor eine hinzukommt, wird sie hier mit Zweck, verarbeiteten Daten und Speicherdauer beschrieben; soweit sie nicht unbedingt erforderlich ist, wird sie nur mit deiner Einwilligung aktiv.
+Einzelne dynamische Funktionen können künftig über Cloudflare Workers bereitgestellt werden, also über kleine Programme, die auf Servern von Cloudflare laufen. Derzeit ist keine solche Funktion in Betrieb. Bevor eine hinzukommt, wird sie hier mit Zweck, verarbeiteten Daten und Speicherdauer beschrieben; soweit sie nicht unbedingt erforderlich ist, wird sie nur mit deiner Einwilligung aktiv. Auch Anfragen an solche Funktionen verarbeitet Cloudflare als Auftragsverarbeiter nach dem oben genannten DPA.
 {{#
   TODO(Betreiber): Für jede Worker-Funktion VOR dem Start einen eigenen
   ###-Abschnitt ergänzen (Zweck, Daten, Speicherdauer, Rechtsgrundlage,
