@@ -39,15 +39,15 @@ Permanent chamber numbers are a wall: change the design and they can go. The leg
 
 ## Bedrock: hard constraints
 
-| ID | Constraint                                                                     | Source                                         | Holds as long as                        | Status                            |
-| -- | ------------------------------------------------------------------------------ | ---------------------------------------------- | --------------------------------------- | --------------------------------- |
-| B1 | A legal notice (Impressum) with real name and postal address must be published | Law                                            | The site is public and run from Germany | Met                               |
-| B2 | No non-essential tracking or device storage without consent                    | Law                                            | Same                                    | Met (nothing is tracked)          |
-| B3 | Visitors must be told which personal data is processed, including by the host  | Law                                            | Same                                    | **Open** – privacy notice missing |
-| B4 | Nothing may be taken from Dungeon Keeper or other third-party works            | Third-party IP                                 | Always                                  | Met                               |
-| B5 | Nothing from the keeper's employment: no internals, private views only         | Employment                                     | Employed                                | Met                               |
-| B6 | No running costs                                                               | Keeper (hobby project without foreseeable ROI) | The Keep earns nothing                  | Met                               |
-| B7 | One keeper, limited hours: nothing that needs operating, patching or on-call   | Keeper                                         | One-person project                      | Met                               |
+| ID | Constraint                                                                     | Source                                         | Holds as long as                        | Status                                      |
+| -- | ------------------------------------------------------------------------------ | ---------------------------------------------- | --------------------------------------- | ------------------------------------------- |
+| B1 | A legal notice (Impressum) with real name and postal address must be published | Law                                            | The site is public and run from Germany | Met                                         |
+| B2 | No non-essential tracking or device storage without consent                    | Law                                            | Same                                    | Met (analytics only after explicit consent) |
+| B3 | Visitors must be told which personal data is processed, including by the host  | Law                                            | Same                                    | Met (privacy notice published)              |
+| B4 | Nothing may be taken from Dungeon Keeper or other third-party works            | Third-party IP                                 | Always                                  | Met                                         |
+| B5 | Nothing from the keeper's employment: no internals, private views only         | Employment                                     | Employed                                | Met                                         |
+| B6 | No running costs                                                               | Keeper (hobby project without foreseeable ROI) | The Keep earns nothing                  | Met                                         |
+| B7 | One keeper, limited hours: nothing that needs operating, patching or on-call   | Keeper                                         | One-person project                      | Met                                         |
 
 B6 and B7 are set by the keeper rather than by the outside world. They still count as bedrock, because no design can change them; only the keeper can.
 
@@ -67,9 +67,9 @@ In the context of source control, facing B6 and D1, we decided for a single publ
 
 In the context of B1, facing B6, we decided for the keeper's own name and address and against a paid address service, to achieve compliance at no cost, accepting that personal data is public, because a monthly fee is out of proportion for a hobby project.
 
-### D4 – Census paused instead of a consent flow
+### D4 – Commodity analytics behind consent, Census paused
 
-In the context of visitor counting, facing B2, we decided for pausing the Census and against a consent banner or third-party analytics, to achieve a site without any consent dialog, accepting that the Keep knows nothing about its readers, because a banner costs more attention than the numbers are worth today.
+In the context of visitor counting, facing B2 and B3, we decided for Cloudflare Web Analytics loaded only after an explicit opt-in, and against analytics without consent or a self-built Census, to achieve basic reach numbers without cookies or fingerprinting, accepting a consent dialog, numbers that only cover visitors who agree, Cloudflare as a processor that must appear in the privacy notice, and a third-party script outside the lockfile and build sandbox, because ordinary traffic measurement can stay a commodity while the Census's own measurement and privacy questions are unsettled (chamber 5).
 
 ### D5 – Every entry as HTML and as layout-free Markdown
 
@@ -95,12 +95,14 @@ In the context of "Feed the Imps", facing tax, liability and platform-terms ques
 
 - B6 + B7 → D1 → D2
 - B1 + B6 → D3
-- B2 → D4
+- B2 + B3 → D4
+- D4 + D7 → the hermetic build ends at the visitor's browser: the consented Cloudflare beacon is loaded at runtime and sits outside the lockfile and the build sandbox (see SECURITY.md).
 - D2 + D3 → the keeper's address sits in a world-readable repository. This is the known sore spot, and it is made of walls, not bedrock.
 
 ## Candidates still to check
 
-- No third-party embeds (fonts, CDNs, widgets): follows from B2/B3; verify the built site.
+- No third-party embeds without consent: fonts, images and stylesheets are self-hosted, and the Cloudflare beacon after opt-in is the only exception. Follows from B2/B3; verify that the built site stays that way.
+- Every external service is also a change to the privacy notice (B3). Today that is GitHub Pages, Cloudflare (only with consent) and an e-mail forwarding service behind the contact address.
 - Limits and usage rules of the free hosting tier (consequence of D1).
 - Reports about real incidents ("Tidings"): facts with sources, opinion separated, nothing reposted.
 - Runtime and generator choice (Deno, Lume): a decision whose rationale is not written down yet; the runtime's future is uncertain.
