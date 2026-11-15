@@ -1,0 +1,92 @@
+{{#
+  Einzige Quelle der Datenschutzerklärung. datenschutz.vto rendert sie als
+  HTML, datenschutz_markdown.vto gibt sie unverändert als Markdown aus.
+  Erwartet: legal (aus _data/legal.yml), impressumUrl, standDatum,
+  cloudflareAnalyticsToken (optional).
+
+  Offene Punkte gehören als TODO(Betreiber) nur in Vento-Kommentare.
+  Kommentare werden nicht ausgegeben, damit tests/legal_pages_test.ts
+  keinen Platzhalter in der gebauten Seite findet.
+#}}
+## Verantwortlicher
+
+Verantwortlich für die Datenverarbeitung auf dieser Website ist:
+
+<address>
+{{ legal.operator.name }}<br>
+{{ legal.operator.street }}<br>
+{{ legal.operator.city }}<br>
+{{ legal.operator.country }}<br>
+E-Mail: <a href="mailto:{{ legal.operator.email }}">{{ legal.operator.email }}</a>
+</address>
+
+Dieselben Angaben stehen im [Impressum]({{ impressumUrl }}).
+
+## Kurz gesagt
+
+- Die Website setzt keine Cookies.
+- Es gibt keine Benutzerkonten, Formulare oder Kommentare.
+- Schriften, Bilder und Stylesheets werden von dieser Website selbst ausgeliefert.
+{{ if cloudflareAnalyticsToken }}
+- Eine Reichweitenmessung mit Cloudflare Web Analytics findet nur statt, wenn du ausdrücklich zustimmst. Erst dann verbindet sich dein Browser mit Cloudflare.
+{{ else }}
+- Es werden keine Inhalte Dritter eingebunden, und es findet keine Reichweitenmessung oder anderes Tracking statt.
+{{ /if }}
+
+## Hosting über GitHub Pages
+
+Die Website wird über GitHub Pages bereitgestellt, einen Dienst von GitHub:
+
+- GitHub B.V., Prins Bernhardplein 200, 1097 JB Amsterdam, Niederlande
+- GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA
+
+Beim Aufruf einer Seite wird deine IP-Adresse laut GitHub zu Sicherheitszwecken protokolliert und gespeichert, unabhängig davon, ob du bei GitHub angemeldet bist. Ohne diese Verbindung kann die Seite nicht ausgeliefert werden. GitHub verarbeitet diese Daten als eigener Verantwortlicher nach seiner eigenen Datenschutzerklärung; ein Auftragsverarbeitungsvertrag besteht nicht. Rechtsgrundlage für die Bereitstellung über GitHub Pages ist Art. 6 Abs. 1 lit. f DSGVO; mein berechtigtes Interesse liegt in einer sicheren, stabilen und effizienten Bereitstellung der Website.
+
+GitHub verarbeitet Daten auch in den USA. Nach eigenen Angaben stützt GitHub Übermittlungen aus der EU auf die Standardvertragsklauseln der EU-Kommission und ist nach dem EU-U.S. Data Privacy Framework zertifiziert. Eine konkrete Speicherdauer für diese Protokolle nennt GitHub in den unten verlinkten Quellen nicht.
+
+Weitere Informationen: [GitHub Pages – Data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) und [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
+{{ if cloudflareAnalyticsToken }}
+
+## Dienste von Cloudflare
+
+{{#
+  Weitere Cloudflare-Funktionen (etwa Workers) erst nach dem Start als
+  eigenen ###-Abschnitt ergänzen und den Satz „Derzeit ist das
+  ausschließlich …“ anpassen.
+#}}
+Für einzelne Funktionen nutzt die Website Dienste der Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA. Die Seiten selbst werden weiterhin von GitHub Pages ausgeliefert; eine Verbindung zu Cloudflare entsteht nur bei den hier beschriebenen Funktionen. Bei jeder solchen Verbindung erhält Cloudflare technisch bedingt deine IP-Adresse und die üblichen Angaben deines Browsers.
+
+Cloudflare verarbeitet diese Daten in meinem Auftrag als Auftragsverarbeiter (Art. 28 DSGVO). Grundlage ist das Cloudflare Customer Data Processing Addendum (DPA). Für eigene Sicherheits- und Betriebsdaten handelt Cloudflare teilweise als eigener Verantwortlicher.
+
+Daten können dabei in die USA übertragen werden. Cloudflare, Inc. ist nach dem EU-U.S. Data Privacy Framework zertifiziert; die Übermittlung stützt sich damit auf den Angemessenheitsbeschluss der EU-Kommission (Art. 45 DSGVO). Zusätzlich sind im DPA die Standardvertragsklauseln der EU-Kommission vereinbart (Art. 46 Abs. 2 lit. c DSGVO). Einzelheiten: [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
+
+Derzeit ist das ausschließlich die folgende Reichweitenmessung.
+
+### Reichweitenmessung mit Cloudflare Web Analytics
+
+Nur wenn du im Hinweisfenster „Allow analytics“ wählst, lädt dein Browser ein Skript von Cloudflare und sendet Messdaten an Cloudflare. Erfasst werden die aufgerufene Adresse, die verweisende Seite, Browser, Betriebssystem, Land sowie Ladezeiten und Leistungswerte der Seite (Core Web Vitals). Ich sehe davon nur zusammengefasste Statistiken, etwa Aufrufe und Besuche je Seite, verweisende Seiten, Browser, Betriebssystem und Land sowie Ladezeiten, keine Angaben zu einzelnen Besuchern; laut Cloudflare sind diese Statistiken höchstens sechs Monate abrufbar. Cloudflare setzt für diesen Dienst keine Cookies und kein Fingerprinting ein.
+
+Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ohne Einwilligung wird das Skript nicht geladen, und du kannst die gesamte Website auch ohne sie nutzen. Du kannst die Einwilligung jederzeit über „Analytics preferences“ am Ende jeder Seite widerrufen; die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt davon unberührt.
+
+Deine Entscheidung (zugestimmt oder abgelehnt) wird für 180 Tage im lokalen Speicher (`localStorage`) deines Browsers abgelegt, damit das Hinweisfenster nicht bei jedem Aufruf erscheint. Sie wird nicht an mich oder Dritte übertragen. Diese Speicherung ist unbedingt erforderlich, um deine Entscheidung zu beachten, und bedarf daher keiner Einwilligung (§ 25 Abs. 2 Nr. 2 TDDDG).
+{{ /if }}
+
+## Kontakt per E-Mail
+
+Wenn du mir eine E-Mail schreibst, verarbeite ich deine E-Mail-Adresse und den Inhalt deiner Nachricht nur, um deine Anfrage zu beantworten. Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO; mein berechtigtes Interesse liegt in der Bearbeitung von an mich gerichteten Anfragen. Ich lösche die Nachricht, sobald sie dafür nicht mehr gebraucht wird und keine gesetzlichen Aufbewahrungspflichten bestehen.
+
+Die angegebene Kontaktadresse ist eine Alias-Adresse. Nachrichten an sie nimmt ein E-Mail-Weiterleitungsdienst entgegen und leitet sie an mein Postfach weiter; dieser Dienst ist damit Empfänger deiner Nachricht.
+
+## Externe Links
+
+Links zu anderen Websites, etwa zum Quellcode auf GitHub, sind gewöhnliche Links. Erst wenn du einen anklickst, baut dein Browser eine Verbindung zu der anderen Website auf; dann gilt deren Datenschutzerklärung.
+
+## Deine Rechte
+
+Du hast nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Eine erteilte Einwilligung kannst du jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3). Wende dich dazu an die oben genannte E-Mail-Adresse.
+
+## Beschwerderecht
+
+Du kannst dich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), insbesondere in dem Mitgliedstaat deines Aufenthaltsorts, deines Arbeitsplatzes oder des Orts des mutmaßlichen Verstoßes.
+
+Stand: {{ standDatum }}

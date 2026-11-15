@@ -62,6 +62,10 @@ in both formats. Use absolute canonical URLs for references, since the two
 representations have different relative URL bases. See
 [Architecture](ARCHITECTURE.md#multiple-representations-and-discovery) for trade-offs.
 
+The privacy notice is a fixed page, not an entry: `_includes/datenschutz_body.vto`
+is its single source, rendered as HTML at `/datenschutz/` and as Markdown at
+`/datenschutz.md`. Like the Impressum, it is not listed in `llms.txt`.
+
 Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. On the homepage, published ideas appear in **Wing A — The Hatchery** and published experiments in **Wing B — The Laboratory**; a wing stays hidden until it has a published entry. Other kinds get their own URLs and Markdown alternates but no homepage wing yet. The maturity values are documented in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ### Tidings from the Surface
