@@ -16,9 +16,9 @@ Verantwortlich für die Datenverarbeitung auf dieser Website ist der im [Impress
 
 - Die Website setzt keine Cookies.
 - Es gibt keine Benutzerkonten, Formulare oder Kommentare.
-- Schriften, Bilder, Stylesheets und Skripte werden von dieser Website selbst ausgeliefert.
+- Schriften, Bilder und Stylesheets werden von dieser Website selbst ausgeliefert.
 {{ if cloudflareAnalyticsToken }}
-- Eine Reichweitenmessung mit Cloudflare Web Analytics findet nur statt, wenn du ausdrücklich zustimmst. Erst dann lädt dein Browser ein Skript von Cloudflare.
+- Eine Reichweitenmessung mit Cloudflare Web Analytics findet nur statt, wenn du ausdrücklich zustimmst. Erst dann verbindet sich dein Browser mit Cloudflare.
 {{ else }}
 - Es werden keine Inhalte Dritter eingebunden, und es findet keine Reichweitenmessung oder anderes Tracking statt.
 {{ /if }}
@@ -34,15 +34,33 @@ GitHub verarbeitet Daten auch in den USA. Nach eigenen Angaben stützt GitHub Ü
 Weitere Informationen: [GitHub Pages – Data collection](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection) und [GitHub General Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement).
 {{ if cloudflareAnalyticsToken }}
 
-## Reichweitenmessung mit Cloudflare Web Analytics
+## Dienste von Cloudflare
 
-Nur wenn du im Hinweisfenster „Allow analytics“ wählst, lädt dein Browser ein Skript von Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA, und sendet Messdaten an Cloudflare. Erfasst werden Seitenaufrufe, verweisende Seiten, Browserinformationen und Ladezeiten. Dabei wird deine IP-Adresse an Cloudflare übermittelt; Daten können in die USA übertragen werden. Cloudflare gibt an, für diesen Dienst weder Cookies noch Fingerprinting einzusetzen.
-{{# TODO(Betreiber): Angaben zu Cloudflare (Anschrift, erfasste Daten, keine Cookies/kein Fingerprinting, Grundlage der USA-Übermittlung) gegen die aktuelle Cloudflare-Dokumentation prüfen; in dieser Überarbeitung nicht neu belegt. #}}
+Für einzelne Funktionen nutzt die Website Dienste der Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA. Die Seiten selbst werden weiterhin von GitHub Pages ausgeliefert; eine Verbindung zu Cloudflare entsteht nur bei den hier beschriebenen Funktionen. Bei jeder solchen Verbindung erhält Cloudflare technisch bedingt deine IP-Adresse und die üblichen Angaben deines Browsers; Daten können dabei in die USA übertragen werden. Einzelheiten: [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
+{{# TODO(Betreiber): Rolle von Cloudflare (Auftragsverarbeiter mit AVV/DPA oder eigener Verantwortlicher), Anschrift und Grundlage der USA-Übermittlung (DPF, Standardvertragsklauseln) prüfen; cloudflare.com war bei der Erstellung nicht abrufbar. #}}
 
-Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ohne Einwilligung wird das Skript nicht geladen. Du kannst die Einwilligung jederzeit über „Analytics preferences“ am Ende jeder Seite widerrufen; die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt davon unberührt. Einzelheiten: [Cloudflare Privacy Policy](https://www.cloudflare.com/privacypolicy/).
+Derzeit ist das ausschließlich die folgende Reichweitenmessung.
+
+### Reichweitenmessung mit Cloudflare Web Analytics
+
+Nur wenn du im Hinweisfenster „Allow analytics“ wählst, lädt dein Browser ein Skript von Cloudflare und sendet Messdaten an Cloudflare. Erfasst werden Seitenaufrufe, verweisende Seiten, Browserinformationen und Ladezeiten. Ich sehe davon nur zusammengefasste Auswertungen, laut Cloudflare für höchstens sechs Monate. Cloudflare gibt an, für diesen Dienst weder Cookies noch Fingerprinting einzusetzen.
+{{# TODO(Betreiber): „keine Cookies / kein Fingerprinting“ und die erfassten Daten gegen die aktuelle Cloudflare-Dokumentation prüfen; im Cloudflare-Dashboard bestätigen, dass nur aggregierte Daten sichtbar sind. #}}
+
+Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 25 Abs. 1 TDDDG). Ohne Einwilligung wird das Skript nicht geladen, und du kannst die gesamte Website auch ohne sie nutzen. Du kannst die Einwilligung jederzeit über „Analytics preferences“ am Ende jeder Seite widerrufen; die Rechtmäßigkeit der bis dahin erfolgten Verarbeitung bleibt davon unberührt.
 
 Deine Entscheidung (zugestimmt oder abgelehnt) wird für 180 Tage im lokalen Speicher (`localStorage`) deines Browsers abgelegt, damit das Hinweisfenster nicht bei jedem Aufruf erscheint. Sie wird nicht an mich oder Dritte übertragen.
 {{# TODO(Betreiber): Prüfen, ob für diese Speicherung § 25 Abs. 2 Nr. 2 TDDDG genannt werden soll; hier bewusst ohne Rechtsgrundlage. #}}
+
+### Künftige Funktionen über Cloudflare Workers
+
+Einzelne dynamische Funktionen können künftig über Cloudflare Workers bereitgestellt werden, also über kleine Programme, die auf Servern von Cloudflare laufen. Derzeit ist keine solche Funktion in Betrieb. Bevor eine hinzukommt, wird sie hier mit Zweck, verarbeiteten Daten und Speicherdauer beschrieben; soweit sie nicht unbedingt erforderlich ist, wird sie nur mit deiner Einwilligung aktiv.
+{{#
+  TODO(Betreiber): Für jede Worker-Funktion VOR dem Start einen eigenen
+  ###-Abschnitt ergänzen (Zweck, Daten, Speicherdauer, Rechtsgrundlage,
+  Hostname des Endpunkts) und diesen Absatz sowie „Derzeit ist das
+  ausschließlich …“ oben anpassen. Dieser Absatz deckt keine konkrete
+  Verarbeitung ab; er kündigt sie nur an.
+#}}
 {{ /if }}
 
 ## Kontakt per E-Mail
