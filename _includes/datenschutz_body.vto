@@ -1,7 +1,8 @@
 {{#
   Einzige Quelle der Datenschutzerklärung. datenschutz.vto rendert sie als
   HTML, datenschutz_markdown.vto gibt sie unverändert als Markdown aus.
-  Erwartet: impressumUrl, standDatum, cloudflareAnalyticsToken (optional).
+  Erwartet: legal (aus _data/legal.yml), impressumUrl, standDatum,
+  cloudflareAnalyticsToken (optional).
 
   Offene Punkte für den Betreiber stehen als TODO(Betreiber) nur in diesen
   Kommentaren. Sie werden nicht ausgegeben, damit tests/legal_pages_test.ts
@@ -9,8 +10,17 @@
 #}}
 ## Verantwortlicher
 
-Verantwortlich für die Datenverarbeitung auf dieser Website ist der im [Impressum]({{ impressumUrl }}) genannte Anbieter. Dort findest du Anschrift und E-Mail-Adresse.
-{{# TODO(Betreiber): Prüfen, ob der Verweis auf das Impressum für Art. 13 Abs. 1 lit. a DSGVO genügt oder Name und Anschrift hier wiederholt werden sollen. #}}
+Verantwortlich für die Datenverarbeitung auf dieser Website ist:
+
+<address>
+{{ legal.operator.name }}<br>
+{{ legal.operator.street }}<br>
+{{ legal.operator.city }}<br>
+{{ legal.operator.country }}<br>
+E-Mail: <a href="mailto:{{ legal.operator.email }}">{{ legal.operator.email }}</a>
+</address>
+
+Dieselben Angaben stehen im [Impressum]({{ impressumUrl }}).
 
 ## Kurz gesagt
 
@@ -74,7 +84,7 @@ Links zu anderen Websites, etwa zum Quellcode auf GitHub, sind gewöhnliche Link
 
 ## Deine Rechte
 
-Du hast nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Eine erteilte Einwilligung kannst du jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3). Wende dich dazu an die im Impressum genannte E-Mail-Adresse.
+Du hast nach der DSGVO das Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch (Art. 21). Eine erteilte Einwilligung kannst du jederzeit mit Wirkung für die Zukunft widerrufen (Art. 7 Abs. 3). Wende dich dazu an die oben genannte E-Mail-Adresse.
 
 ## Beschwerderecht
 

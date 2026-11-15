@@ -26,14 +26,25 @@ Deno.test("legal pages are built without placeholders", async () => {
   }
 });
 
-Deno.test("the privacy notice names the operator through the Impressum", async () => {
-  const impressum = await Deno.readTextFile("_site/impressum/index.html");
-  assert(impressum.includes("<address>"), "Missing operator address");
-  const html = await Deno.readTextFile("_site/datenschutz/index.html");
-  assert(
-    html.includes('href="/the-idea-keep/impressum/">Impressum</a> genannte'),
-    "Privacy notice does not refer to the Impressum for the operator",
+Deno.test("both legal pages show the operator's contact details directly", async () => {
+  const contact = (text: string) =>
+    text.match(/<address>[\s\S]*?<\/address>/)?.[0];
+  const impressum = contact(
+    await Deno.readTextFile("_site/impressum/index.html"),
   );
+  assert(impressum, "Missing operator address: impressum");
+  for (const output of ["datenschutz/index.html", "datenschutz.md"]) {
+    const address = contact(await Deno.readTextFile(`_site/${output}`));
+    assert(address, `Missing operator address: /${output}`);
+    assert(address.includes("mailto:"), `Missing e-mail: /${output}`);
+    // Same data source, so name, street and city must match the Impressum.
+    for (const line of impressum.split("<br>").slice(0, 3)) {
+      assert(
+        address.includes(line.replace("<address>", "").trim()),
+        `/${output} differs from the Impressum address`,
+      );
+    }
+  }
   const markdown = await Deno.readTextFile("_site/datenschutz.md");
   assert(
     markdown.includes(
@@ -41,6 +52,7 @@ Deno.test("the privacy notice names the operator through the Impressum", async (
     ),
     "Markdown privacy notice needs an absolute Impressum link",
   );
+  const html = await Deno.readTextFile("_site/datenschutz/index.html");
   assert(
     html.includes('href="/the-idea-keep/datenschutz.md"'),
     "Privacy notice does not advertise its Markdown alternate",
