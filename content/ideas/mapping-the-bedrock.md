@@ -23,7 +23,7 @@ The Keep documents its vision, architecture and security, but not its constraint
 
 ## Why keep it
 
-- **Constraints explain decisions.** The Census (chamber 5) is paused and there is no paid address service. Without the constraint next to it, both look like neglect instead of intent.
+- **Constraints explain decisions.** The Census ([chamber 5](https://dungeonkueper.github.io/the-idea-keep/ideas/counting-footsteps-in-the-dungeon/)) is paused and there is no paid address service. Without the constraint next to it, both look like neglect instead of intent.
 - **Constraints are forgotten faster than decisions.** The decision stays visible in the code; the reason does not.
 - **Constraints expire silently.** A limit that was true in 2026 may be gone in 2027.
 - **Agents need them more than humans do.** An agent will happily propose an analytics snippet or a paid service unless the limit is written where it reads.
@@ -69,7 +69,7 @@ In the context of B1, facing B6, we decided for the keeper's own name and addres
 
 ### D4 – Commodity analytics behind consent, Census paused
 
-In the context of visitor counting, facing B2 and B3, we decided for Cloudflare Web Analytics loaded only after an explicit opt-in, and against analytics without consent or a self-built Census, to achieve basic reach numbers without cookies or fingerprinting, accepting a consent dialog, numbers that only cover visitors who agree, Cloudflare as a processor that must appear in the privacy notice, and a third-party script outside the lockfile and build sandbox, because ordinary traffic measurement can stay a commodity while the Census's own measurement and privacy questions are unsettled (chamber 5).
+In the context of visitor counting, facing B2 and B3, we decided for Cloudflare Web Analytics loaded only after an explicit opt-in, and against analytics without consent or a self-built Census, to achieve basic reach numbers without cookies or fingerprinting, accepting a consent dialog, numbers that only cover visitors who agree, Cloudflare as a processor that must appear in the privacy notice, and a third-party script outside the lockfile and build sandbox, because ordinary traffic measurement can stay a commodity while the Census's own measurement and privacy questions are unsettled ([chamber 5](https://dungeonkueper.github.io/the-idea-keep/ideas/counting-footsteps-in-the-dungeon/)).
 
 ### D5 – Every entry as HTML and as layout-free Markdown
 
@@ -81,7 +81,7 @@ In the context of referencing entries, facing drafts that come and go, we decide
 
 ### D7 – Hermetic build
 
-In the context of building the site, facing supply-chain risk, we decided for a frozen lockfile and a build without network or subprocesses and against convenience tooling that fetches or shells out, to achieve a reproducible, auditable build, accepting that some tools cannot be used, because the build is the Keep's largest attack surface (see SECURITY.md).
+In the context of building the site, facing supply-chain risk, we decided for a frozen lockfile and a build without network or subprocesses and against convenience tooling that fetches or shells out, to achieve a reproducible, auditable build, accepting that some tools cannot be used, because the build is the Keep's largest attack surface (see [SECURITY.md](https://github.com/dungeonkueper/the-idea-keep/blob/main/SECURITY.md)).
 
 ### D8 – Agent changes only through human review
 
@@ -89,14 +89,14 @@ In the context of agentic development, facing agents as fast but untrusted contr
 
 ### D9 – Test networks only for payments
 
-In the context of "Feed the Imps", facing tax, liability and platform-terms questions around real money, we decided for testnet only and against live payments, to achieve a safe experiment, accepting that nothing is ever actually received, because going live would also end "earns nothing" in B6 and deserves its own decision.
+In the context of "Feed the Imps" (a proposed egg that is not in the Keep yet), facing tax, liability and platform-terms questions around real money, we decided for testnet only and against live payments, to achieve a safe experiment, accepting that nothing is ever actually received, because going live would also end "earns nothing" in B6 and deserves its own decision.
 
 ## How they hang together
 
 - B6 + B7 → D1 → D2
 - B1 + B6 → D3
 - B2 + B3 → D4
-- D4 + D7 → the hermetic build ends at the visitor's browser: the consented Cloudflare beacon is loaded at runtime and sits outside the lockfile and the build sandbox (see SECURITY.md).
+- D4 + D7 → the hermetic build ends at the visitor's browser: the consented Cloudflare beacon is loaded at runtime and sits outside the lockfile and the build sandbox (see [SECURITY.md](https://github.com/dungeonkueper/the-idea-keep/blob/main/SECURITY.md)).
 - D2 + D3 → the keeper's address sits in a world-readable repository. This is the known sore spot, and it is made of walls, not bedrock.
 
 ## Candidates still to check

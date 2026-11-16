@@ -32,7 +32,7 @@ Markdown content + frontmatter
 
 ## Content model
 
-Keep three independent dimensions in content metadata:
+Keep three independent dimensions in content metadata, next to a permanent chamber number:
 
 | Dimension           | Describes                         | Initial values                                                           |
 | ------------------- | --------------------------------- | ------------------------------------------------------------------------ |
@@ -43,9 +43,11 @@ Keep three independent dimensions in content metadata:
 
 Every record needs a `chamber`. The number is assigned when the record is created, drafts included, and continues across all kinds rather than per section. It is never changed or reused, so an unpublished number stays a visible gap. The build fails when two records share a number, naming both source files. Standard Roman numerals end at 3999, so validation rejects larger numbers; supporting more chambers would need a different display first.
 
-This separation allows, for example, a discarded experiment to be published as a useful learning. The first content entry uses `kind: idea`, `maturity: seed`, and `publicationStatus: published`.
+This separation allows, for example, a discarded experiment to be published as a useful learning. The first content entry started as `kind: idea`, `maturity: seed`, and `publicationStatus: published`.
 
-Only content marked `published` is currently rendered and listed. Draft preview, archived-content browsing, relationships, tags, and pagination can be introduced when the collection creates a concrete need for them.
+`themedMaturity` is an optional free-text label in the Keep's own vocabulary, such as `egg`. It does not replace `maturity` and is not validated against a list. It currently appears only in the Markdown representation.
+
+Only content marked `published` is currently rendered and listed. Draft preview, archived-content browsing, relationships, tags for chamber entries, and pagination can be introduced when the collection creates a concrete need for them.
 
 **Tidings from the Surface** is a deliberate exception to the chamber model: a
 separate wing for dated reports on external events. Its records live in
@@ -85,8 +87,8 @@ premature lore/corpus schema. Use absolute canonical URLs for content links:
 relative URLs have different bases in `/ideas/slug/` and `/ideas/slug.md`.
 
 The generated `llms.txt` lists published records and their Markdown URLs. It is
-an experimental discovery aid for consumers, distinct from repository `AGENTS.md`
-instructions for contributors. It does not replace normal HTML semantics,
+an experimental discovery aid for consumers, distinct from repository instructions for contributing agents, such as an
+`AGENTS.md` file or the skill under `.agents/`. It does not replace normal HTML semantics,
 descriptions, sitemap, or robots policy. The latter two were not present in the
 initial site and are not added in this slice. No crawler adoption is assumed.
 
