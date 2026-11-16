@@ -106,10 +106,12 @@ site.preprocess([".md"], (pages, allPages) => {
     page.data.displayDate = metadata.updated.toISOString().slice(0, 10);
   }
 
-  // Fixed pages outside /content/, such as /about/, take no chamber but share
-  // the publication gate: nothing is built until it is marked published.
+  // Fixed pages written in Markdown outside /content/, such as /about/, take no
+  // chamber but share the publication gate: nothing is built until it is marked
+  // published. Generated Markdown such as /datenschutz.md is not gated.
   for (const page of pages) {
     if (
+      page.src.ext === ".md" &&
       !page.src.path.startsWith("/content/") &&
       page.data.publicationStatus !== "published"
     ) {
