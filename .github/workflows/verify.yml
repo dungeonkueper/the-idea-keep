@@ -31,11 +31,12 @@ jobs:
       - name: Check project
         run: deno task check
 
-      - name: Check opt-in support representations without a live payment service
+      - name: Check switched-on support representations without a live payment service
         env:
+          FEED_IMPS_SUPPORT_ENABLED: "true"
           FEED_IMPS_SUPPORT_ENDPOINT: https://support.example.com/support/feed-the-imps
           FEED_IMPS_SUPPORT_RECIPIENT: "0x1111111111111111111111111111111111111111"
-        run: deno task build && deno task test:representations
+        run: deno task build && deno task test
 
       - name: Report all known advisories
         continue-on-error: true
@@ -44,8 +45,10 @@ jobs:
       - name: Reject high and critical advisories
         run: deno task audit
 
+  # Feed the Imps is paused: its isolated POC is only checked on manual runs.
   support-poc:
     name: Testnet support POC
+    if: github.event_name == 'workflow_dispatch'
     permissions:
       contents: read
     runs-on: ubuntu-latest

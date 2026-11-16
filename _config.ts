@@ -2,19 +2,33 @@ import lume from "lume/mod.ts";
 import basePath from "lume/plugins/base_path.ts";
 import { supportJson, testSupport } from "./support_metadata.ts";
 import {
+  assertUniqueChambers,
   assertUniqueContentUrls,
   contentUrl,
   markdownRepresentation,
   markdownUrl,
+  tidingMarkdownRepresentation,
+  tidingMarkdownUrl,
+  tidingUrl,
+  toRomanNumeral,
   validateContentMetadata,
+  validateTidingBody,
+  validateTidingMetadata,
 } from "./content_model.ts";
 
 const site = lume({
   location: new URL("https://dungeonkueper.github.io/the-idea-keep/"),
+}, {
+  // Escape every interpolation by default. Rendered HTML (the `content` of a
+  // layout) must opt out explicitly with `|> safe`.
+  vento: { options: { autoescape: true } },
 });
 
 site.use(basePath());
 site.add("/styles.css");
+site.add("/images/");
+// Self-hosted JetBrains Mono (Latin subset) with its OFL licence.
+site.add("/fonts/");
 site.add("/analytics-consent.js");
 site.ignore(
   "README.md",
@@ -25,22 +39,95 @@ site.ignore(
   "experiments",
 );
 
+// Absolute links for layout-free representations such as /datenschutz.md.
+site.data("siteUrl", site.options.location.href);
+
 site.data(
   "cloudflareAnalyticsToken",
   Deno.env.get("CLOUDFLARE_WEB_ANALYTICS_TOKEN")?.trim() || undefined,
 );
 
+const isTidingSource = (path: string) => path.startsWith("/content/tidings/");
+
 site.preprocess([".md"], (pages, allPages) => {
-  // Public deployment configuration only. No payment service is contacted.
-  const endpoint = Deno.env.get("FEED_IMPS_SUPPORT_ENDPOINT")?.trim();
-  const recipient = Deno.env.get("FEED_IMPS_SUPPORT_RECIPIENT")?.trim();
-  if (Boolean(endpoint) !== Boolean(recipient)) {
+  // Feed the Imps is paused: the support offer stays off unless the feature
+  // switch is explicitly "true". Public configuration only; no payment service
+  // is contacted by the build.
+  const supportEnabled = Deno.env.get("FEED_IMPS_SUPPORT_ENABLED")?.trim() ===
+    "true";
+  const endpoint = supportEnabled
+    ? Deno.env.get("FEED_IMPS_SUPPORT_ENDPOINT")?.trim()
+    : undefined;
+  const recipient = supportEnabled
+    ? Deno.env.get("FEED_IMPS_SUPPORT_RECIPIENT")?.trim()
+    : undefined;
+  if (supportEnabled && !(endpoint && recipient)) {
     throw new Error(
-      "Set both FEED_IMPS_SUPPORT_ENDPOINT and FEED_IMPS_SUPPORT_RECIPIENT, or neither.",
+      "FEED_IMPS_SUPPORT_ENABLED needs both FEED_IMPS_SUPPORT_ENDPOINT and FEED_IMPS_SUPPORT_RECIPIENT.",
     );
   }
+  const unpublish = (page: (typeof pages)[number]) => {
+    const pageIndex = allPages.indexOf(page);
+
+    if (pageIndex !== -1) {
+      allPages.splice(pageIndex, 1);
+    }
+  };
+
+  // Tidings form their own wing: no chambers, own routes, dated revisions.
+  const tidingPages = pages
+    .filter((page) => isTidingSource(page.src.path))
+    .map((page) => {
+      const source = `${page.src.path}${page.src.ext}`;
+      const metadata = validateTidingMetadata(
+        page.data as Record<string, unknown>,
+        source,
+      );
+      validateTidingBody(metadata, String(page.data.content ?? ""), source);
+      return { page, source, metadata };
+    });
+  const tidingSources = new Map<string, string>();
+
+  for (const { page, source, metadata } of tidingPages) {
+    const existingSource = tidingSources.get(metadata.slug);
+
+    if (existingSource) {
+      throw new Error(
+        `${source}: public URL '${
+          tidingUrl(metadata.slug)
+        }' duplicates ${existingSource}.`,
+      );
+    }
+
+    tidingSources.set(metadata.slug, source);
+
+    if (metadata.publicationStatus !== "published") {
+      unpublish(page);
+      continue;
+    }
+
+    page.data.url = tidingUrl(metadata.slug);
+    page.data.canonicalUrl = new URL(
+      page.data.url.slice(1),
+      site.options.location,
+    ).href;
+    page.data.markdownUrl = tidingMarkdownUrl(metadata.slug);
+    page.data.markdownRepresentation = tidingMarkdownRepresentation(
+      metadata,
+      String(page.data.content ?? ""),
+      page.data.canonicalUrl,
+    );
+    page.data.layout = "layouts/article.vto";
+    page.data.tags = metadata.tags;
+    page.data.description = metadata.summary;
+    page.data.firstDate = metadata.first.toISOString().slice(0, 10);
+    page.data.displayDate = metadata.updated.toISOString().slice(0, 10);
+  }
+
   const contentPages = pages
-    .filter((page) => page.src.path.startsWith("/content/"))
+    .filter((page) =>
+      page.src.path.startsWith("/content/") && !isTidingSource(page.src.path)
+    )
     .map((page) => ({
       page,
       source: `${page.src.path}${page.src.ext}`,
@@ -58,15 +145,11 @@ site.preprocess([".md"], (pages, allPages) => {
     }));
 
   assertUniqueContentUrls(contentPages);
+  assertUniqueChambers(contentPages);
 
   for (const { page, metadata } of contentPages) {
     if (metadata.publicationStatus !== "published") {
-      const pageIndex = allPages.indexOf(page);
-
-      if (pageIndex !== -1) {
-        allPages.splice(pageIndex, 1);
-      }
-
+      unpublish(page);
       continue;
     }
 
@@ -87,15 +170,10 @@ site.preprocess([".md"], (pages, allPages) => {
       page.data.canonicalUrl,
     );
     page.data.layout = "layouts/article.vto";
+    page.data.chamber = metadata.chamber;
+    page.data.chamberLabel = toRomanNumeral(metadata.chamber);
     page.data.description = metadata.summary;
     page.data.displayDate = metadata.date.toISOString().slice(0, 10);
-    page.data.kindLabel = metadata.kind[0].toUpperCase() +
-      metadata.kind.slice(1);
-    page.data.maturityLabel = metadata.themedMaturity
-      ? `${metadata.themedMaturity[0].toUpperCase()}${
-        metadata.themedMaturity.slice(1)
-      } / ${metadata.maturity[0].toUpperCase()}${metadata.maturity.slice(1)}`
-      : metadata.maturity[0].toUpperCase() + metadata.maturity.slice(1);
   }
 });
 

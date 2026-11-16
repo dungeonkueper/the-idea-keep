@@ -1,5 +1,10 @@
 # Feed the Imps: isolated Testnet POC
 
+> **Paused.** The public Keep advertises no support offer: the Pages workflow
+> pins `FEED_IMPS_SUPPORT_ENABLED` to `"false"`. Resuming needs a deployed
+> Worker, an updated privacy notice, and that switch set to `"true"`. CI checks
+> this directory only on manual `workflow_dispatch` runs of the Verify workflow.
+
 The Egg stays free on GitHub Pages. Only an explicit `POST` to the separate
 Worker's `/support/feed-the-imps` starts an MPP charge. This implementation is
 fixed to **Tempo Moderato (chain 42431), 0.01 test pathUSD**, token
@@ -50,13 +55,15 @@ secrets into source files or command arguments. Wrangler listens on port 8787.
 In a second terminal, from the repository root (PowerShell):
 
 ```powershell
+$env:FEED_IMPS_SUPPORT_ENABLED = 'true'
 $env:FEED_IMPS_SUPPORT_ENDPOINT = 'http://127.0.0.1:8787/support/feed-the-imps'
 $env:FEED_IMPS_SUPPORT_RECIPIENT = '<public address printed by setup>'
 deno task serve
 ```
 
-These two public settings advertise support only for this Egg. Both must be set,
-or both absent. Normal builds with neither setting advertise no endpoint. The
+These public settings advertise support only for this Egg. With the switch set
+to `true`, both other settings are required. Any other switch value, including
+absence, advertises no endpoint and ignores them. The
 site does not import MPP or contact the Worker. The whole `experiments/`
 directory is excluded from the public site.
 
@@ -119,8 +126,9 @@ exists. Do not copy local `.dev.vars` into Git or enable request/header logging.
 
 After testing the deployed endpoint, set GitHub repository variables
 `FEED_IMPS_SUPPORT_ENDPOINT` (its full HTTPS support URL) and
-`FEED_IMPS_SUPPORT_RECIPIENT`, then redeploy Pages. To remove the experiment,
-clear both variables and rebuild Pages, then remove the Worker and its
+`FEED_IMPS_SUPPORT_RECIPIENT`, set `FEED_IMPS_SUPPORT_ENABLED` to `"true"` in
+`.github/workflows/pages.yml`, then redeploy Pages. To remove the experiment,
+switch it off again and rebuild Pages, then remove the Worker and its
 associated Durable Object storage through Cloudflare. Content continues working
 throughout.
 

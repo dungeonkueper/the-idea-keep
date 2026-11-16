@@ -1,11 +1,12 @@
 ---
 slug: feed-the-imps
+chamber: 11
 kind: idea
-maturity: testing
+maturity: dormant
 themedMaturity: egg
 publicationStatus: published
 title: Feed the Imps — Can Agents Voluntarily Pay for Useful Content?
-summary: Explore optional, machine-readable support for useful content through an isolated MPP Testnet endpoint, while keeping every Egg freely accessible.
+summary: Explore optional, machine-readable support for useful content through an isolated MPP Testnet endpoint, then pause the experiment behind a feature switch while every Egg stays freely accessible.
 date: 2026-09-26
 ---
 
@@ -26,9 +27,9 @@ This is explicitly **not a paywall**. Humans, crawlers, and agents receive the o
 
 The Keep already serves HTML and Markdown from a shared content model. Structured JSON remains a possible later representation. Payment must remain independent of content generation and representation selection.
 
-Markdown with frontmatter remains the canonical source. A TypeScript metadata validator and Deno/Lume build produce static HTML at `/ideas/<slug>/`, a sibling `/ideas/<slug>.md`, and a generated `llms.txt` discovery map containing published entries. All are served through GitHub Pages under `/the-idea-keep/`. An isolated Testnet POC now implements the optional support flow; a public deployment is not yet configured.
+Markdown with frontmatter remains the canonical source. A TypeScript metadata validator and Deno/Lume build produce static HTML at `/ideas/<slug>/`, a sibling `/ideas/<slug>.md`, and a generated `llms.txt` discovery map containing published entries. All are served through GitHub Pages under `/the-idea-keep/`. An isolated Testnet POC implements the optional support flow; no public deployment exists, and the offer is switched off.
 
-The integration is an optional validated `support` field in the shared metadata, exposed by the existing HTML and Markdown representations at their publication boundary. Public endpoint and recipient settings enable it for this one Egg. Without those settings, no operational support offer is advertised. The build only carries descriptive metadata; the independent Worker issues challenges, verifies payments, and returns receipts. No payment SDK or network request belongs in the content build.
+The integration is an optional validated `support` field in the shared metadata, exposed by the existing HTML and Markdown representations at their publication boundary. A feature switch, `FEED_IMPS_SUPPORT_ENABLED`, together with public endpoint and recipient settings would enable it for this one Egg. The switch is off, so no operational support offer is advertised. The build only carries descriptive metadata; the independent Worker issues challenges, verifies payments, and returns receipts. No payment SDK or network request belongs in the content build.
 
 ```text
 content → representation → HTML / Markdown (JSON deferred)
@@ -118,7 +119,17 @@ An appropriately small victory message can accompany the receipt:
 
 > An imp has been fed. 😈
 
+## Conclusion: paused for now
+
+Feed the Imps is **paused for now — vorerst pausiert**. The local Testnet run answered the narrow question: the protocol flow works. Going further means provisioning and maintaining a remote Worker and extending the Keep's privacy notice to cover it. That is more infrastructure and paperwork than this curiosity deserves today.
+
+The bowl has therefore been taken off the table rather than thrown away. The published Keep advertises no support offer and contacts no payment service, whatever else is configured, because the feature switch in the Pages build is off. The POC code, its tests, and this record stay in the repository, so the experiment can resume by deploying the Worker, updating the privacy notice, and flipping the switch.
+
+**Feed the Imps: paused for now.**
+
 ## Remaining questions
+
+These stay open until the experiment resumes.
 
 - Which Cloudflare account and public test recipient should host a remote trial? The endpoint must be tested before advertising it on the public Keep.
 - Can a broader cooperating agent sample distinguish lack of discovery from lack of willingness to pay? The current client measures only its own run.

@@ -14,27 +14,42 @@ url: /
   <p class="principle"><span aria-hidden="true">✦</span> Unfinished is publishable.</p>
 </section>
 
-<section class="hatchery" aria-labelledby="hatchery-title">
-  <div class="section-heading">
-    <div>
-      <p class="eyebrow">The Hatchery</p>
-      <h2 id="hatchery-title">From the Hatchery</h2>
-    </div>
-    <p>Early thoughts, hypotheses, and the beginnings of things.</p>
-  </div>
+<div class="threshold" aria-hidden="true"></div>
 
-  <div class="content-list">
-    {{ for item of search.pages("publicationStatus=published kind=idea", "date=desc title=asc-locale") }}
-    <article class="content-card">
-      <div class="metadata" aria-label="Content metadata">
-        <span class="badge badge-kind">{{ item.kindLabel }}</span>
-        <span class="badge">{{ item.maturityLabel }}</span>
-        <time datetime="{{ item.displayDate }}">{{ item.displayDate }}</time>
-      </div>
-      <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
-      <p>{{ item.summary }}</p>
-      <a class="read-link" href="{{ item.url }}" aria-label="Read {{ item.title }}">Enter the chamber <span aria-hidden="true">→</span></a>
-    </article>
-    {{ /for }}
-  </div>
-</section>
+{{# Each wing appears with its first published entry. #}}
+{{ set ideas = search.pages("publicationStatus=published kind=idea", "chamber=desc") }}
+{{ if ideas.length }}
+{{ include "wing.vto" {
+  id: "hatchery",
+  label: "Wing A — The Hatchery",
+  heading: "From the Hatchery",
+  description: "Early thoughts, hypotheses, and the beginnings of things.",
+  items: ideas,
+  readLabel: "Enter the chamber",
+} }}
+{{ /if }}
+
+{{ set experiments = search.pages("publicationStatus=published kind=experiment", "chamber=desc") }}
+{{ if experiments.length }}
+{{ include "wing.vto" {
+  id: "laboratory",
+  label: "Wing B — The Laboratory",
+  heading: "From the Laboratory",
+  description: "Hypotheses put to the test, with their setup, findings, and limits.",
+  items: experiments,
+  readLabel: "Enter the chamber",
+} }}
+{{ /if }}
+
+{{ set tidings = search.pages("wing=tidings publicationStatus=published", "updated=desc") }}
+{{ if tidings.length }}
+{{ include "wing.vto" {
+  id: "tidings",
+  label: "Outer Wing — Tidings",
+  heading: "Tidings from the Surface",
+  description: "Events from beyond the Keep: what is known, and a view from below.",
+  items: tidings,
+  cardClass: "tiding-card",
+  readLabel: "Read the tiding",
+} }}
+{{ /if }}

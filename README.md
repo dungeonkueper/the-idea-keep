@@ -25,6 +25,11 @@ deno task check
 deno task build
 ```
 
+`deno task check` formats, lints, and type-checks the whole repository, builds
+the site, and runs every `*_test.ts` file; there are no file lists to maintain.
+Vento templates escape interpolated values by default; only rendered HTML such
+as a layout's `content` opts out with `|> safe`.
+
 Both commands use the frozen lockfile and cached dependencies. The production
 build has no network, subprocess, FFI, or broad environment-variable access.
 See [SECURITY.md](SECURITY.md) before changing dependencies or GitHub Actions.
@@ -36,6 +41,7 @@ Content lives below `content/` as Markdown with frontmatter:
 ```yaml
 title: A useful title
 slug: a-useful-title
+chamber: 7
 summary: A short description for listings and page metadata.
 date: 2026-09-20
 kind: idea
@@ -44,7 +50,7 @@ themedMaturity: egg
 publicationStatus: published
 ```
 
-The build validates this metadata and derives the public URL from `kind` and `slug`. Only entries with `publicationStatus: published` are generated and listed.
+The build validates this metadata and derives the public URL from `kind` and `slug`. Only entries with `publicationStatus: published` are generated and listed. `chamber` is the entry's permanent number across all kinds: take the highest existing number plus one, drafts included, and never change or reuse it. Valid numbers run from 1 to 3999.
 
 Each published entry produces HTML at `/<section>/<slug>/` and layout-free
 Markdown at `/<section>/<slug>.md` from the same source. The generated `llms.txt`
@@ -56,7 +62,85 @@ in both formats. Use absolute canonical URLs for references, since the two
 representations have different relative URL bases. See
 [Architecture](ARCHITECTURE.md#multiple-representations-and-discovery) for trade-offs.
 
-Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. The maturity values are documented in [ARCHITECTURE.md](ARCHITECTURE.md).
+The privacy notice is a fixed page, not an entry: `_includes/datenschutz_body.vto`
+is its single source, rendered as HTML at `/datenschutz/` and as Markdown at
+`/datenschutz.md`. Like the Impressum, it is not listed in `llms.txt`.
+
+Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. On the homepage, published ideas appear in **Wing A — The Hatchery** and published experiments in **Wing B — The Laboratory**; a wing stays hidden until it has a published entry. Other kinds get their own URLs and Markdown alternates but no homepage wing yet. The maturity values are documented in [ARCHITECTURE.md](ARCHITECTURE.md).
+
+### Tidings from the Surface
+
+Tidings are short reports on events outside the Keep, security incidents first.
+Each one sets curated facts next to the author's own reading of them. They form
+their own wing outside the chambers. They take no `chamber`, `kind`, or `maturity`,
+and live in `content/tidings/`:
+
+```yaml
+wing: tidings
+title: A useful title
+slug: 2026-11-short-topic
+summary: A short description for listings and page metadata.
+first: 2026-11-09
+updated: 2026-11-23
+tags: [security]
+publicationStatus: draft
+```
+
+The slug is `<YYYY-MM>-<short-topic>`, using the month of `first`, the day the
+event first seriously occupied the author. Title and slug never change. Published
+tidings get HTML at `/tidings/<slug>/`, Markdown at `/tidings/<slug>.md` and an
+`llms.txt` entry. On the homepage they appear in **Tidings from the Surface**,
+newest `updated` first; the section stays hidden until one is published.
+
+The body starts with an optional one- or two-line lore line, then one block per
+revision, oldest first. The title comes from frontmatter, so the body has no `#`
+heading:
+
+```markdown
+_An optional lore line in raven-post mood._
+
+## 2026-11-09
+
+### Tidings
+
+What happened, briefly and soberly; linked sources; contradictions and open
+questions stated descriptively ("vendor confirms X, researchers report Y");
+an "as of" date.
+
+### A View from Below
+
+Interpretation, opinion and learnings. Can be short, never omitted. Link any
+egg it sparks.
+
+## 2026-11-23 – Later tidings
+
+### Tidings
+
+...
+
+### A View from Below
+
+...
+```
+
+The build fails unless every revision has a non-empty **Tidings** part followed
+by a non-empty **A View from Below** part, the first block is dated `first`,
+the last is dated `updated`, and dates strictly increase. Editorial rules the
+build cannot check:
+
+- **Revisions are append-only.** New facts go into a new dated block. Earlier
+  text is not silently corrected or deleted; a changed view stays part of the
+  record. Only typos and broken links are fixed in place.
+- **Curation is the evaluation.** Unusable sources are left out entirely. Sources
+  get no reliability ratings. Doubts are shown only through concrete observations
+  such as contradictions, retractions or missing confirmation.
+- Paraphrase; quote sparingly. Name affected organizations factually.
+- No cadence: a tiding exists only when an event has seriously occupied the
+  author and there is something of their own to say.
+- Tidings are reviewed per pull request and set to `published` only on explicit
+  request.
+
+The wing is represented in the Hatchery by the egg in chamber 8.
 
 ## Analytics
 
@@ -114,9 +198,11 @@ and [beacon troubleshooting](https://developers.cloudflare.com/web-analytics/faq
 ## Project direction
 
 The isolated [Feed the Imps Testnet POC](experiments/feed-the-imps/README.md)
-demonstrates voluntary MPP support. Content always remains free. No payment
-endpoint is advertised unless both public settings `FEED_IMPS_SUPPORT_ENDPOINT`
-and `FEED_IMPS_SUPPORT_RECIPIENT` are configured. Its SDK dependencies and Worker
+demonstrates voluntary MPP support. Content always remains free. The experiment
+is **paused**: no payment endpoint is advertised unless the feature switch
+`FEED_IMPS_SUPPORT_ENABLED` is `"true"` and both public settings
+`FEED_IMPS_SUPPORT_ENDPOINT` and `FEED_IMPS_SUPPORT_RECIPIENT` are configured.
+The Pages workflow pins the switch to `"false"`. Its SDK dependencies and Worker
 deployment are separate from this website's build and Pages deployment.
 
 - [Vision](VISION.md) — purpose, principles, and the experience The Idea Keep aims to create.

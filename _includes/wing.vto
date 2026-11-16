@@ -1,0 +1,23 @@
+{{# One homepage wing: a heading and a corridor of entry cards. #}}
+<section class="{{ id }}" aria-labelledby="{{ id }}-title">
+  <div class="section-heading">
+    <div>
+      <p class="wing-label">{{ label }}</p>
+      <h2 id="{{ id }}-title">{{ heading }}</h2>
+    </div>
+    <p>{{ description }}</p>
+  </div>
+
+  <ol class="corridor">
+    {{ for item of items }}
+    <li class="chamber">
+      <article class="chamber-card{{ if cardClass }} {{ cardClass }}{{ /if }}">
+        {{ include "meta_line.vto" item }}
+        <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+        <p>{{ item.summary }}</p>
+        <a class="read-link" href="{{ item.url }}" aria-label="Read {{ item.title }}">{{ readLabel }} <span aria-hidden="true">→</span></a>
+      </article>
+    </li>
+    {{ /for }}
+  </ol>
+</section>

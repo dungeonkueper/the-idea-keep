@@ -34,15 +34,29 @@ Markdown content + frontmatter
 
 Keep three independent dimensions in content metadata:
 
-| Dimension | Describes | Initial values |
-| --- | --- | --- |
-| `kind` | What the item is | `idea`, `experiment`, `learning`, `project`, `artifact` |
-| `maturity` | How developed or supported it is | `seed`, `testing`, `working-theory`, `validated`, `discarded`, `dormant` |
-| `publicationStatus` | Whether it is visible on the site | `draft`, `published`, `archived` |
+| Dimension           | Describes                         | Initial values                                                           |
+| ------------------- | --------------------------------- | ------------------------------------------------------------------------ |
+| `kind`              | What the item is                  | `idea`, `experiment`, `learning`, `project`, `artifact`                  |
+| `maturity`          | How developed or supported it is  | `seed`, `testing`, `working-theory`, `validated`, `discarded`, `dormant` |
+| `publicationStatus` | Whether it is visible on the site | `draft`, `published`, `archived`                                         |
+| `chamber`           | Its permanent number in the Keep  | A whole number from 1 to 3999, shown as a Roman numeral (`CHAMBER VI`)   |
+
+Every record needs a `chamber`. The number is assigned when the record is created, drafts included, and continues across all kinds rather than per section. It is never changed or reused, so an unpublished number stays a visible gap. The build fails when two records share a number, naming both source files. Standard Roman numerals end at 3999, so validation rejects larger numbers; supporting more chambers would need a different display first.
 
 This separation allows, for example, a discarded experiment to be published as a useful learning. The first content entry uses `kind: idea`, `maturity: seed`, and `publicationStatus: published`.
 
 Only content marked `published` is currently rendered and listed. Draft preview, archived-content browsing, relationships, tags, and pagination can be introduced when the collection creates a concrete need for them.
+
+**Tidings from the Surface** is a deliberate exception to the chamber model: a
+separate wing for dated reports on external events. Its records live in
+`content/tidings/`, carry `wing: tidings`, `first`, `updated`, optional `tags`,
+and the shared `publicationStatus`, and consume no chamber number. Their slug
+`<YYYY-MM>-<short-topic>` is their permanent identity under `/tidings/`. The same
+preprocessing step validates them and applies the same publication gate and
+Markdown/`llms.txt` representations. It also checks the revision structure: dated
+`##` blocks, each with a **Tidings** and an **A View from Below** part. The build
+only sees the current file, so append-only revision history is enforced in
+review rather than by the build. See the [README](README.md#tidings-from-the-surface).
 
 Content may link to related items as the collection grows. For now, Markdown files are the source of truth; a database and ORM are not part of the initial implementation. If that changes, preserve a boundary between content parsing/storage and site rendering so a new storage adapter can be introduced without rewriting the entire site.
 
@@ -91,9 +105,12 @@ without parsing the themed HTML or maintaining parallel editorial content.
 
 `support_metadata.ts` defines a small Keep-specific support descriptor, restricted
 to Tempo Moderato for the first POC. The content validator and existing HTML and
-Markdown serializers expose it only when configured. `FEED_IMPS_SUPPORT_ENDPOINT`
-and `FEED_IMPS_SUPPORT_RECIPIENT` are public build settings for the single
-`feed-the-imps` Egg; absent settings emit no offer. No payment SDK is imported by
+Markdown serializers expose it only when configured. The experiment is paused
+behind the feature switch `FEED_IMPS_SUPPORT_ENABLED`, which
+`.github/workflows/pages.yml` pins to `"false"`; anything but `"true"` emits no
+offer and ignores the other settings. `FEED_IMPS_SUPPORT_ENDPOINT` and
+`FEED_IMPS_SUPPORT_RECIPIENT` are public build settings for the single
+`feed-the-imps` Egg and are both required once the switch is on. No payment SDK is imported by
 the website, and the build never calls the Worker or a payment network.
 
 The independent Worker under `experiments/feed-the-imps/` accepts only an empty
@@ -144,12 +161,12 @@ current `github.io` URL.
 
 Potential categories, always accompanied by a reason and uncertainty:
 
-| Category | Interpretation |
-| --- | --- |
-| `IMP` | Our automation with a verified deliberate marker; a public browser token cannot authenticate it. |
-| `BOT` | Recognizable crawler/agent signals; a User-Agent claim can be spoofed. |
-| `HERO` / `HERO?` | Probably human only with justified supporting evidence; browser headers alone are insufficient. |
-| `UNKNOWN` | Missing, ambiguous, or conflicting evidence, including browser-like traffic without stronger evidence. |
+| Category         | Interpretation                                                                                         |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| `IMP`            | Our automation with a verified deliberate marker; a public browser token cannot authenticate it.       |
+| `BOT`            | Recognizable crawler/agent signals; a User-Agent claim can be spoofed.                                 |
+| `HERO` / `HERO?` | Probably human only with justified supporting evidence; browser headers alone are insufficient.        |
+| `UNKNOWN`        | Missing, ambiguous, or conflicting evidence, including browser-like traffic without stronger evidence. |
 
 User-Agent and optional Client Hints are inputs, not identity. No invasive
 fingerprinting, persistent visitor IDs, or raw IP/complete-header storage is

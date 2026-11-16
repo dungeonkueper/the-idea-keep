@@ -19,6 +19,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CLOUDFLARE_WEB_ANALYTICS_TOKEN: ${{ vars.CLOUDFLARE_WEB_ANALYTICS_TOKEN }}
+      # Feed the Imps is paused. Set to "true" to advertise the support offer again.
+      FEED_IMPS_SUPPORT_ENABLED: "false"
       FEED_IMPS_SUPPORT_ENDPOINT: ${{ vars.FEED_IMPS_SUPPORT_ENDPOINT }}
       FEED_IMPS_SUPPORT_RECIPIENT: ${{ vars.FEED_IMPS_SUPPORT_RECIPIENT }}
     steps:

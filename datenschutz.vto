@@ -1,0 +1,27 @@
+---
+layout: layouts/base.vto
+bodyClass: page-article
+title: Datenschutz
+description: Datenschutzerklärung der Idea Keep.
+url: /datenschutz/
+markdownUrl: /datenschutz.md
+---
+<article class="article legal-page" lang="de">
+  <a class="back-link" href="/">← Back to the Keep</a>
+
+  <header class="article-header">
+    <p class="eyebrow">Privacy</p>
+    <h1>Datenschutz&shy;erklärung</h1>
+    <p class="article-summary" lang="en">
+      {{ if cloudflareAnalyticsToken }}The Keep sets no cookies and tracks nothing without your consent.{{ else }}The Keep sets no cookies and tracks nothing.{{ /if }}
+    </p>
+    <a class="markdown-link" href="{{ markdownUrl }}" lang="en">Read as Markdown</a>
+  </header>
+
+  <div class="prose">
+    {{ set body }}{{ include "datenschutz_body.vto" { impressumUrl: "/impressum/", standDatum: legal.privacyUpdated } }}{{ /set }}
+    {{ body |> md |> safe }}
+
+    <p><a href="/impressum/">Zum Impressum</a></p>
+  </div>
+</article>
