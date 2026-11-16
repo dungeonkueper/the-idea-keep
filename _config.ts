@@ -106,6 +106,17 @@ site.preprocess([".md"], (pages, allPages) => {
     page.data.displayDate = metadata.updated.toISOString().slice(0, 10);
   }
 
+  // Fixed pages outside /content/, such as /about/, take no chamber but share
+  // the publication gate: nothing is built until it is marked published.
+  for (const page of pages) {
+    if (
+      !page.src.path.startsWith("/content/") &&
+      page.data.publicationStatus !== "published"
+    ) {
+      unpublish(page);
+    }
+  }
+
   const contentPages = pages
     .filter((page) =>
       page.src.path.startsWith("/content/") && !isTidingSource(page.src.path)

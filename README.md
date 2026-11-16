@@ -66,6 +66,12 @@ The privacy notice is a fixed page, not an entry: `_includes/datenschutz_body.vt
 is its single source, rendered as HTML at `/datenschutz/` and as Markdown at
 `/datenschutz.md`. Like the Impressum, it is not listed in `llms.txt`.
 
+The about pages are fixed pages too: `about.md` (`/about/`, the motivation behind
+the Keep) and `about-me.md` (`/about-me/`). Both start as `publicationStatus: draft`
+templates and are neither built nor linked until set to `published`; the footer
+then links to them. The build check fails if a published about page still
+contains a `TODO` placeholder.
+
 Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. On the homepage, published ideas appear in **Wing A — The Hatchery** and published experiments in **Wing B — The Laboratory**; a wing stays hidden until it has a published entry. Other kinds get their own URLs and Markdown alternates but no homepage wing yet. The maturity values are documented in [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ### Tidings from the Surface
