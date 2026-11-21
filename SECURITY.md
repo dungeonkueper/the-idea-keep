@@ -37,6 +37,26 @@ name in a trailing comment.
 
 ## Local verification
 
+### Isolated payment experiment
+
+`experiments/feed-the-imps/` has its own pinned imports, three-day dependency
+age rule, and lockfile. Run its `deno task bootstrap`, `deno task check`,
+`deno task bundle`, and `deno audit --frozen-lockfile` independently of the
+site. Do not approve lifecycle scripts. The MCP SDK peer is required to bundle
+mppx's HTTP implementation; no MCP endpoint, Stripe method, or production
+payment method is enabled. Wrangler and its runtime/bundler packages are tooling
+only.
+
+Worker secrets and local `.dev.vars` are excluded from Git and the entire
+experiment directory is excluded from site output. Store only replay claims in
+the Durable Object, never credentials or keys. Do not log raw SDK exceptions,
+headers, signed transactions, or private keys. The test client creates its own
+ephemeral faucet wallet; it never reads a production wallet. Its explicit
+`--pay-testnet` switch authorizes one fixed Testnet payment. Deploying the
+Worker is separate from building or deploying Pages.
+
+### Website
+
 Populate Deno's dependency cache strictly from the committed lockfile, then run
 the checks and build without further dependency downloads:
 

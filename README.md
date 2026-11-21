@@ -197,6 +197,14 @@ and [beacon troubleshooting](https://developers.cloudflare.com/web-analytics/faq
 
 ## Project direction
 
+The isolated [Feed the Imps Testnet POC](experiments/feed-the-imps/README.md)
+demonstrates voluntary MPP support. Content always remains free. The experiment
+is **paused**: no payment endpoint is advertised unless the feature switch
+`FEED_IMPS_SUPPORT_ENABLED` is `"true"` and both public settings
+`FEED_IMPS_SUPPORT_ENDPOINT` and `FEED_IMPS_SUPPORT_RECIPIENT` are configured.
+The Pages workflow pins the switch to `"false"`. Its SDK dependencies and Worker
+deployment are separate from this website's build and Pages deployment.
+
 - [Vision](VISION.md) — purpose, principles, and the experience The Idea Keep aims to create.
 - [Architecture](ARCHITECTURE.md) — the current technical direction and its trade-offs.
 

@@ -1,4 +1,5 @@
 import { type ContentKind, contentUrl, markdownUrl } from "./content_model.ts";
+import { validateSupport } from "./support_metadata.ts";
 
 function assert(condition: unknown, message: string): asserts condition {
   if (!condition) throw new Error(message);
@@ -103,6 +104,28 @@ Deno.test("built representations preserve source bodies and publication boundari
     const markdown = (await Deno.readTextFile(`_site/${section}/${slug}.md`))
       .replace(/\r\n/g, "\n");
     const html = await Deno.readTextFile(`_site/${section}/${slug}/index.html`);
+    const markdownSupport = markdown.match(/^Support: (\{.+\})$/m)?.[1];
+    if (slug === "feed-the-imps") {
+      assert(
+        Boolean(markdownSupport) ===
+          (Deno.env.get("FEED_IMPS_SUPPORT_ENABLED") === "true"),
+        "Support feature switch not reflected in output",
+      );
+    }
+    const htmlSupport = html.match(
+      /<script type="application\/json" id="optional-support">([^]*?)<\/script>/,
+    )?.[1];
+    assert(
+      markdownSupport === htmlSupport,
+      `Support differs between representations: ${slug}`,
+    );
+    if (markdownSupport) {
+      validateSupport(JSON.parse(markdownSupport).support, slug);
+      assert(
+        html.includes("This Egg is free to read"),
+        "Missing optional support explanation",
+      );
+    }
     assert(
       markdown.startsWith(`# ${title}\n\n${summary}`),
       `Metadata: ${slug}`,
@@ -128,6 +151,12 @@ Deno.test("built representations preserve source bodies and publication boundari
     );
   }
   assert(published > 0, "No published content exercised");
+  try {
+    await Deno.stat("_site/experiments/feed-the-imps");
+    throw new Error("Worker sources leaked into the public site");
+  } catch (error) {
+    if (!(error instanceof Deno.errors.NotFound)) throw error;
+  }
   assert(
     (map.match(/\.md\)/g) ?? []).length === published + tidings,
     "Stale map entries",

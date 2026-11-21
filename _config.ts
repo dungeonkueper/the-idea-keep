@@ -1,5 +1,6 @@
 import lume from "lume/mod.ts";
 import basePath from "lume/plugins/base_path.ts";
+import { supportJson, testSupport } from "./support_metadata.ts";
 import {
   assertUniqueChambers,
   assertUniqueContentUrls,
@@ -35,6 +36,7 @@ site.ignore(
   "ARCHITECTURE.md",
   "SECURITY.md",
   "tests",
+  "experiments",
 );
 
 // Absolute links for layout-free representations such as /datenschutz.md.
@@ -48,6 +50,22 @@ site.data(
 const isTidingSource = (path: string) => path.startsWith("/content/tidings/");
 
 site.preprocess([".md"], (pages, allPages) => {
+  // Feed the Imps is paused: the support offer stays off unless the feature
+  // switch is explicitly "true". Public configuration only; no payment service
+  // is contacted by the build.
+  const supportEnabled = Deno.env.get("FEED_IMPS_SUPPORT_ENABLED")?.trim() ===
+    "true";
+  const endpoint = supportEnabled
+    ? Deno.env.get("FEED_IMPS_SUPPORT_ENDPOINT")?.trim()
+    : undefined;
+  const recipient = supportEnabled
+    ? Deno.env.get("FEED_IMPS_SUPPORT_RECIPIENT")?.trim()
+    : undefined;
+  if (supportEnabled && !(endpoint && recipient)) {
+    throw new Error(
+      "FEED_IMPS_SUPPORT_ENABLED needs both FEED_IMPS_SUPPORT_ENDPOINT and FEED_IMPS_SUPPORT_RECIPIENT.",
+    );
+  }
   const unpublish = (page: (typeof pages)[number]) => {
     const pageIndex = allPages.indexOf(page);
 
@@ -114,7 +132,14 @@ site.preprocess([".md"], (pages, allPages) => {
       page,
       source: `${page.src.path}${page.src.ext}`,
       metadata: validateContentMetadata(
-        page.data as Record<string, unknown>,
+        {
+          ...page.data,
+          ...(endpoint && page.data.slug === "feed-the-imps"
+            ? {
+              support: { ...testSupport, endpoint, recipient },
+            }
+            : {}),
+        } as Record<string, unknown>,
         `${page.src.path}${page.src.ext}`,
       ),
     }));
@@ -134,6 +159,10 @@ site.preprocess([".md"], (pages, allPages) => {
       site.options.location,
     ).href;
     page.data.markdownUrl = markdownUrl(metadata.kind, metadata.slug);
+    page.data.optionalSupport = metadata.support;
+    page.data.supportJson = metadata.support
+      ? supportJson(metadata.support)
+      : undefined;
     // Capture the canonical body before Markdown rendering and layouts.
     page.data.markdownRepresentation = markdownRepresentation(
       metadata,

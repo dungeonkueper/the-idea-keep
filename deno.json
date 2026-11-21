@@ -15,7 +15,8 @@
     "check": "deno fmt --check && deno lint && deno check --cached-only --frozen-lockfile && deno task build && deno task test"
   },
   "exclude": [
-    "_site/"
+    "_site/",
+    "experiments/"
   ],
   "fmt": {
     "proseWrap": "preserve",
@@ -33,7 +34,10 @@
     "build": {
       "env": {
         "allow": [
-          "CLOUDFLARE_WEB_ANALYTICS_TOKEN"
+          "CLOUDFLARE_WEB_ANALYTICS_TOKEN",
+          "FEED_IMPS_SUPPORT_ENABLED",
+          "FEED_IMPS_SUPPORT_ENDPOINT",
+          "FEED_IMPS_SUPPORT_RECIPIENT"
         ],
         "ignore": [
           "DENO_AUTH_TOKENS",
@@ -61,6 +65,9 @@
       "env": {
         "allow": [
           "CLOUDFLARE_WEB_ANALYTICS_TOKEN",
+          "FEED_IMPS_SUPPORT_ENABLED",
+          "FEED_IMPS_SUPPORT_ENDPOINT",
+          "FEED_IMPS_SUPPORT_RECIPIENT",
           "DENO_DIR"
         ],
         "ignore": [
@@ -95,7 +102,8 @@
     "test": {
       "env": {
         "allow": [
-          "CLOUDFLARE_WEB_ANALYTICS_TOKEN"
+          "CLOUDFLARE_WEB_ANALYTICS_TOKEN",
+          "FEED_IMPS_SUPPORT_ENABLED"
         ],
         "ignore": [
           "DENO_AUTH_TOKENS",
