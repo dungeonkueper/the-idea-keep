@@ -1,0 +1,18 @@
+---
+layout: layouts/base.vto
+bodyClass: page-article
+---
+{{# Fixed pages outside the chambers, such as /about/. #}}
+<article class="article">
+  <a class="back-link" href="/">← back up the corridor</a>
+
+  <header class="article-header">
+    {{ if eyebrow }}<p class="eyebrow">{{ eyebrow }}</p>{{ /if }}
+    <h1>{{ title }}</h1>
+    {{ if description }}<p class="article-summary">{{ description }}</p>{{ /if }}
+  </header>
+
+  <div class="prose">
+    {{ content |> safe }}
+  </div>
+</article>

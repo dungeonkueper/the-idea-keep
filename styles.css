@@ -742,6 +742,7 @@ a:focus-visible {
   margin: 0;
 }
 
+.footer-links,
 .legal-links {
   display: flex;
   gap: 1rem;
