@@ -39,15 +39,15 @@ See [SECURITY.md](SECURITY.md) before changing dependencies or GitHub Actions.
 Content lives below `content/` as Markdown with frontmatter:
 
 ```yaml
-title: A useful title
 slug: a-useful-title
 chamber: 7
-summary: A short description for listings and page metadata.
-date: 2026-09-20
 kind: idea
 maturity: seed
 themedMaturity: egg
 publicationStatus: published
+title: A useful title
+summary: A short description for listings and page metadata.
+date: 2026-09-20
 ```
 
 The build validates this metadata and derives the public URL from `kind` and `slug`. Only entries with `publicationStatus: published` are generated and listed. `chamber` is the entry's permanent number across all kinds: take the highest existing number plus one, drafts included, and never change or reuse it. Valid numbers run from 1 to 3999.
@@ -66,7 +66,7 @@ The privacy notice is a fixed page, not an entry: `_includes/datenschutz_body.vt
 is its single source, rendered as HTML at `/datenschutz/` and as Markdown at
 `/datenschutz.md`. Like the Impressum, it is not listed in `llms.txt`.
 
-Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. On the homepage, published ideas appear in **Wing A — The Hatchery** and published experiments in **Wing B — The Laboratory**; a wing stays hidden until it has a published entry. Other kinds get their own URLs and Markdown alternates but no homepage wing yet. The maturity values are documented in [ARCHITECTURE.md](ARCHITECTURE.md).
+Supported content kinds are `idea`, `experiment`, `learning`, `project`, and `artifact`. On the homepage, published ideas appear in **Wing A — The Hatchery** and published experiments in **Wing B — The Laboratory**; a wing stays hidden until it has a published entry. Other kinds get their own URLs and Markdown alternates but no homepage wing yet. The maturity values and the optional `themedMaturity` label are documented in [ARCHITECTURE.md](ARCHITECTURE.md#content-model).
 
 ### Tidings from the Surface
 
@@ -178,9 +178,11 @@ The local consent controller stores a versioned choice for 180 days in
 never enable analytics. Storage failure limits a new choice to the current page.
 Withdrawal uses an `#analytics-disabled` reload marker so the reloaded page stays
 off even if saving the rejection fails. JavaScript disabled means analytics off.
-This implements the consent gate; the site's full privacy notice and provider
-arrangements still need separate completion. The Cloudflare policy link in the
-panel is not a substitute for the operator's privacy notice.
+The [privacy notice](_includes/datenschutz_body.vto) describes the measurement,
+the provider arrangement, and the stored choice whenever the token is set. Keep
+it in step with this behaviour and update `privacyUpdated` in `_data/legal.yml`
+when it changes. The Cloudflare policy link in the panel is not a substitute for
+that notice.
 
 Ad blockers and disabled JavaScript can prevent reporting. A successful build
 proves snippet inclusion, not ingestion into the dashboard. Leave the variable
@@ -210,4 +212,4 @@ deployment are separate from this website's build and Pages deployment.
 
 ## Current state
 
-The first browseable version includes a homepage, a content detail page, metadata validation, and automatic GitHub Pages deployment. Its first published seed, [The Chicken-Egg Problem](content/ideas/the-chicken-egg-problem.md), records the platform's own starting point.
+The Keep has a homepage with the Hatchery and Laboratory wings, detail pages with Markdown alternates and an `llms.txt` map, permanent chamber numbers, metadata validation, a legal notice and privacy notice, optional consent-gated analytics, and automatic GitHub Pages deployment. The Tidings wing is implemented but has no entry yet. The first entry, [The Chicken-Egg Problem](content/ideas/the-chicken-egg-problem.md), records the platform's own starting point.

@@ -111,10 +111,14 @@ reason to collect the data.
 One concrete improvement has emerged from the discussion: a consent gate for
 Cloudflare Web Analytics is now implemented and tested. It loads the beacon only
 after permission, offers an equally accessible rejection, remembers the choice
-for 180 days, and allows withdrawal through the footer. This change is committed
-on the working branch; it still needs integration and deployment before it
-replaces the previously deployed beacon. The site's full privacy notice and
-provider arrangements remain open.
+for 180 days, and allows withdrawal through the footer.
+
+**Update, 2026-11-16:** The consent gate has since been merged into the Keep,
+and the
+[privacy notice](https://dungeonkueper.github.io/the-idea-keep/datenschutz/)
+now covers the measurement and the provider arrangement whenever analytics is
+enabled. The privacy questions raised above are answered for basic analytics;
+for a Census they remain open.
 
 Basic analytics can therefore move toward an explicit opt-in model while the
 classification experiment stays in its egg. No Census infrastructure is needed
