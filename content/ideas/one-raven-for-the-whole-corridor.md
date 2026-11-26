@@ -47,6 +47,13 @@ Where an intake interface forces 1:1 attribution onto an n:1 reality, a thin, co
 
 The relay is a client-side adapter for a relation the provider's model lacks. The proper fix lives on the provider's side: an incident as an entity with a list of affected parties, the way issue trackers let others mark "affects me too", or a status page announces an outage once for everyone. A relay that the provider tolerates or adopts would be a step in that direction. A relay that floods them would only shift the cost.
 
+The smallest version of that fix is almost embarrassingly simple: a checkbox saying "everyone at this location is affected". The provider already knows which parties share a location. The form just never asks. Two additions make it complete:
+
+- **Fan-out of receipts.** The confirmation goes to every affected party, not only to the reporter. Only then does everyone hold a record of their own.
+- **Fan-out of status.** Affected parties learn about the incident before they run into it. Whoever reads the notice knows a shared space is out of order before walking into it, instead of finding out on the spot.
+
+With that in place, the duplicates become unnecessary, and so does the raven.
+
 ## Guardrails
 
 - **No guessing.** Every identifier comes from the party itself. Nothing is derived or inferred.
